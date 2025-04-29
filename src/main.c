@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: faustoche <faustoche@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 16:31:59 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/04/29 11:44:48 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/04/29 19:45:09 by faustoche        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,8 @@ int main(int ac, char **av)
 		exit(EXIT_FAILURE);
 	}
 	// check de la map
-	game.mlx_ptr = NULL;
-	game.win_ptr = NULL;
+	init_datas(&game);
 	open_map(av, &game);
 	open_window(&game);
 	// raycasting
-	// 
 }

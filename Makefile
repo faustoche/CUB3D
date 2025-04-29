@@ -21,7 +21,9 @@ OBJS_DIR		= obj
 # ************************************************************************ #
 
 CUB3D			= 	$(addprefix $(SRCS_DIR)/, main.c\
-					map.c)
+					map.c\
+					init_game.c\
+					render_map.c)
 
 SRCS			= ${CUB3D}
 CUB3D_OBJS		= ${CUB3D:${SRCS_DIR}/%.c=$(OBJS_DIR)/%.o}
@@ -56,7 +58,7 @@ $(MLX_LIB):
 	@echo "\033[1;32m💾 MINILIBX COMPILED 💾\n"
 
 $(NAME): $(OBJS) $(LIBFT_DIR)/libft.a $(MLX_LIB)
-	@echo "\033[1;33m🪩  COMPILING CUB3D... 🪩\n"
+	@echo "\033[1;33m🧊  COMPILING CUB3D... 🧊\n"
 	$(CC) $(OBJS) $(CFLAGS) $(MLX_FLAGS) $(MLX_LIB) $(LIBFT) -o $(NAME)
 	@echo "\033[1;32m💾 ./$(NAME) created 💾\n"
 

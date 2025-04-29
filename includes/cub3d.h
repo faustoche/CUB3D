@@ -10,6 +10,7 @@
 # include <fcntl.h>
 # include <math.h>
 # include "../minilibx-linux/mlx.h"
+# include "../get_next_line.h"
 
 /*--------------- DEFINES ---------------*/
 
@@ -30,10 +31,22 @@ typedef struct s_game
 	char	**map;
 }	t_game;
 
+typedef struct s_map
+{
+	char	*no_path;
+	char	*so_path;
+	char	*we_path;
+	char	*ea_path;
+	char	*floor_clr;
+	char	*ceiling_clr;
+}	t_map;
 
 /*-------------- FUNCTIONS --------------*/
 
-int	open_window(t_game *game);
-int	open_map(char **av, t_game *game);
+int		open_window(t_game *game);
+int		open_map(char **av, t_game *game);
+void	init_datas(t_game *game);
+void	init_lines(char *line, t_map *map);
+void	display_map(t_game *game);
 
 #endif
