@@ -20,7 +20,8 @@ OBJS_DIR		= obj
 #                			 SRCS && OBJECTS FILES                         #
 # ************************************************************************ #
 
-CUB3D			= 	$(addprefix $(SRCS_DIR)/, main.c)
+CUB3D			= 	$(addprefix $(SRCS_DIR)/, main.c\
+					map.c)
 
 SRCS			= ${CUB3D}
 CUB3D_OBJS		= ${CUB3D:${SRCS_DIR}/%.c=$(OBJS_DIR)/%.o}
@@ -49,9 +50,14 @@ RM          = rm -rf
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(LIBFT_DIR)/libft.a
+$(MLX_LIB):
+	@echo "\033[1;33m\n🔨 COMPILING MINILIBX... 🔨\n"
+	@$(MAKE) -C $(MLX_PATH) -s
+	@echo "\033[1;32m💾 MINILIBX COMPILED 💾\n"
+
+$(NAME): $(OBJS) $(LIBFT_DIR)/libft.a $(MLX_LIB)
 	@echo "\033[1;33m🪩  COMPILING CUB3D... 🪩\n"
-	$(CC) $(OBJS) $(CFLAGS) $(MLX_FLAGS) $(LDFLAGS) $(LIBFT) -o $(NAME)
+	$(CC) $(OBJS) $(CFLAGS) $(MLX_FLAGS) $(MLX_LIB) $(LIBFT) -o $(NAME)
 	@echo "\033[1;32m💾 ./$(NAME) created 💾\n"
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c

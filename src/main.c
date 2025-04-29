@@ -6,17 +6,26 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 16:31:59 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/04/28 17:00:36 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/04/29 11:44:48 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int main(void)
+int main(int ac, char **av)
 {
-	printf("chien\n");
+	t_game	game;
+
+	if (ac != 2)
+	{
+		printf("Error\nOnly one argument needed\n");
+		exit(EXIT_FAILURE);
+	}
 	// check de la map
-	// initialisation de la fenetre
+	game.mlx_ptr = NULL;
+	game.win_ptr = NULL;
+	open_map(av, &game);
+	open_window(&game);
 	// raycasting
 	// 
 }
