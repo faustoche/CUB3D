@@ -9,8 +9,12 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <math.h>
+# include <X11/keysym.h>
+# include <X11/X.h>
+# include <X11/Xlib.h>
 # include "../minilibx-linux/mlx.h"
-# include "../get_next_line.h"
+# include "../get_next_line/get_next_line.h"
+# include "../libft/libft.h"
 
 /*--------------- DEFINES ---------------*/
 
@@ -29,6 +33,8 @@ typedef struct s_game
 	void	*mlx_ptr;
 	void	*win_ptr;
 	char	**map;
+	int		player_x;
+	int		player_y;
 }	t_game;
 
 typedef struct s_map
@@ -39,14 +45,17 @@ typedef struct s_map
 	char	*ea_path;
 	char	*floor_clr;
 	char	*ceiling_clr;
+	char	*player;
 }	t_map;
 
 /*-------------- FUNCTIONS --------------*/
 
-int		open_window(t_game *game);
+int		open_window(t_game *game, char **av);
 int		open_map(char **av, t_game *game);
 void	init_datas(t_game *game);
 void	init_lines(char *line, t_map *map);
 void	display_map(t_game *game);
+int		input(int key, t_game *game);
+void	find_player(t_game *game);
 
 #endif

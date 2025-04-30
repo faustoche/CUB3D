@@ -23,7 +23,8 @@ OBJS_DIR		= obj
 CUB3D			= 	$(addprefix $(SRCS_DIR)/, main.c\
 					map.c\
 					init_game.c\
-					render_map.c)
+					render_map.c\
+					movements.c)
 
 SRCS			= ${CUB3D}
 CUB3D_OBJS		= ${CUB3D:${SRCS_DIR}/%.c=$(OBJS_DIR)/%.o}

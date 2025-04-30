@@ -3,17 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faustoche <faustoche@student.42.fr>        +#+  +:+       +#+        */
+/*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 16:31:53 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/04/29 19:53:13 by faustoche        ###   ########.fr       */
+/*   Updated: 2025/04/30 14:04:04 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+static int	fill_map(t_game *game, char *filename)
+{
+	int		i;
+	int		fd;
+	char	*line;
+	
+	i = 0;
+	fd = open(filename, O_RDONLY);
+	line = get_next_line(fd);
+	while (line)
+	{
+		if (line[0] != '\n')
+		game->map[i++] = line;
+		else
+		free(line);
+		line = get_next_line(fd);
+	}
+	game->map[i] = NULL;
+	close(fd);
+	return (0);
+}
+
 // ouvrir la fenêtre
-int	open_window(t_game *game)
+int	open_window(t_game *game, char **av)
 {
 	game->mlx_ptr = mlx_init();
 	if (!game->mlx_ptr)
@@ -21,13 +43,16 @@ int	open_window(t_game *game)
 		// libération des données;
 		return (1);
 	}
-	game->win_ptr = mlx_new_window(game->mlx_ptr, 1000, 1000, "cub3d");
+	game->win_ptr = mlx_new_window(game->mlx_ptr, 1500, 1500, "cub3d");
 	if (!game->win_ptr)
 	{
 		// libération des données;
 		return (1);
 	}
-	render_map(game);
+	fill_map(game, av[1]);
+	find_player(game);
+	display_map(game);
+	mlx_key_hook(game->win_ptr, input, game);
 	mlx_loop(game->mlx_ptr);
 	return (0);
 }
@@ -48,38 +73,18 @@ static int	count_line(char *filename)
 	{
 		if (line[0] != '\n')
 			count++;
-		free(line);
+		//free(line);
+		line = get_next_line(fd);
 	}
 	close(fd);
 	return (count);
 }
 
 //remplir char **map avec les données de la map 
-static int	fill_map(t_game *game, char *filename)
-{
-	int		i;
-	int		fd;
-	char	*line;
-	
-	i = 0;
-	fd = open(filename, O_RDONLY)
-	line = get_next_line(fd);
-	while (line)
-	{
-		if (line[0] != '\n')
-		game->map[i++] = line;
-		else
-		free(line);
-	}
-	game->map[i] = NULL;
-	close(fd);
-	return (0);
-}
 
 // ouvrir la map et la remplir
 int	open_map(char **av, t_game *game)
 {
-	int	fd;
 	int	i;
 	int	nb_lines;
 
@@ -91,9 +96,9 @@ int	open_map(char **av, t_game *game)
 		return (1);
 	}
 	game->map = (char **)malloc((nb_lines + 1) * sizeof(char *));
-	if (!game->map);
+	if (!game->map)
 		return (1);
-	if (fill_map(&game, av[1]) != 0)
+	if (fill_map(game, av[1]) != 0)
 	{
 		printf("Error\nCannot load map\n");
 		free(game->map);
