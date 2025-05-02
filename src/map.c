@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 16:31:53 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/04/30 14:04:04 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/05/02 13:46:31 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	open_window(t_game *game, char **av)
 		// libération des données;
 		return (1);
 	}
-	game->win_ptr = mlx_new_window(game->mlx_ptr, 1500, 1500, "cub3d");
+	game->win_ptr = mlx_new_window(game->mlx_ptr, WIDTH, HEIGHT, "cub3d");
 	if (!game->win_ptr)
 	{
 		// libération des données;

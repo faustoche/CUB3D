@@ -18,6 +18,13 @@
 
 /*--------------- DEFINES ---------------*/
 
+# define WIDTH 1900
+# define HEIGHT 1000
+# define TILE_SIZE 30
+# define FOV 60 // champs de vision
+# define ROTATION_SPEED 0.045
+# define PLAYER_SPEED 4
+
 # define NORTH ' NO'
 # define SOUTH 'SO'
 # define WEST 'WE'
@@ -35,6 +42,8 @@ typedef struct s_game
 	char	**map;
 	int		player_x;
 	int		player_y;
+	int		width_map;
+	int		height_map;
 }	t_game;
 
 typedef struct s_map
@@ -47,6 +56,24 @@ typedef struct s_map
 	char	*ceiling_clr;
 	char	*player;
 }	t_map;
+
+typedef struct s_player
+{
+	int		player_x;
+	int		player_y;
+	double	angle;
+	float	fov_rd;
+	int		rot;
+	int		left_right;
+	int		up_down;
+}	t_player;
+
+typedef struct s_ray
+{
+	double	ray_angle;
+	double	distance;
+	int		flag;
+}	t_ray;
 
 /*-------------- FUNCTIONS --------------*/
 
