@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 16:31:59 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/04/30 14:09:01 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/05/02 15:04:42 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int main(int ac, char **av)
 	}
 	// check de la map
 	init_datas(&game);
-	printf("Player at: (%d, %d)\n", game.player_x, game.player_y);
 	open_map(av, &game);
 	open_window(&game, av);
 	// raycasting
