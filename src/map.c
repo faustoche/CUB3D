@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 16:31:53 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/05/02 13:46:31 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/05/05 14:23:21 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	open_window(t_game *game, char **av)
 	fill_map(game, av[1]);
 	find_player(game);
 	display_map(game);
-	mlx_key_hook(game->win_ptr, input, game);
+	mlx_key_hook(game->win_ptr, key_input, game);
 	mlx_loop(game->mlx_ptr);
 	return (0);
 }

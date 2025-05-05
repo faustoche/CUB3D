@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 16:47:39 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/04/30 14:27:24 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/05/05 14:21:07 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,23 +28,23 @@ void	init_datas(t_game *game)
 
 // vérifie dans le fichier les datas du début 
 
-void	init_lines(char *line, t_map *map)
-{
-	if (ft_strncmp(line, "NO ", 3) == 0)
-		map->no_path = ft_strdup(line + 3);
-	else if (ft_strncmp(line, "SO ", 3) == 0)
-		map->so_path = ft_strdup(line + 3);
-	else if (ft_strncmp(line, "WE ", 3) == 0)
-		map->we_path = ft_strdup(line + 3);
-	else if (ft_strncmp(line, "EA ", 3) == 0)
-		map->ea_path = ft_strdup(line + 3);
-	else if (ft_strncmp(line, "F ", 2) == 0)
-		map->floor_clr = ft_strdup(line + 2);
-	else if (ft_strncmp(line, "C ", 2) == 0)
-		map->ceiling_clr = ft_strdup(line + 2);
-	else if (ft_strcmp(line, "Z") == 0)
-		map->player = ft_strdup(line);
-}
+// void	init_lines(char *line, t_map *map)
+// {
+// 	if (ft_strncmp(line, "NO ", 3) == 0)
+// 		map->no_path = ft_strdup(line + 3);
+// 	else if (ft_strncmp(line, "SO ", 3) == 0)
+// 		map->so_path = ft_strdup(line + 3);
+// 	else if (ft_strncmp(line, "WE ", 3) == 0)
+// 		map->we_path = ft_strdup(line + 3);
+// 	else if (ft_strncmp(line, "EA ", 3) == 0)
+// 		map->ea_path = ft_strdup(line + 3);
+// 	else if (ft_strncmp(line, "F ", 2) == 0)
+// 		map->floor_clr = ft_strdup(line + 2);
+// 	else if (ft_strncmp(line, "C ", 2) == 0)
+// 		map->ceiling_clr = ft_strdup(line + 2);
+// 	else if (ft_strcmp(line, "Z") == 0)
+// 		map->player = ft_strdup(line);
+// }
 
 void	find_player(t_game *game)
 {
