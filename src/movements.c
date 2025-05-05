@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movements.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faustoche <faustoche@student.42.fr>        +#+  +:+       +#+        */
+/*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 11:16:03 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/05/05 10:18:57 by faustoche        ###   ########.fr       */
+/*   Updated: 2025/05/05 14:37:15 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,24 +39,20 @@ void	update_player(t_mlx *mlx)
 
 	move_speed = 5.0; // 5 permet de donner une sensation de vitesse
 	rot_speed = 0.05; // en radians, un tour complet = 2pi soit 6.28 degres. 
-	
 	if (mlx->player->rot) // si le joueur tourne (-1 ou 1)
 		mlx->player->angle += mlx->player->rot * rot_speed; // pour adapter la rotation a gauche ou a droite
 	new_x = mlx->player->player_x; // on copie la position actualisé
 	new_y = mlx->player->player_y; // on copie la position actualisé
-	
 	if (mlx->player->up_down != 0) // cos si x, sin si y
 	{
 		new_x += cos(mlx->player->angle) * move_speed * mlx->player->up_down;
 		new_y += sin(mlx->player->angle) * move_speed * mlx->player->up_down;
 	}
-	
 	if (mlx->player->left_right != 0)
 	{
 		new_x += cos(mlx->player->angle + M_PI / 2) * move_speed * mlx->player->left_right;
 		new_y += sin(mlx->player->angle + M_PI / 2) * move_speed * mlx->player->left_right;
 	}
-	
 	map_x = new_x / TILE_SIZE; // savoir dans quelle case se trouve le joueur
 	map_y = new_y / TILE_SIZE;
 	if (mlx->game->map[map_y][map_x] != '1') // si ce n'est pas un 1 (un mur)
@@ -66,30 +62,24 @@ void	update_player(t_mlx *mlx)
 	}
 }
 
-void	key_input(mlx_key_data_t key, void *param)
+int	key_input(int key, void *param)
 {
 	t_mlx	*mlx;
 
 	mlx = (t_mlx *)param;
-	if (key.action == MLX_PRESS || key.action == MLX_REPEAT)
-	{
-		if (keydata.key == MLX_KEY_W)
-			mlx->player->up_down = 1;
-		else if (keydata.key == MLX_KEY_S)
-			mlx->player->up_down = -1;
-		else if (keydata.key == MLX_KEY_A)
-			mlx->player->left_right = -1;
-		else if (keydata.key == MLX_KEY_D)
-			mlx->player->left_right = 1;
-		else if (keydata.key == MLX_KEY_LEFT)
-			mlx->player->rot = -1;
-		else if (keydata.key == MLX_KEY_RIGHT)
-			mlx->player->rot = 1;
-	}
-	else if (keydata.action == MLX_RELEASE)
-	{
-		mlx->player->up_down = 0;
-		mlx->player->left_right = 0;
-		mlx->player->rot = 0;
-	}
+	if (key == XK_W || key == XK_w || key == XK_Up)
+		mlx->player->up_down = 1;
+	else if (key == XK_S || key == XK_s || key == XK_Down)
+		mlx->player->up_down = -1;
+	else if (key == XK_A || key == XK_a)
+		mlx->player->left_right = -1;
+	else if (key == XK_D || key == XK_d)
+		mlx->player->left_right = 1;
+	else if (key == XK_Left)
+		mlx->player->rot = -1;
+	else if (key == XK_Right)
+		mlx->player->rot = 1;
+	else
+		return (0);
+	return (0);
 }

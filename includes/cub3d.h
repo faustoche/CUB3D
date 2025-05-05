@@ -24,8 +24,9 @@
 # define FOV 60 // champs de vision // a tester
 # define ROTATION_SPEED 0.045 // a tester
 # define PLAYER_SPEED 4 // a tester
+# define M_PI   3.14159265358979323846
 
-# define NORTH ' NO'
+# define NORTH 'NO'
 # define SOUTH 'SO'
 # define WEST 'WE'
 # define EAST 'EA'
@@ -42,7 +43,8 @@ typedef struct s_game
 	int		player_y;
 	int		width_map;
 	int		height_map;
-	mlx_t	*mlx_ptr;
+	void	*mlx_ptr;
+	void	*win_ptr;
 }	t_game;
 
 typedef struct s_player
@@ -65,7 +67,7 @@ typedef struct s_ray
 
 typedef struct s_mlx
 {
-	mlx_image_t	*img;
+	void		*img;
 	t_ray		*ray;
 	t_game		*game;
 	t_player	*player;
@@ -77,9 +79,9 @@ typedef struct s_mlx
 int		open_window(t_game *game, char **av);
 int		open_map(char **av, t_game *game);
 void	init_datas(t_game *game);
-void	init_lines(char *line, t_map *map);
+void	init_lines(char *line, t_game *map);
 void	display_map(t_game *game);
-void	key_input(mlx_key_data_t key, void *param);
+int		key_input(int key, void *param);
 void	find_player(t_game *game);
 void	update_player(t_mlx *mlx);
 

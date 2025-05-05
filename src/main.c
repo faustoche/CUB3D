@@ -3,24 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faustoche <faustoche@student.42.fr>        +#+  +:+       +#+        */
+/*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 16:31:59 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/05/05 10:18:55 by faustoche        ###   ########.fr       */
+/*   Updated: 2025/05/05 14:51:53 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include <math.h>
 
-void	main_loop(void	*param)
+int	main_loop(void	*param)
 {
 	t_mlx	*mlx = (t_mlx *)param;
 
-	mlx_delete_image(mlx->game->mlx_ptr, mlx->img); // efface l'image précédente (de chaque frame)
+	mlx_destroy_image(mlx->game->mlx_ptr, mlx->img); // efface l'image précédente (de chaque frame)
 	mlx->img = mlx_new_image(mlx->game->mlx_ptr, WIDTH, HEIGHT); // crée une nouvelle image
 	update_player(mlx); // mise a jour de l'emplacement du joueur 
-	cast_rays(mlx); // fonction principale du raycasting
-	mlx_image_to_window(mlx->game->mlx_ptr, mlx->img, 0, 0);
+	//cast_rays(mlx); // fonction principale du raycasting
+	mlx_put_image_to_window(mlx->game->mlx_ptr, mlx->game->win_ptr, mlx->img, 0, 0);
+	return (0);
 }
 
 /* 
@@ -57,20 +59,23 @@ int main(int ac, char **av)
 	game = malloc(sizeof(t_game));
 	player = calloc(1, sizeof(t_player));
 	ray = calloc(1, sizeof(t_ray));
-	init_datas(&game); // initialise les datas
+	init_datas(game); // initialise les datas
 	if (open_map(av, game) != 0) // ouvre la map
 		return (1);
-	find_player(game); //initialise game->player x/y
-	init_player_struct(player, game);
-	game->mlx_ptr = mlx_init(WIDTH, HEIGHT, "Cub3D", false);
+	game->mlx_ptr = mlx_init();
 	if (!game->mlx_ptr)
 		return (printf("Error\nMLX init failed\n"), 1);
-	mlx.img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+	game->win_ptr = mlx_new_window(game->mlx_ptr, WIDTH, HEIGHT, "Cub3D");
+	if (!game->win_ptr)
+		return (printf("Error\nWindow creation failed\n"), 1);
+	find_player(game); //initialise game->player x/y
+	init_player(player, game);
+	mlx.img = mlx_new_image(game->mlx_ptr, WIDTH, HEIGHT);
 	mlx.game = game;
 	mlx.player = player;
 	mlx.ray = ray;
 	mlx_loop_hook(game->mlx_ptr, &main_loop, &mlx);
-	mlx_key_hool(game->mlx_ptr, &key_input, &mlx);
+	mlx_key_hook(game->mlx_ptr, &key_input, &mlx);
 	mlx_loop(game->mlx_ptr);
 	return (0);
 }
