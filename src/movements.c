@@ -3,92 +3,93 @@
 /*                                                        :::      ::::::::   */
 /*   movements.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: faustoche <faustoche@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 11:16:03 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/04/30 14:59:18 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/05/05 10:18:57 by faustoche        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	up(t_game *game)
-{
-	int	new_x;
-	int	new_y;
+/*
+* Permets de mettre à jour la position du joueur et son angle
+* Si le joueur tourne on ajoute ou enlève rot_speed à l'angle
+	- rotation à gauche : -1
+	- rotation à droite : 1
+* Le joueur peut garder son orientation entre 0 et 2 pi radians
+* Pourquoi 5 pour la vitesse de déplacement ?
+	- Valeur arbitraire pour avoir une sensation de vitesse correcte
+	- Avec 1 : lentement
+	- Avec 10 : très rapide
+* Pourquoi 0.05 pour la rotation ?
+	- En radians, un tour complet = 2pi soit 6.28 degrés
+	-  0.05 ≈ 3 degrés (0.05 * 180 / π ≈ 2.86°)
+	- Ça donne une rotation fluide sans aller trop vite
+*/
 
-	new_x = game->player_x;
-	new_y = game->player_y;
-	if (new_y - 1 < 0)
-		return ;
-	if (game->map == NULL || game->map[new_y - 1] == NULL)
-		return ;
-	if (new_x < 0 || new_x >= (int)ft_strlen(game->map[new_y - 1])) // ft_strlen si ligne est un string
-		return ;
-	if (game->map[new_y - 1][new_x] != '1')
-		game->player_y = new_y - 1;
-	display_map(game);
+void	update_player(t_mlx *mlx)
+{
+	double	move_speed; // distance en pixels que le joueur parcourt a chaque frame
+	double	rot_speed; // vitesse de rotation de l'angle en radian a chaque frame
+	int		new_x;
+	int		new_y;
+	int		map_x;
+	int		map_y;
+
+	move_speed = 5.0; // 5 permet de donner une sensation de vitesse
+	rot_speed = 0.05; // en radians, un tour complet = 2pi soit 6.28 degres. 
+	
+	if (mlx->player->rot) // si le joueur tourne (-1 ou 1)
+		mlx->player->angle += mlx->player->rot * rot_speed; // pour adapter la rotation a gauche ou a droite
+	new_x = mlx->player->player_x; // on copie la position actualisé
+	new_y = mlx->player->player_y; // on copie la position actualisé
+	
+	if (mlx->player->up_down != 0) // cos si x, sin si y
+	{
+		new_x += cos(mlx->player->angle) * move_speed * mlx->player->up_down;
+		new_y += sin(mlx->player->angle) * move_speed * mlx->player->up_down;
+	}
+	
+	if (mlx->player->left_right != 0)
+	{
+		new_x += cos(mlx->player->angle + M_PI / 2) * move_speed * mlx->player->left_right;
+		new_y += sin(mlx->player->angle + M_PI / 2) * move_speed * mlx->player->left_right;
+	}
+	
+	map_x = new_x / TILE_SIZE; // savoir dans quelle case se trouve le joueur
+	map_y = new_y / TILE_SIZE;
+	if (mlx->game->map[map_y][map_x] != '1') // si ce n'est pas un 1 (un mur)
+	{
+		mlx->player->player_x = new_x; // on met la position a jour si y a pas de mur
+		mlx->player->player_y = new_y;
+	}
 }
 
-static void	down(t_game *game)
+void	key_input(mlx_key_data_t key, void *param)
 {
-	int	new_x;
-	int	new_y;
+	t_mlx	*mlx;
 
-	new_x = game->player_x;
-	new_y = game->player_y;
-	if (new_y + 1 < 0)
-		return ;
-	if (new_x < 0 || new_x >= (int)ft_strlen(game->map[new_y + 1]))
-		return ;
-	if (game->map[new_y + 1][new_x] != '1')
-		game->player_y = new_y + 1;
-	display_map(game);
-}
-
-static void	left(t_game *game)
-{
-	int	new_x;
-	int	new_y;
-
-	new_x = game->player_x;
-	new_y = game->player_y;
-	if (new_x - 1 < 0)
-		return ;
-	if (new_x - 1 >= (int)ft_strlen(game->map[new_y]))
-		return ;
-	if (game->map[new_y][new_x - 1] != '1')
-		game->player_x = new_x - 1;
-	display_map(game);
-}
-
-static void	right(t_game *game)
-{
-	int	new_x;
-	int	new_y;
-
-	new_x = game->player_x;
-	new_y = game->player_y;
-	if (new_x + 1 < 0)
-		return ;
-	if (new_x + 1 >= (int)ft_strlen(game->map[new_y]))
-		return ;
-	if (game->map[new_y][new_x + 1] != '1')
-		game->player_x = new_x + 1;
-	display_map(game);
-}
-
-int	input(int key, t_game *game)
-{
-	if (key == XK_W || key == XK_w || key == XK_Up)
-		up(game);
-	else if (key == XK_A || key == XK_a || key == XK_Left)
-		left(game);
-	else if (key == XK_S || key == XK_s || key == XK_Down)
-		down(game);
-	else if (key == XK_D || key == XK_d || key == XK_Right)
-		right(game);
-	else
-		return (0);
-	return (0);
+	mlx = (t_mlx *)param;
+	if (key.action == MLX_PRESS || key.action == MLX_REPEAT)
+	{
+		if (keydata.key == MLX_KEY_W)
+			mlx->player->up_down = 1;
+		else if (keydata.key == MLX_KEY_S)
+			mlx->player->up_down = -1;
+		else if (keydata.key == MLX_KEY_A)
+			mlx->player->left_right = -1;
+		else if (keydata.key == MLX_KEY_D)
+			mlx->player->left_right = 1;
+		else if (keydata.key == MLX_KEY_LEFT)
+			mlx->player->rot = -1;
+		else if (keydata.key == MLX_KEY_RIGHT)
+			mlx->player->rot = 1;
+	}
+	else if (keydata.action == MLX_RELEASE)
+	{
+		mlx->player->up_down = 0;
+		mlx->player->left_right = 0;
+		mlx->player->rot = 0;
+	}
 }

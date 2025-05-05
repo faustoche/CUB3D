@@ -18,12 +18,12 @@
 
 /*--------------- DEFINES ---------------*/
 
-# define WIDTH 1900
-# define HEIGHT 1000
-# define TILE_SIZE 30
-# define FOV 60 // champs de vision
-# define ROTATION_SPEED 0.045
-# define PLAYER_SPEED 4
+# define WIDTH 1900 // a tester
+# define HEIGHT 1000 // a tester
+# define TILE_SIZE 30 // a tester
+# define FOV 60 // champs de vision // a tester
+# define ROTATION_SPEED 0.045 // a tester
+# define PLAYER_SPEED 4 // a tester
 
 # define NORTH ' NO'
 # define SOUTH 'SO'
@@ -37,25 +37,13 @@
 
 typedef struct s_game
 {
-	void	*mlx_ptr;
-	void	*win_ptr;
 	char	**map;
 	int		player_x;
 	int		player_y;
 	int		width_map;
 	int		height_map;
+	mlx_t	*mlx_ptr;
 }	t_game;
-
-typedef struct s_map
-{
-	char	*no_path;
-	char	*so_path;
-	char	*we_path;
-	char	*ea_path;
-	char	*floor_clr;
-	char	*ceiling_clr;
-	char	*player;
-}	t_map;
 
 typedef struct s_player
 {
@@ -75,6 +63,15 @@ typedef struct s_ray
 	int		flag;
 }	t_ray;
 
+typedef struct s_mlx
+{
+	mlx_image_t	*img;
+	t_ray		*ray;
+	t_game		*game;
+	t_player	*player;
+}	t_mlx;
+
+
 /*-------------- FUNCTIONS --------------*/
 
 int		open_window(t_game *game, char **av);
@@ -82,7 +79,8 @@ int		open_map(char **av, t_game *game);
 void	init_datas(t_game *game);
 void	init_lines(char *line, t_map *map);
 void	display_map(t_game *game);
-int		input(int key, t_game *game);
+void	key_input(mlx_key_data_t key, void *param);
 void	find_player(t_game *game);
+void	update_player(t_mlx *mlx);
 
 #endif
