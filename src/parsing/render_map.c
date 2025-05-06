@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: faustoche <faustoche@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 16:50:44 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/05/02 11:58:15 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/05/06 19:02:47 by faustoche        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static void	draw_pixel(t_game *game, int x, int y, int color)
 
 // si c'est un 1 noir, sinon blanc, sinon j'itere et je continue,
 // je dessine un pixel correspond
+// pour le bonus de la minimap
 void	display_map(t_game *game)
 {
 	int	x;
