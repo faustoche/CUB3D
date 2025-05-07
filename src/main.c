@@ -3,26 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faustoche <faustoche@student.42.fr>        +#+  +:+       +#+        */
+/*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 16:31:59 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/05/06 18:56:49 by faustoche        ###   ########.fr       */
+/*   Updated: 2025/05/07 16:19:26 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	main_loop(void	*param)
+static int	main_loop(void	*param)
 {
 	t_mlx	*mlx = (t_mlx *)param;
 
 	mlx_destroy_image(mlx->game->mlx_ptr, mlx->img); // efface l'image précédente (de chaque frame)
 	mlx->img = mlx_new_image(mlx->game->mlx_ptr, WIDTH, HEIGHT); // crée une nouvelle image
 	hook(mlx, 0, 0);
-	cast_rays(mlx); // fonction principale du raycasting
+	cast_rays(mlx);
 	mlx_put_image_to_window(mlx->game->mlx_ptr, mlx->game->win_ptr, mlx->img, 0, 0);
 	return (0);
 }
+
 
 /* 
 * TILE_SIZE correspond à la taille en pixel d'une case sur la map (1/0)
@@ -35,7 +36,7 @@ int	main_loop(void	*param)
 * On garde l'angle à 60 degré car c'est l'angle le plus équilibré visuellement
 */
 
-void	init_player(t_player *player, t_game *game)
+static void	init_player(t_player *player, t_game *game)
 {
 	player->player_x = game->player_x * TILE_SIZE + TILE_SIZE / 2;
 	player->player_y = game->player_y * TILE_SIZE + TILE_SIZE / 2;
@@ -70,6 +71,7 @@ int main(int ac, char **av)
 	find_player(game); //initialise game->player x/y
 	init_player(player, game);
 	mlx.img = mlx_new_image(game->mlx_ptr, WIDTH, HEIGHT);
+	mlx.addr = mlx_get_data_addr(mlx.img, &mlx.bpp, &mlx.size_line, &mlx.endian);
 	mlx.game = game;
 	mlx.player = player;
 	mlx.ray = ray;

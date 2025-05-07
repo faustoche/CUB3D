@@ -68,6 +68,10 @@ typedef struct s_ray
 typedef struct s_mlx
 {
 	void		*img;
+	char		*addr;
+	int			bpp;
+	int			size_line;
+	int			endian;
 	t_ray		*ray;
 	t_game		*game;
 	t_player	*player;
@@ -76,14 +80,34 @@ typedef struct s_mlx
 
 /*-------------- FUNCTIONS --------------*/
 
-int		open_window(t_game *game, char **av);
+/// PARSING ///
 int		open_map(char **av, t_game *game);
+void	display_map(t_game *game);
+
+/// RAYCASTING ///
+int		check_angle_direction(float angle, char c);
+int		init_ray_direction(float angle, float *inter, float *step, int horizon);
+int		is_wall(float x, float y, t_mlx *mlx);
+float	angle_to_radians(float angle);
+void	cast_rays(t_mlx *mlx);
+
+/// RENDERING ///
+void	ft_mlx_pixel_put(t_mlx *mlx, int x, int y, int color);
+void	draw_floor_ceiling(t_mlx *mlx, int ray, int top_pixel, int bottom_pixel);
+int		get_color(t_mlx *mlx);
+void	draw_wall(t_mlx *mlx, int ray, int top_pixel, int bottom_pixel);
+void	render_wall(t_mlx *mlx, int ray);
+
+/// INIT GAME ///
 void	init_datas(t_game *game);
 void	init_lines(char *line, t_game *map);
-void	display_map(t_game *game);
-int		key_input(int key, void *param);
 void	find_player(t_game *game);
-void	update_player(t_mlx *mlx);
-float	angle_to_radians(float angle);
+void	exit_game(t_mlx *mlx);
+
+/// MOVEMENTS //
+
+int		key_input(int key, void *param);
+void	hook(t_mlx *mlx, double move_x, double move_y);
+void	rotate_player(t_mlx *mlx, int i);
 
 #endif

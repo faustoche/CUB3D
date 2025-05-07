@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movements.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faustoche <faustoche@student.42.fr>        +#+  +:+       +#+        */
+/*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 11:16:03 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/05/06 18:49:00 by faustoche        ###   ########.fr       */
+/*   Updated: 2025/05/07 10:32:55 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	rotate_player(t_mlx *mlx, int i)
 	}
 }
 
-void	move_player(t_mlx *mlx, double move_x, double move_y)
+static void	move_player(t_mlx *mlx, double move_x, double move_y)
 {
 	int	map_y;
 	int	map_x;
