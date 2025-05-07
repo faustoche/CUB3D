@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faustoche <faustoche@student.42.fr>        +#+  +:+       +#+        */
+/*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 18:42:46 by faustoche         #+#    #+#             */
-/*   Updated: 2025/05/06 18:47:58 by faustoche        ###   ########.fr       */
+/*   Updated: 2025/05/07 16:25:04 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 * Calcule la distance entre le joueur et un mur qu'il pourrait rencontrer en traçant une ligne
 * horizontale à partir de sa position, en fonction d'un angle donné. 
 */
-float	find_horizontal_hit_distance(t_mlx *mlx, float angle) // get h inter
+static float	find_horizontal_hit_distance(t_mlx *mlx, float angle) // get h inter
 {
 	float	horizontal_x; // stocke les coordonnees du point d;intersection
 	float	horizontal_y;
@@ -39,7 +39,7 @@ float	find_horizontal_hit_distance(t_mlx *mlx, float angle) // get h inter
 	return (sqrt(pow(horizontal_x - mlx->player->player_x, 2) + pow(horizontal_y - mlx->player->player_y, 2))); // pour recuperer la distance avec formule de la distance euclidienne
 }
 
-float	find_vertical_hit_distance(t_mlx *mlx, float angle) // get h inter
+static float	find_vertical_hit_distance(t_mlx *mlx, float angle) // get h inter
 {
 	float	vertical_x; // stocke les coordonnees du point d;intersection
 	float	vertical_y;
@@ -62,28 +62,69 @@ float	find_vertical_hit_distance(t_mlx *mlx, float angle) // get h inter
 	return (sqrt(pow(vertical_x - mlx->player->player_x, 2) + pow(vertical_y - mlx->player->player_y, 2))); // pour recuperer la distance avec formule de la distance euclidienne
 }
 
+/* Cette fonction affiche les rayons en entonnoir */
+
+// void	cast_rays(t_mlx *mlx)
+// {
+// 	double	horizontal_inter;
+// 	double	vertical_inter;
+// 	int		ray;
+
+// 	ray = 0;
+// 	mlx->ray->ray_angle = mlx->player->angle - (mlx->player->fov_rd / 2); // l'angle de debut
+// 	while (ray < WIDTH) // loop
+// 	{
+// 		mlx->ray->flag = 0;
+// 		horizontal_inter = find_horizontal_hit_distance(mlx, angle_to_radians(mlx->ray->ray_angle));
+// 		vertical_inter = find_vertical_hit_distance(mlx, angle_to_radians(mlx->ray->ray_angle));
+// 		if (vertical_inter <= horizontal_inter)
+// 		{
+// 			mlx->ray->distance = vertical_inter;
+// 			mlx->ray->flag = 1;
+// 		}
+// 		else
+// 		{
+// 			mlx->ray->distance = horizontal_inter;
+// 			mlx->ray->flag = 0;
+// 		}
+// 		render_wall(mlx, ray);
+// 		ray++;
+// 		mlx->ray->ray_angle += (mlx->player->fov_rd / WIDTH);
+// 	}
+// }
+
+
+/* Cette fonction affiche les rayons en ligne droite donc pas de murs */
+
 void	cast_rays(t_mlx *mlx)
 {
 	double	horizontal_inter;
 	double	vertical_inter;
+	//double	camera_x;
+	double	angle;
 	int		ray;
-
+	
+	angle = mlx->player->angle - (mlx->player->fov_rd / 2.0);
 	ray = 0;
-	mlx->ray->ray_angle = mlx->player->angle - (mlx->player->fov_rd / 2); // l'angle de debut
+	// camera_x = (2 * ray / (double)WIDTH) - 1; // pourquoi ce calcul ?
+	// mlx->ray->ray_angle = mlx->player->angle + atan(camera_x * tan(mlx->player->fov_rd / 2));
 	while (ray < WIDTH) // loop
 	{
 		mlx->ray->flag = 0;
 		horizontal_inter = find_horizontal_hit_distance(mlx, angle_to_radians(mlx->ray->ray_angle));
-		vertical_inter = find_vertical_hit_distance(mlx, angle_to_radians(mlx->ray->ray_angle));
+		vertical_inter = find_vertical_hit_distance(mlx, angle_to_radians(mlx->ray->ray_angle));	
 		if (vertical_inter <= horizontal_inter)
+		{
 			mlx->ray->distance = vertical_inter;
+			mlx->ray->flag = 1;
+		}
 		else
 		{
 			mlx->ray->distance = horizontal_inter;
-			mlx->ray->flag = 1;
+			mlx->ray->flag = 0;
 		}
 		render_wall(mlx, ray);
+		angle += mlx->player->fov_rd / (double)WIDTH; // chaque rayon a un angle legerement different pour correspondre a la position horizontale dans la fenetre
 		ray++;
-		mlx->ray->ray_angle += (mlx->player->fov_rd / WIDTH);
 	}
 }

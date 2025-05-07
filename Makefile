@@ -21,9 +21,13 @@ OBJS_DIR		= obj
 # ************************************************************************ #
 
 CUB3D			= 	$(addprefix $(SRCS_DIR)/, main.c\
-					map.c\
+					parsing/map.c\
+					parsing/render_map.c\
+					raycasting/init_rays.c\
+					raycasting/ray_utils.c\
+					raycasting/raycasting.c\
+					rendering/render_walls.c\
 					init_game.c\
-					render_map.c\
 					movements.c)
 
 SRCS			= ${CUB3D}

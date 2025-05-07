@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_rays.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faustoche <faustoche@student.42.fr>        +#+  +:+       +#+        */
+/*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 19:50:34 by faustoche         #+#    #+#             */
-/*   Updated: 2025/05/05 19:51:02 by faustoche        ###   ########.fr       */
+/*   Updated: 2025/05/07 15:11:35 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,9 @@ int	is_wall(float x, float y, t_mlx *mlx) // wall hit
 		return (0);
 	x_map = floor(x / TILE_SIZE); // recupere la position x
 	y_map = floor(y / TILE_SIZE); // recupere la position y
-	if ((y_map >= mlx->game->height_map || x_map >= mlx->game->width_map))
-		return (0);
-	if (mlx->game->map[y_map] && x_map <= (int)ft_strlen(mlx->game->map[y_map]))
-	{
-		if (mlx->game->map[y_map][x_map] == '1')
-			return (0);
-	}
-	return (1);
+	if (x < 0 || y < 0 || y_map >= mlx->game->height_map || x_map >= mlx->game->width_map)
+		return (1);
+	if (!mlx->game->map[y_map] || x_map >= (int)ft_strlen(mlx->game->map[y_map]))
+		return (1);
+	return (mlx->game->map[y_map][x_map] == '1');
 }

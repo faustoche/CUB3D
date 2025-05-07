@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faustoche <faustoche@student.42.fr>        +#+  +:+       +#+        */
+/*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 16:47:39 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/05/06 18:49:58 by faustoche        ###   ########.fr       */
+/*   Updated: 2025/05/07 14:43:00 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	init_datas(t_game *game)
 {
 	game->mlx_ptr = NULL;
 	game->win_ptr = NULL;
+	game->height_map = 0;
+	game->width_map = 0;
 }
 
 // vérifie dans le fichier les datas du début 
