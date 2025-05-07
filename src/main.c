@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: faustoche <faustoche@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 16:31:59 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/05/05 14:51:53 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/05/06 18:56:49 by faustoche        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <math.h>
 
 int	main_loop(void	*param)
 {
@@ -19,8 +18,8 @@ int	main_loop(void	*param)
 
 	mlx_destroy_image(mlx->game->mlx_ptr, mlx->img); // efface l'image précédente (de chaque frame)
 	mlx->img = mlx_new_image(mlx->game->mlx_ptr, WIDTH, HEIGHT); // crée une nouvelle image
-	update_player(mlx); // mise a jour de l'emplacement du joueur 
-	//cast_rays(mlx); // fonction principale du raycasting
+	hook(mlx, 0, 0);
+	cast_rays(mlx); // fonction principale du raycasting
 	mlx_put_image_to_window(mlx->game->mlx_ptr, mlx->game->win_ptr, mlx->img, 0, 0);
 	return (0);
 }

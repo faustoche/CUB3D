@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: faustoche <faustoche@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 16:47:39 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/05/05 14:21:07 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/05/06 18:49:58 by faustoche        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,10 @@ void	find_player(t_game *game)
 		}
 		y++;
 	}
+}
+
+void	exit_game(t_mlx *mlx)
+{
+	mlx_destroy_window(mlx->game->mlx_ptr, mlx->game->win_ptr);
+	exit (0);
 }

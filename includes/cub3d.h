@@ -84,5 +84,6 @@ void	display_map(t_game *game);
 int		key_input(int key, void *param);
 void	find_player(t_game *game);
 void	update_player(t_mlx *mlx);
+float	angle_to_radians(float angle);
 
 #endif
