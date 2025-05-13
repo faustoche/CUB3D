@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: faustoche <faustoche@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 16:31:59 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/05/13 11:44:57 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/05/13 20:47:28 by faustoche        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,16 @@
 
 static int	main_loop(void	*param)
 {
-	t_mlx	*mlx = (t_mlx *)param;
-
+	t_mlx	*mlx;
+	double	move_x;
+	double	move_y;
+	
+	mlx = (t_mlx *)param;
+	move_x = 0.0;
+	move_y = 0.0;
 	mlx_destroy_image(mlx->game->mlx_ptr, mlx->img); // efface l'image précédente (de chaque frame)
 	mlx->img = mlx_new_image(mlx->game->mlx_ptr, WIDTH, HEIGHT); // crée une nouvelle image
-	hook(mlx, 0, 0);
+	hook(mlx, move_x, move_y);
 	cast_rays(mlx);
 	mlx_put_image_to_window(mlx->game->mlx_ptr, mlx->game->win_ptr, mlx->img, 0, 0);
 	return (0);
@@ -40,7 +45,7 @@ static void	init_player(t_player *player, t_game *game)
 {
 	player->player_x = game->player_x * TILE_SIZE + TILE_SIZE / 2;
 	player->player_y = game->player_y * TILE_SIZE + TILE_SIZE / 2;
-	player->angle = 3 * (M_PI / 2);
+	player->angle = 3 * M_PI / 2;
 	player->fov_rd = (60 * M_PI) / 180; // conversion de l'angle de 60 degres en radians
 	player->rot = 0; // rotation de la vue, tourner à gauche ou à droite 
 	player->left_right = 0;
@@ -62,11 +67,6 @@ int main(int ac, char **av)
 	init_datas(game); // initialise les datas
 	if (open_map(av, game) != 0) // ouvre la map
 		return (1);
-	printf("Map dimensions: %d x %d\n", game->width_map, game->height_map);
-	for (int y = 0; y < game->height_map; y++) {
-		printf("Line %d: %s\n", y, game->map[y]);
-	}
-	printf("Player position: %d, %d\n", player->player_x, player->player_y);
 	game->mlx_ptr = mlx_init();
 	if (!game->mlx_ptr)
 		return (printf("Error\nMLX init failed\n"), 1);

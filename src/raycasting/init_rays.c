@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_rays.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: faustoche <faustoche@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 19:50:34 by faustoche         #+#    #+#             */
-/*   Updated: 2025/05/13 09:47:22 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/05/13 20:34:00 by faustoche        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ int	init_ray_direction(float angle, float *inter, float *step, int horizon) // i
 
 int is_wall(float x, float y, t_mlx *mlx)
 {
-    int map_x, map_y;
+    int	map_x;
+	int	map_y;
     
     // Convertir coordonnées pixels en indices de la map
     map_x = (int)(x / TILE_SIZE);

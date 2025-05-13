@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movements.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: faustoche <faustoche@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 11:16:03 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/05/07 10:32:55 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/05/13 20:46:22 by faustoche        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,31 +122,61 @@ static void	move_player(t_mlx *mlx, double move_x, double move_y)
 	}
 }
 
-void	hook(t_mlx *mlx, double move_x, double move_y)
+void hook(t_mlx *mlx, double move_x, double move_y)
 {
-	if (mlx->player->rot == 1)
-		rotate_player(mlx, 1);
-	if (mlx->player->rot == -1)
-		rotate_player(mlx, 0);
-	if (mlx->player->left_right == 1) // right
-	{
-		move_x = -sin(mlx->player->angle) * PLAYER_SPEED;
-		move_y = cos(mlx->player->angle) * PLAYER_SPEED;
-	}
-	if (mlx->player->left_right == -1) // left
-	{
-		move_x = sin(mlx->player->angle) * PLAYER_SPEED;
-		move_y = -cos(mlx->player->angle) * PLAYER_SPEED;
-	}
-	if (mlx->player->up_down == 1) // up
-	{
-		move_x = cos(mlx->player->angle) * PLAYER_SPEED;
-		move_y = sin(mlx->player->angle) * PLAYER_SPEED;
-	}
-	if (mlx->player->up_down == -1) // dozn
-	{
-		move_x = -cos(mlx->player->angle) * PLAYER_SPEED;
-		move_y = -sin(mlx->player->angle) * PLAYER_SPEED;
-	}
-	move_player(mlx, move_x, move_y);
+    if (mlx->player->rot == 1)
+        rotate_player(mlx, 1);
+    if (mlx->player->rot == -1)
+        rotate_player(mlx, 0);
+    if (mlx->player->left_right == 1) // droit
+    {
+        move_x = -sin(mlx->player->angle) * PLAYER_SPEED;
+        move_y = cos(mlx->player->angle) * PLAYER_SPEED;
+    }
+    if (mlx->player->left_right == -1) // gauche
+    {
+        move_x = sin(mlx->player->angle) * PLAYER_SPEED;
+        move_y = -cos(mlx->player->angle) * PLAYER_SPEED;
+    }
+    if (mlx->player->up_down == 1) // en avant
+    {
+        move_x = cos(mlx->player->angle) * PLAYER_SPEED;
+        move_y = sin(mlx->player->angle) * PLAYER_SPEED;
+    }
+    if (mlx->player->up_down == -1) // en arrière
+    {
+        move_x = -cos(mlx->player->angle) * PLAYER_SPEED;
+        move_y = -sin(mlx->player->angle) * PLAYER_SPEED;
+    }
+    move_player(mlx, move_x, move_y);
 }
+
+
+// void	hook(t_mlx *mlx, double move_x, double move_y)
+// {
+// 	if (mlx->player->rot == 1)
+// 		rotate_player(mlx, 1);
+// 	if (mlx->player->rot == -1)
+// 		rotate_player(mlx, 0);
+// 	if (mlx->player->left_right == 1) // right
+// 	{
+// 		move_x = -sin(mlx->player->angle) * PLAYER_SPEED;
+// 		move_y = cos(mlx->player->angle) * PLAYER_SPEED;
+// 	}
+// 	if (mlx->player->left_right == -1) // left
+// 	{
+// 		move_x = sin(mlx->player->angle) * PLAYER_SPEED;
+// 		move_y = -cos(mlx->player->angle) * PLAYER_SPEED;
+// 	}
+// 	if (mlx->player->up_down == 1) // up
+// 	{
+// 		move_x = cos(mlx->player->angle) * PLAYER_SPEED;
+// 		move_y = sin(mlx->player->angle) * PLAYER_SPEED;
+// 	}
+// 	if (mlx->player->up_down == -1) // dozn
+// 	{
+// 		move_x = -cos(mlx->player->angle) * PLAYER_SPEED;
+// 		move_y = -sin(mlx->player->angle) * PLAYER_SPEED;
+// 	}
+// 	move_player(mlx, move_x, move_y);
+// }
