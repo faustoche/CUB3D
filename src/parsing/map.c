@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 16:31:53 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/05/07 13:51:47 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/05/13 09:44:31 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,30 +33,6 @@ static int	fill_map(t_game *game, char *filename)
 	close(fd);
 	return (0);
 }
-
-// plus besoin de cette fonction
-// ouvrir la fenêtre
-// int	open_window(t_game *game, char **av)
-// {
-// 	game->mlx_ptr = mlx_init();
-// 	if (!game->mlx_ptr)
-// 	{
-// 		// libération des données;
-// 		return (1);
-// 	}
-// 	game->win_ptr = mlx_new_window(game->mlx_ptr, WIDTH, HEIGHT, "cub3d");
-// 	if (!game->win_ptr)
-// 	{
-// 		// libération des données;
-// 		return (1);
-// 	}
-// 	fill_map(game, av[1]);
-// 	find_player(game);
-// 	display_map(game);
-// 	mlx_key_hook(game->win_ptr, key_input, game);
-// 	mlx_loop(game->mlx_ptr);
-// 	return (0);
-// }
 
 // compter le nombre de ligne dans la map pour allouer la bonne taille
 static int	count_line(char *filename)
@@ -105,5 +81,14 @@ int	open_map(char **av, t_game *game)
 		free(game->map);
 		return (1);
 	}
+	game->height_map = 0;
+    game->width_map = 0;
+    while (game->map[game->height_map])
+    {
+        int len = ft_strlen(game->map[game->height_map]);
+        if (len > game->width_map)
+            game->width_map = len;
+        game->height_map++;
+    }
 	return (0);
 }

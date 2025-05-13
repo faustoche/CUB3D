@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 16:31:59 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/05/07 16:19:26 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/05/13 11:44:57 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	init_player(t_player *player, t_game *game)
 {
 	player->player_x = game->player_x * TILE_SIZE + TILE_SIZE / 2;
 	player->player_y = game->player_y * TILE_SIZE + TILE_SIZE / 2;
-	player->angle = M_PI;
+	player->angle = 3 * (M_PI / 2);
 	player->fov_rd = (60 * M_PI) / 180; // conversion de l'angle de 60 degres en radians
 	player->rot = 0; // rotation de la vue, tourner à gauche ou à droite 
 	player->left_right = 0;
@@ -62,6 +62,11 @@ int main(int ac, char **av)
 	init_datas(game); // initialise les datas
 	if (open_map(av, game) != 0) // ouvre la map
 		return (1);
+	printf("Map dimensions: %d x %d\n", game->width_map, game->height_map);
+	for (int y = 0; y < game->height_map; y++) {
+		printf("Line %d: %s\n", y, game->map[y]);
+	}
+	printf("Player position: %d, %d\n", player->player_x, player->player_y);
 	game->mlx_ptr = mlx_init();
 	if (!game->mlx_ptr)
 		return (printf("Error\nMLX init failed\n"), 1);
