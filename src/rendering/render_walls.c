@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 16:31:14 by faustoche         #+#    #+#             */
-/*   Updated: 2025/05/07 16:17:53 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/05/13 12:04:24 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	render_wall(t_mlx *mlx, int ray)
 	double	bottom_pixel;
 	double	top_pixel;
 
-	mlx->ray->distance *= cos(angle_to_radians(mlx->ray->ray_angle - mlx->player->angle)); // fix l'effet fish eye
+	mlx->ray->distance *= cos(mlx->ray->ray_angle - mlx->player->angle); // fix l'effet fish eye
 	wall_height = (TILE_SIZE / mlx->ray->distance) * ((WIDTH / 2) / tan(mlx->player->fov_rd / 2));
 	bottom_pixel = (HEIGHT / 2) + (wall_height / 2);
 	top_pixel = (HEIGHT / 2) - (wall_height / 2);
@@ -79,13 +79,6 @@ void	render_wall(t_mlx *mlx, int ray)
 		bottom_pixel = HEIGHT;
 	if (top_pixel < 0)
 		top_pixel = 0;
-	printf("ray = %d | angle = %.2f° | dist = %.2f | top = %.2f | bottom = %.2f | wall_height = %.2f\n",
-		ray,
-		mlx->ray->ray_angle,
-		mlx->ray->distance,
-		top_pixel,
-		bottom_pixel,
-		wall_height);	
 	draw_floor_ceiling(mlx, ray, top_pixel, bottom_pixel);
 	draw_wall(mlx, ray, top_pixel, bottom_pixel);
 }

@@ -25,6 +25,7 @@
 # define ROTATION_SPEED 0.045 // a tester
 # define PLAYER_SPEED 4 // a tester
 # define M_PI   3.14159265358979323846
+# define MAX_DISTANCE 1000.0
 
 # define NORTH 'NO'
 # define SOUTH 'SO'

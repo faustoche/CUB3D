@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 19:50:34 by faustoche         #+#    #+#             */
-/*   Updated: 2025/05/07 15:11:35 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/05/13 09:47:22 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,18 +63,18 @@ int	init_ray_direction(float angle, float *inter, float *step, int horizon) // i
 * Renvois 1 s'il n'y a pas de mur et que le rayon peut continuer
 */
 
-int	is_wall(float x, float y, t_mlx *mlx) // wall hit
+int is_wall(float x, float y, t_mlx *mlx)
 {
-	int	x_map;
-	int	y_map;
-
-	if (x < 0 || y < 0)
-		return (0);
-	x_map = floor(x / TILE_SIZE); // recupere la position x
-	y_map = floor(y / TILE_SIZE); // recupere la position y
-	if (x < 0 || y < 0 || y_map >= mlx->game->height_map || x_map >= mlx->game->width_map)
-		return (1);
-	if (!mlx->game->map[y_map] || x_map >= (int)ft_strlen(mlx->game->map[y_map]))
-		return (1);
-	return (mlx->game->map[y_map][x_map] == '1');
+    int map_x, map_y;
+    
+    // Convertir coordonnées pixels en indices de la map
+    map_x = (int)(x / TILE_SIZE);
+    map_y = (int)(y / TILE_SIZE);
+    
+    // Vérifier limites
+    if (map_x < 0 || map_y < 0 || map_y >= mlx->game->height_map || map_x >= mlx->game->width_map)
+        return 1;  // Hors limites = mur
+    
+    // Vérifier si c'est un mur
+    return (mlx->game->map[map_y][map_x] == '1');
 }
