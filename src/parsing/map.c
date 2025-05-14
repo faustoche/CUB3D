@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: faustoche <faustoche@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 16:31:53 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/05/13 09:44:31 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/05/14 15:42:13 by faustoche        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ static int	count_line(char *filename)
 	{
 		if (line[0] != '\n')
 			count++;
-		//free(line);
 		line = get_next_line(fd);
 	}
 	close(fd);
@@ -82,13 +81,34 @@ int	open_map(char **av, t_game *game)
 		return (1);
 	}
 	game->height_map = 0;
-    game->width_map = 0;
-    while (game->map[game->height_map])
-    {
-        int len = ft_strlen(game->map[game->height_map]);
-        if (len > game->width_map)
-            game->width_map = len;
-        game->height_map++;
-    }
+	game->width_map = 0;
+	while (game->map[game->height_map])
+	{
+		int len = ft_strlen(game->map[game->height_map]);
+		if (len > game->width_map)
+			game->width_map = len;
+		game->height_map++;
+	}
 	return (0);
 }
+
+
+// vérifie dans le fichier les datas du début 
+
+// void	init_lines(char *line, t_map *map)
+// {
+// 	if (ft_strncmp(line, "NO ", 3) == 0)
+// 		map->no_path = ft_strdup(line + 3);
+// 	else if (ft_strncmp(line, "SO ", 3) == 0)
+// 		map->so_path = ft_strdup(line + 3);
+// 	else if (ft_strncmp(line, "WE ", 3) == 0)
+// 		map->we_path = ft_strdup(line + 3);
+// 	else if (ft_strncmp(line, "EA ", 3) == 0)
+// 		map->ea_path = ft_strdup(line + 3);
+// 	else if (ft_strncmp(line, "F ", 2) == 0)
+// 		map->floor_clr = ft_strdup(line + 2);
+// 	else if (ft_strncmp(line, "C ", 2) == 0)
+// 		map->ceiling_clr = ft_strdup(line + 2);
+// 	else if (ft_strcmp(line, "Z") == 0)
+// 		map->player = ft_strdup(line);
+// }
