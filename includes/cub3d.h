@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: faustoche <faustoche@student.42.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/14 10:24:38 by faustoche         #+#    #+#             */
+/*   Updated: 2025/05/14 16:01:39 by faustoche        ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef _CUB3D_H
 # define _CUB3D_H
 
@@ -15,6 +27,7 @@
 # include "../minilibx-linux/mlx.h"
 # include "../get_next_line/get_next_line.h"
 # include "../libft/libft.h"
+# include "cub3d_bonus.h"
 
 /*--------------- DEFINES ---------------*/
 
@@ -64,6 +77,7 @@ typedef struct s_ray
 	double	ray_angle;
 	double	distance;
 	int		flag;
+	char	hit_cell;
 }	t_ray;
 
 typedef struct s_mlx
@@ -94,13 +108,11 @@ void	cast_rays(t_mlx *mlx);
 
 /// RENDERING ///
 void	ft_mlx_pixel_put(t_mlx *mlx, int x, int y, int color);
-void	draw_floor_ceiling(t_mlx *mlx, int ray, int top_pixel, int bottom_pixel);
-int		get_color(t_mlx *mlx);
-void	draw_wall(t_mlx *mlx, int ray, int top_pixel, int bottom_pixel);
 void	render_wall(t_mlx *mlx, int ray);
 
 /// INIT GAME ///
 void	init_datas(t_game *game);
+void	init_player(t_player *player, t_game *game);
 void	init_lines(char *line, t_game *map);
 void	find_player(t_game *game);
 void	exit_game(t_mlx *mlx);

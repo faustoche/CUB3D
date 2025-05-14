@@ -6,7 +6,7 @@
 /*   By: faustoche <faustoche@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 16:31:59 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/05/13 20:47:28 by faustoche        ###   ########.fr       */
+/*   Updated: 2025/05/14 16:01:14 by faustoche        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,31 +25,9 @@ static int	main_loop(void	*param)
 	mlx->img = mlx_new_image(mlx->game->mlx_ptr, WIDTH, HEIGHT); // crée une nouvelle image
 	hook(mlx, move_x, move_y);
 	cast_rays(mlx);
+	draw_minimap(mlx);
 	mlx_put_image_to_window(mlx->game->mlx_ptr, mlx->game->win_ptr, mlx->img, 0, 0);
 	return (0);
-}
-
-
-/* 
-* TILE_SIZE correspond à la taille en pixel d'une case sur la map (1/0)
-* Game->player x/y * TILE_SIZE donne la position en pixels du coin 
-	supérieur gauche de la case
-* En ajoutant TILE_SIZE / 2, on place le joueur au centre de la case, ce qui
-	pratique pour le raycasting (les rayons doivent partir du milieu de la case
-	pour que ce soit visuellement correct)
-* L'angle représente l'orientation du joueur dans l'espace 2D, mesuré en radians.
-* On garde l'angle à 60 degré car c'est l'angle le plus équilibré visuellement
-*/
-
-static void	init_player(t_player *player, t_game *game)
-{
-	player->player_x = game->player_x * TILE_SIZE + TILE_SIZE / 2;
-	player->player_y = game->player_y * TILE_SIZE + TILE_SIZE / 2;
-	player->angle = 3 * M_PI / 2;
-	player->fov_rd = (60 * M_PI) / 180; // conversion de l'angle de 60 degres en radians
-	player->rot = 0; // rotation de la vue, tourner à gauche ou à droite 
-	player->left_right = 0;
-	player->up_down = 0;
 }
 
 int main(int ac, char **av)
@@ -82,6 +60,16 @@ int main(int ac, char **av)
 	mlx.ray = ray;
 	mlx_loop_hook(game->mlx_ptr, &main_loop, &mlx);
 	mlx_key_hook(game->mlx_ptr, &key_input, &mlx);
+	mlx_hook(game->win_ptr, EVENT_MOUSE_CODE, 0, &mouse_handler, &mlx); // bonus pour la souris
 	mlx_loop(game->mlx_ptr);
+	if (game->map)
+    {
+        for (int i = 0; game->map[i]; i++)
+            free(game->map[i]);
+        free(game->map);
+    }
+    free(game);
+    free(player);
+    free(ray);
 	return (0);
 }

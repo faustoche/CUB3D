@@ -6,19 +6,11 @@
 /*   By: faustoche <faustoche@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 16:47:39 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/05/13 14:54:19 by faustoche        ###   ########.fr       */
+/*   Updated: 2025/05/14 16:01:18 by faustoche        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-// initialiser la minilibx
-// créer une fenêtre
-// charger les textures murales
-// créer une image pour dessiner chaque frame
-// initialiser la position du joueur
-// initialiser la direction (vecteur)
-// initialiser le plan de caméra (vecteur)
 
 void	init_datas(t_game *game)
 {
@@ -27,26 +19,6 @@ void	init_datas(t_game *game)
 	game->height_map = 0;
 	game->width_map = 0;
 }
-
-// vérifie dans le fichier les datas du début 
-
-// void	init_lines(char *line, t_map *map)
-// {
-// 	if (ft_strncmp(line, "NO ", 3) == 0)
-// 		map->no_path = ft_strdup(line + 3);
-// 	else if (ft_strncmp(line, "SO ", 3) == 0)
-// 		map->so_path = ft_strdup(line + 3);
-// 	else if (ft_strncmp(line, "WE ", 3) == 0)
-// 		map->we_path = ft_strdup(line + 3);
-// 	else if (ft_strncmp(line, "EA ", 3) == 0)
-// 		map->ea_path = ft_strdup(line + 3);
-// 	else if (ft_strncmp(line, "F ", 2) == 0)
-// 		map->floor_clr = ft_strdup(line + 2);
-// 	else if (ft_strncmp(line, "C ", 2) == 0)
-// 		map->ceiling_clr = ft_strdup(line + 2);
-// 	else if (ft_strcmp(line, "Z") == 0)
-// 		map->player = ft_strdup(line);
-// }
 
 void	find_player(t_game *game)
 {
@@ -70,6 +42,28 @@ void	find_player(t_game *game)
 		}
 		y++;
 	}
+}
+
+/* 
+* TILE_SIZE correspond à la taille en pixel d'une case sur la map (1/0)
+* Game->player x/y * TILE_SIZE donne la position en pixels du coin 
+	supérieur gauche de la case
+* En ajoutant TILE_SIZE / 2, on place le joueur au centre de la case, ce qui
+	pratique pour le raycasting (les rayons doivent partir du milieu de la case
+	pour que ce soit visuellement correct)
+* L'angle représente l'orientation du joueur dans l'espace 2D, mesuré en radians.
+* On garde l'angle à 60 degré car c'est l'angle le plus équilibré visuellement
+*/
+
+void	init_player(t_player *player, t_game *game)
+{
+	player->player_x = game->player_x * TILE_SIZE + TILE_SIZE / 2;
+	player->player_y = game->player_y * TILE_SIZE + TILE_SIZE / 2;
+	player->angle = 3 * M_PI / 2;
+	player->fov_rd = (60 * M_PI) / 180; // conversion de l'angle de 60 degres en radians
+	player->rot = 0; // rotation de la vue, tourner à gauche ou à droite 
+	player->left_right = 0;
+	player->up_down = 0;
 }
 
 void	exit_game(t_mlx *mlx)

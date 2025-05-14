@@ -6,7 +6,7 @@
 /*   By: faustoche <faustoche@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 19:50:34 by faustoche         #+#    #+#             */
-/*   Updated: 2025/05/13 20:34:00 by faustoche        ###   ########.fr       */
+/*   Updated: 2025/05/14 15:40:49 by faustoche        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,17 +65,16 @@ int	init_ray_direction(float angle, float *inter, float *step, int horizon) // i
 
 int is_wall(float x, float y, t_mlx *mlx)
 {
-    int	map_x;
-	int	map_y;
-    
-    // Convertir coordonnées pixels en indices de la map
-    map_x = (int)(x / TILE_SIZE);
-    map_y = (int)(y / TILE_SIZE);
-    
-    // Vérifier limites
-    if (map_x < 0 || map_y < 0 || map_y >= mlx->game->height_map || map_x >= mlx->game->width_map)
-        return 1;  // Hors limites = mur
-    
-    // Vérifier si c'est un mur
-    return (mlx->game->map[map_y][map_x] == '1');
+	int		map_x;
+	int		map_y;
+	char	tile;
+
+	map_x = (int)(x / TILE_SIZE);
+	map_y = (int)(y / TILE_SIZE);
+	if (map_x < 0 || map_y < 0 || map_y >= mlx->game->height_map || map_x >= mlx->game->width_map)
+		return (1);
+	tile = mlx->game->map[map_y][map_x];
+	if (tile == '1' || tile == 'D') // mur OU porte fermée
+		return (1);
+	return (0);
 }
