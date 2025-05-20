@@ -21,8 +21,9 @@ OBJS_DIR		= obj
 # ************************************************************************ #
 
 CUB3D			= 	$(addprefix $(SRCS_DIR)/, main.c\
-					bonus/doors.c\
-					bonus/mini_map.c\
+					bonus/minimap_draw1.c\
+					bonus/minimap_draw2.c\
+					bonus/minimap_rays.c\
 					bonus/mouse_event.c\
 					parsing/map.c\
 					raycasting/init_rays.c\

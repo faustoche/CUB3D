@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 10:24:38 by faustoche         #+#    #+#             */
-/*   Updated: 2025/05/20 11:51:05 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/05/20 17:55:42 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@
 # define MINIMAP_SIZE 200 // taille
 # define MINIMAP_TILE 10
 # define MINIMAP_RADIUS 15 // echelle de la map par rapport a la ti
-#define MINIMAP_RADIUS_X 15
-#define MINIMAP_RADIUS_Y 9
+# define MINIMAP_RADIUS_X 15
+# define MINIMAP_RADIUS_Y 9
 # define WALL_COLOR     0x004400 // Vert foncé (murs = végétation dense)
 # define FLOOR_COLOR    0x228B22 // Vert jungle (sol)
 # define PLAYER_COLOR   0xFFD700 // Jaune dino
@@ -91,6 +91,15 @@ typedef struct s_ray
 	double	distance;
 	int		flag;
 	char	hit_cell;
+
+	float	ray_x;
+	float	ray_y;
+	float	sin_a;
+	float	cos_a;
+	float	next_x;
+	float	next_y;
+	float	dx;
+	float	dy;
 }	t_ray;
 
 typedef struct s_mlx
@@ -105,6 +114,23 @@ typedef struct s_mlx
 	t_player	*player;
 }	t_mlx;
 
+typedef struct s_minimap
+{
+	t_mlx	*mlx;
+	int		py;
+	int		px;
+	int		origin_x;
+	int		origin_y;
+	int		player_tile_x;
+	int		player_tile_y;
+	int		center_x;
+	int		center_y;
+	int		color;
+	double	ray_x;
+	double	ray_y;
+	double	dx;
+	double	dy;
+}	t_minimap;
 
 /*-------------- FUNCTIONS --------------*/
 
@@ -118,6 +144,7 @@ int		init_ray_direction(float angle, float *inter, float *step, int horizon);
 int		is_wall(float x, float y, t_mlx *mlx);
 float	angle_to_radians(float angle);
 void	cast_rays(t_mlx *mlx);
+float	cal_dist(float x1, float y1, float x2, float y2);
 
 /// RENDERING ///
 void	ft_mlx_pixel_put(t_mlx *mlx, int x, int y, int color);
@@ -131,15 +158,15 @@ void	find_player(t_game *game);
 void	exit_game(t_mlx *mlx);
 
 /// MOVEMENTS //
-
 int		key_input(int key, void *param);
 void	hook(t_mlx *mlx, double move_x, double move_y);
 void	rotate_player(t_mlx *mlx, int i);
 
 /// BONUS ///
-
-void	open_door_near_player(t_mlx *mlx);
 void	draw_minimap(t_mlx *mlx);
+void	draw_minimap_player(t_minimap *mini);
+void	draw_direction_text(t_minimap *mini);
 int		mouse_handler(int x, int y, void *param);
+void	draw_direction_ray(t_minimap *mini, double angle);
 
 #endif
