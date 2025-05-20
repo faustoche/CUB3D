@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faustoche <faustoche@student.42.fr>        +#+  +:+       +#+        */
+/*   By: asaulnie <asaulnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 10:24:38 by faustoche         #+#    #+#             */
-/*   Updated: 2025/05/14 16:01:39 by faustoche        ###   ########.fr       */
+/*   Updated: 2025/05/20 20:27:37 by asaulnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,22 @@
 
 /*------------- STRUCTURES --------------*/
 
+typedef struct s_meta
+{
+	char	*no;
+	char	*so;
+	char	*we;
+	char	*ea;
+	int		f_r;
+	int		f_g;
+	int		f_b;
+	int		c_r;
+	int		c_g;
+	int		c_b;
+	int		f_set;
+	int		c_set;
+}	t_meta;
+
 typedef struct s_game
 {
 	char	**map;
@@ -59,6 +75,7 @@ typedef struct s_game
 	int		height_map;
 	void	*mlx_ptr;
 	void	*win_ptr;
+	t_meta	meta;
 }	t_game;
 
 typedef struct s_player
@@ -96,8 +113,46 @@ typedef struct s_mlx
 /*-------------- FUNCTIONS --------------*/
 
 /// PARSING ///
-int		open_map(char **av, t_game *game);
-void	display_map(t_game *game);
+
+// map_colors.c
+int parse_rgb(char *str, char ***rgb_out);
+void assign_colors(t_meta *m, char type, int vals[3]);
+int validate_count(char **rgb, char *header);
+int validate_components(char **rgb, char *header, int vals[3]);
+int set_color(char **parts, t_meta *m);
+
+// map_textures.c
+int set_texture(char **p, t_meta *m);
+int all_header_fields_set(t_meta *m);
+int parse_header_line(char *line, t_meta *m);
+int read_header(int fd, t_meta *m);
+int	init_fd_and_header(const char *path, t_game *g, int *fd);
+
+// map_validation.c
+int	process_map_row(t_game *g, char *line, int rows, int width);
+int validate_map(t_game *g);
+int valid_map_chars(char *line);
+
+// map.c
+// static int	fill_map(t_game *game, char *filename);
+// static int	count_line(char *filename);
+void	init_meta(t_meta *m);
+int	open_map(const char *path, t_game *g);
+// int	open_map(char **av, t_game *game);
+
+// parser_utils.c
+void free_split(char **arr);
+int	is_blank_line(char *line);
+int	read_first_map_line(int fd, char **line);
+void chomp_newline(char *line);
+int	skip_blank_preface(int fd, char **line);
+
+// parsing.c
+void	init_map_state(t_game *g, int *rows, int *width);
+int	process_map_lines(int fd, t_game *g, int rows, int width);
+int	handle_blank_or_row(char *line, int *rows, int *ended);
+int	parse_map(int fd, t_game *g);
+int	finalize_map(t_game *g);
 
 /// RAYCASTING ///
 int		check_angle_direction(float angle, char c);
