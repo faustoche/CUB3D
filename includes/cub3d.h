@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faustoche <faustoche@student.42.fr>        +#+  +:+       +#+        */
+/*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 10:24:38 by faustoche         #+#    #+#             */
-/*   Updated: 2025/05/14 16:01:39 by faustoche        ###   ########.fr       */
+/*   Updated: 2025/05/20 11:51:05 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # include "../minilibx-linux/mlx.h"
 # include "../get_next_line/get_next_line.h"
 # include "../libft/libft.h"
-# include "cub3d_bonus.h"
+//# include "cub3d_bonus.h"
 
 /*--------------- DEFINES ---------------*/
 
@@ -39,6 +39,19 @@
 # define PLAYER_SPEED 4 // a tester
 # define M_PI   3.14159265358979323846
 # define MAX_DISTANCE 1000.0
+
+# define EVENT_MOUSE_CODE 6
+# define MINIMAP_SIZE 200 // taille
+# define MINIMAP_TILE 10
+# define MINIMAP_RADIUS 15 // echelle de la map par rapport a la ti
+#define MINIMAP_RADIUS_X 15
+#define MINIMAP_RADIUS_Y 9
+# define WALL_COLOR     0x004400 // Vert foncé (murs = végétation dense)
+# define FLOOR_COLOR    0x228B22 // Vert jungle (sol)
+# define PLAYER_COLOR   0xFFD700 // Jaune dino
+# define RAY_COLOR      0xFF4500 // Orange laser
+# define EMPTY_COLOR    0x222222 // Gris foncé
+# define BORDER_COLOR   0x8B0000 // Rouge sombre
 
 # define NORTH 'NO'
 # define SOUTH 'SO'
@@ -122,5 +135,11 @@ void	exit_game(t_mlx *mlx);
 int		key_input(int key, void *param);
 void	hook(t_mlx *mlx, double move_x, double move_y);
 void	rotate_player(t_mlx *mlx, int i);
+
+/// BONUS ///
+
+void	open_door_near_player(t_mlx *mlx);
+void	draw_minimap(t_mlx *mlx);
+int		mouse_handler(int x, int y, void *param);
 
 #endif

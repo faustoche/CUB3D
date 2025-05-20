@@ -3,14 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faustoche <faustoche@student.42.fr>        +#+  +:+       +#+        */
+/*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 16:31:59 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/05/14 16:01:14 by faustoche        ###   ########.fr       */
+/*   Updated: 2025/05/20 12:21:25 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int key_release(int key, void *param)
+{
+	t_mlx *mlx = (t_mlx *)param;
+
+	if (key == XK_W || key == XK_w || key == XK_Up || key == XK_S || key == XK_s || key == XK_Down)
+		mlx->player->up_down = 0;
+	if (key == XK_A || key == XK_a || key == XK_D || key == XK_d)
+		mlx->player->left_right = 0;
+	if (key == XK_Left || key == XK_Right)
+		mlx->player->rot = 0;
+
+	return 0;
+}
+
 
 static int	main_loop(void	*param)
 {
@@ -60,6 +75,8 @@ int main(int ac, char **av)
 	mlx.ray = ray;
 	mlx_loop_hook(game->mlx_ptr, &main_loop, &mlx);
 	mlx_key_hook(game->mlx_ptr, &key_input, &mlx);
+	mlx_hook(game->win_ptr, KeyPress, KeyPressMask, key_input, &mlx);
+	mlx_hook(game->win_ptr, KeyRelease, KeyReleaseMask, key_release, &mlx);
 	mlx_hook(game->win_ptr, EVENT_MOUSE_CODE, 0, &mouse_handler, &mlx); // bonus pour la souris
 	mlx_loop(game->mlx_ptr);
 	if (game->map)
