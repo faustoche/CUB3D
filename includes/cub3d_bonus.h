@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cub3d_bonus.h                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/14 10:24:28 by faustoche         #+#    #+#             */
-/*   Updated: 2025/05/20 11:48:24 by fcrocq           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #ifndef _CUB3D_BONUS_H
 # define _CUB3D_BONUS_H
@@ -29,6 +18,10 @@
 # define RAY_COLOR      0xFF4500 // Orange laser
 # define EMPTY_COLOR    0x222222 // Gris foncé
 # define BORDER_COLOR   0x8B0000 // Rouge sombre
+
+/*--------------- TYPEDEFS ---------------*/
+
+typedef struct s_mlx t_mlx;
 
 /*--------------- FUNCTIONS ---------------*/
 

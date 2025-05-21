@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   movements.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/30 11:16:03 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/05/20 14:48:00 by fcrocq           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "cub3d.h"
 
@@ -85,6 +74,8 @@ int	key_input(int key, void *param)
 	t_mlx	*mlx;
 
 	mlx = (t_mlx *)param;
+	// if (key == XK_O || key == XK_o)
+	// 	open_door_near_player(mlx);
 	if (key == XK_W || key == XK_w || key == XK_Up)
 		mlx->player->up_down = 1;
 	else if (key == XK_S || key == XK_s || key == XK_Down)

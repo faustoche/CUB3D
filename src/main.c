@@ -1,14 +1,6 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/28 16:31:59 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/05/21 16:20:43 by fcrocq           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+
+
+
 
 #include "cub3d.h"
 
@@ -59,9 +51,18 @@ int	main(int ac, char **av)
 	game = malloc(sizeof(t_game));
 	player = calloc(1, sizeof(t_player));
 	ray = calloc(1, sizeof(t_ray));
-	init_datas(game);
-	if (open_map(av, game) != 0)
-		return (1);
+	init_datas(game); // initialise les datas
+	// if (open_map(av, game) != 0) // ouvre la map
+	if (open_map(av[1], game) == 0)
+	{
+		printf("parsing ok!\n");
+		return(0);
+	}
+	else
+	{
+		return(0);
+	}
+		// return (1);
 	game->mlx_ptr = mlx_init();
 	if (!game->mlx_ptr)
 		return (printf("Error\nMLX init failed\n"), 1);
