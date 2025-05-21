@@ -169,12 +169,9 @@ int validate_map(t_game *g);
 int valid_map_chars(char *line);
 
 // map.c
-// static int	fill_map(t_game *game, char *filename);
-// static int	count_line(char *filename);
 void	init_meta(t_meta *m);
 int	open_map(const char *path, t_game *g);
 int	combine_colors(int r, int g, int b);
-// int	open_map(char **av, t_game *game);
 
 // parser_utils.c
 void free_split(char **arr);
