@@ -6,7 +6,7 @@
 /*   By: asaulnie <asaulnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 14:53:23 by asaulnie          #+#    #+#             */
-/*   Updated: 2025/05/21 13:30:02 by asaulnie         ###   ########.fr       */
+/*   Updated: 2025/05/21 14:13:07 by asaulnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	read_header(int fd, t_meta *m)
 	return (1);
 }
 
-int	init_fd_and_header(const char *path, t_game *g, int *fd)
+int	open_and_read_header(const char *path, t_game *g, int *fd)
 {
 	*fd = open(path, O_RDONLY);
 	if (*fd < 0)
@@ -97,7 +97,6 @@ int	init_fd_and_header(const char *path, t_game *g, int *fd)
 		printf("Error\nCannot open file\n");
 		return (-1);
 	}
-	init_meta(&g->meta);
 	if (read_header(*fd, &g->meta) != 0)
 	{
 		close(*fd);

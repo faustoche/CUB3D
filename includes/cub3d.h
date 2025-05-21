@@ -6,7 +6,7 @@
 /*   By: asaulnie <asaulnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 10:24:38 by faustoche         #+#    #+#             */
-/*   Updated: 2025/05/20 20:27:37 by asaulnie         ###   ########.fr       */
+/*   Updated: 2025/05/21 14:14:14 by asaulnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,9 @@ typedef struct s_mlx
 
 /// PARSING ///
 
+// enclosure_check.c
+int	find_closure_error(t_game *g, int *ex, int *ey);
+
 // map_colors.c
 int parse_rgb(char *str, char ***rgb_out);
 void assign_colors(t_meta *m, char type, int vals[3]);
@@ -126,7 +129,7 @@ int set_texture(char **p, t_meta *m);
 int all_header_fields_set(t_meta *m);
 int parse_header_line(char *line, t_meta *m);
 int read_header(int fd, t_meta *m);
-int	init_fd_and_header(const char *path, t_game *g, int *fd);
+int	open_and_read_header(const char *path, t_game *g, int *fd);
 
 // map_validation.c
 int	process_map_row(t_game *g, char *line, int rows, int width);
@@ -150,9 +153,6 @@ int	skip_blank_preface(int fd, char **line);
 // parsing.c
 void	init_map_state(t_game *g, int *rows, int *width);
 int	process_map_lines(int fd, t_game *g, int rows, int width);
-int	handle_blank_or_row(char *line, int *rows, int *ended);
-int	parse_map(int fd, t_game *g);
-int	finalize_map(t_game *g);
 
 /// RAYCASTING ///
 int		check_angle_direction(float angle, char c);

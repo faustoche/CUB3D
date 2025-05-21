@@ -21,6 +21,7 @@ OBJS_DIR		= obj
 # ************************************************************************ #
 
 CUB3D			= 	$(addprefix $(SRCS_DIR)/, main.c\
+					parsing/enclosure_check.c\
 					parsing/map_colors.c\
 					parsing/map_textures.c\
 					parsing/map_validation.c\

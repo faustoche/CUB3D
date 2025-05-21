@@ -6,7 +6,7 @@
 /*   By: asaulnie <asaulnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 14:52:49 by asaulnie          #+#    #+#             */
-/*   Updated: 2025/05/21 13:17:41 by asaulnie         ###   ########.fr       */
+/*   Updated: 2025/05/21 14:47:28 by asaulnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ static int	check_row_length(char *line, int rows, int width)
 		return (len);
 	if (len != width)
 	{
-		free(line);
 		printf("Error\nInconsistent row length at row %d\n", rows);
 		return (-1);
 	}
@@ -65,17 +64,6 @@ int	process_map_row(t_game *g, char *line, int rows, int width)
 	return (0);
 }
 
-static int	out_of_bounds(t_game *g, int x, int y)
-{
-	if (y == 0 || y == g->height_map - 1 || x == 0 || x == g->width_map - 1)
-		return (1);
-	if (g->map[y - 1][x] == '\0' || g->map[y + 1][x] == '\0')
-		return (1);
-	if (g->map[y][x - 1] == '\0' || g->map[y][x + 1] == '\0')
-		return (1);
-	return (0);
-}
-
 static void	count_players(t_game *g, int *player_count)
 {
 	int	y;
@@ -96,48 +84,21 @@ static void	count_players(t_game *g, int *player_count)
 	}
 }
 
-static int	find_closure_error(t_game *g, int *ex, int *ey)
-{
-	int		y;
-	int		x;
-	char	c;
-
-	y = 0;
-	while (g->map[y])
-	{
-		x = 0;
-		while (g->map[y][x])
-		{
-			c = g->map[y][x];
-			if ((c == '0' || ft_strchr("NSEW", c))
-				&& out_of_bounds(g, x, y))
-			{
-				*ex = x;
-				*ey = y;
-				return (1);
-			}
-			x++;
-		}
-		y++;
-	}
-	return (0);
-}
-
 int	validate_map(t_game *g)
 {
 	int	player_count;
 	int	err_x;
 	int	err_y;
 
+	if (find_closure_error(g, &err_x, &err_y))
+	{
+		printf("Error\nMap not closed at %d,%d\n", err_x, err_y);
+		return (1);
+	}
 	count_players(g, &player_count);
 	if (player_count != 1)
 	{
 		printf("Error\nExpected 1 player, found %d\n", player_count);
-		return (1);
-	}
-	if (find_closure_error(g, &err_x, &err_y))
-	{
-		printf("Error\nMap not closed at %d,%d\n", err_x, err_y);
 		return (1);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: asaulnie <asaulnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 14:53:15 by asaulnie          #+#    #+#             */
-/*   Updated: 2025/05/21 13:16:05 by asaulnie         ###   ########.fr       */
+/*   Updated: 2025/05/21 13:46:40 by asaulnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,15 @@ int	set_color(char **parts, t_meta *m)
 {
 	char	**rgb;
 	int		vals[3];
-	int		ok;
 
 	if (!parse_rgb(parts[1], &rgb))
 		return (0);
-	ok = validate_count(rgb, parts[0])
-		&& validate_components(rgb, parts[0], vals);
-	if (!ok)
+	if (!validate_count(rgb, parts[0]))
+	{
+		free_split(rgb);
+		return (0);
+	}
+	if (!validate_components(rgb, parts[0], vals))
 	{
 		free_split(rgb);
 		return (0);

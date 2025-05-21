@@ -6,7 +6,7 @@
 /*   By: asaulnie <asaulnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 16:31:53 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/05/21 13:35:22 by asaulnie         ###   ########.fr       */
+/*   Updated: 2025/05/21 14:14:36 by asaulnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,47 +27,44 @@ int	valid_map_chars(char *line)
 	return (1);
 }
 
+static int	handle_map_line(t_game *g, char *line, int rows, int width)
+{
+	if (is_blank_line(line))
+		return (printf("Error\nBlank line inside map\n"), 0);
+	if (!valid_map_chars(line))
+		return (printf("Error\nBad char in map\n"), 0);
+	if (process_map_row(g, line, rows, width) != 0)
+		return (0);
+	return (1);
+}
+
 int	process_map_lines(int fd, t_game *g, int rows, int width)
 {
 	char	*line;
+	int		status;
 
 	line = get_next_line(fd);
 	while (line)
 	{
 		chomp_newline(line);
-		if (is_blank_line(line))
-		{
-			free(line);
-			printf("Error\nBlank line inside map\n");
-			return (0);
-		}
-		if (!valid_map_chars(line))
-		{
-			free(line);
-			printf("Error\nBad char in map\n");
-			return (0);
-		}
-		if (process_map_row(g, line, rows, width) != 0)
-		{
-			free(line);
-			return (0);
-		}
+		status = handle_map_line(g, line, rows, width);
 		free(line);
+		if (status != 1)
+			return (0);
 		rows++;
 		line = get_next_line(fd);
 	}
 	return (1);
 }
 
-void	init_map_state(t_game *g, int *rows, int *width)
+void	init_game(t_game *g, int *rows, int *width)
 {
+	t_meta	*m;
+
 	*rows = 0;
 	*width = -1;
 	g->map = NULL;
-}
-
-void	init_meta(t_meta *m)
-{
+	m = &g->meta;
 	m->no = NULL;
 	m->so = NULL;
 	m->we = NULL;
@@ -88,9 +85,9 @@ int	open_map(const char *path, t_game *g)
 	int		rows;
 	char	*first_line;
 
-	if (init_fd_and_header(path, g, &fd) < 0)
+	init_game(g, &rows, &g->width_map);
+	if (open_and_read_header(path, g, &fd) < 0)
 		return (1);
-	init_map_state(g, &rows, &g->width_map);
 	if (!read_first_map_line(fd, &first_line))
 	{
 		close(fd);
