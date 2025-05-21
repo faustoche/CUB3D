@@ -64,6 +64,8 @@ typedef struct s_meta
 	int		c_r;
 	int		c_g;
 	int		c_b;
+	int		f_color;
+	int		c_color;
 	int		f_set;
 	int		c_set;
 }	t_meta;
@@ -77,6 +79,7 @@ typedef struct s_game
 	int		height_map;
 	void	*mlx_ptr;
 	void	*win_ptr;
+	char	player_dir;
 	t_meta	meta;
 }	t_game;
 
@@ -118,6 +121,7 @@ typedef struct s_mlx
 	t_ray		*ray;
 	t_game		*game;
 	t_player	*player;
+	t_meta		*meta;
 }	t_mlx;
 
 typedef struct s_minimap
@@ -169,6 +173,7 @@ int valid_map_chars(char *line);
 // static int	count_line(char *filename);
 void	init_meta(t_meta *m);
 int	open_map(const char *path, t_game *g);
+int	combine_colors(int r, int g, int b);
 // int	open_map(char **av, t_game *game);
 
 // parser_utils.c

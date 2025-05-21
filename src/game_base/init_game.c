@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 16:47:39 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/05/20 14:38:16 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/05/21 17:20:04 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,11 @@ void	find_player(t_game *game)
 		x = 0;
 		while (game->map[y][x])
 		{
-			if (game->map[y][x] == 'Z')
+			if (ft_strchr("NSEW", game->map[y][x]))
 			{
 				game->player_x = x;
 				game->player_y = y;
+				game->player_dir = game->map[y][x];
 				game->map[y][x] = '0';
 				return ;
 			}
@@ -66,7 +67,14 @@ void	init_player(t_player *player, t_game *game)
 {
 	player->player_x = game->player_x * TILE_SIZE + TILE_SIZE / 2;
 	player->player_y = game->player_y * TILE_SIZE + TILE_SIZE / 2;
-	player->angle = 3 * M_PI / 2;
+	if (game->player_dir == 'N')
+		player->angle = 3 * M_PI / 2;
+	else if (game->player_dir == 'S')
+		player->angle = M_PI / 2;
+	else if (game->player_dir == 'E')
+		player->angle = 0;
+	else if (game->player_dir == 'W')
+		player->angle = M_PI;
 	player->fov_rd = (60 * M_PI) / 180;
 	player->rot = 0;
 	player->left_right = 0;
