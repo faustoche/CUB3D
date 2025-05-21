@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faustoche <faustoche@student.42.fr>        +#+  +:+       +#+        */
+/*   By: asaulnie <asaulnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 09:25:46 by faustoche         #+#    #+#             */
-/*   Updated: 2025/05/14 15:56:24 by faustoche        ###   ########.fr       */
+/*   Updated: 2025/05/20 15:24:11 by asaulnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void draw_direction_ray(t_mlx *mlx, int minimap_center_x, int minimap_cen
 		offset_y = (ray_y - mlx->player->player_y) / TILE_SIZE * MINIMAP_TILE;
 		draw_x = minimap_center_x + (int)offset_x;
 		draw_y = minimap_center_y - (int)offset_y;
-		ft_pixel_put(mlx, draw_x, draw_y, RAY_COLOR);
+		mlx_pixel_put(mlx, draw_x, draw_y, RAY_COLOR);
 		i++;
 	}
 }
@@ -102,7 +102,7 @@ void draw_minimap(t_mlx *mlx)
 				x = 0;
 				while (x < MINIMAP_TILE)
 				{
-					ft_pixel_put(mlx, screen_x + x, screen_y + y, color);
+					mlx_pixel_put(mlx, screen_x + x, screen_y + y, color);
 					x++;
 				}
 				y++;
@@ -120,7 +120,7 @@ void draw_minimap(t_mlx *mlx)
 		x = -player_size / 2;
 		while (x <= player_size / 2)
 		{
-			ft_pixel_put(mlx, center_x + x, center_y + y, PLAYER_COLOR);
+			mlx_pixel_put(mlx, center_x + x, center_y + y, PLAYER_COLOR);
 			x++;
 		}
 		y++;

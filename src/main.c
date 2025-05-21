@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faustoche <faustoche@student.42.fr>        +#+  +:+       +#+        */
+/*   By: asaulnie <asaulnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 16:31:59 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/05/14 16:01:14 by faustoche        ###   ########.fr       */
+/*   Updated: 2025/05/20 18:40:27 by asaulnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	main_loop(void	*param)
 	mlx->img = mlx_new_image(mlx->game->mlx_ptr, WIDTH, HEIGHT); // crée une nouvelle image
 	hook(mlx, move_x, move_y);
 	cast_rays(mlx);
-	draw_minimap(mlx);
+// 	draw_minimap(mlx);
 	mlx_put_image_to_window(mlx->game->mlx_ptr, mlx->game->win_ptr, mlx->img, 0, 0);
 	return (0);
 }
@@ -43,8 +43,17 @@ int main(int ac, char **av)
 	player = calloc(1, sizeof(t_player));
 	ray = calloc(1, sizeof(t_ray));
 	init_datas(game); // initialise les datas
-	if (open_map(av, game) != 0) // ouvre la map
-		return (1);
+	// if (open_map(av, game) != 0) // ouvre la map
+	if (open_map(av[1], game) == 0)
+	{
+		printf("parsing ok!\n");
+		return(0);
+	}
+	else
+	{
+		return(0);
+	}
+		// return (1);
 	game->mlx_ptr = mlx_init();
 	if (!game->mlx_ptr)
 		return (printf("Error\nMLX init failed\n"), 1);
@@ -60,7 +69,7 @@ int main(int ac, char **av)
 	mlx.ray = ray;
 	mlx_loop_hook(game->mlx_ptr, &main_loop, &mlx);
 	mlx_key_hook(game->mlx_ptr, &key_input, &mlx);
-	mlx_hook(game->win_ptr, EVENT_MOUSE_CODE, 0, &mouse_handler, &mlx); // bonus pour la souris
+//	mlx_hook(game->win_ptr, EVENT_MOUSE_CODE, 0, &mouse_handler, &mlx); // bonus pour la souris
 	mlx_loop(game->mlx_ptr);
 	if (game->map)
     {

@@ -21,14 +21,18 @@ OBJS_DIR		= obj
 # ************************************************************************ #
 
 CUB3D			= 	$(addprefix $(SRCS_DIR)/, main.c\
-					parsing/map.c\
-					parsing/render_map.c\
+					parsing/enclosure_check.c\
+					parsing/map_colors.c\
+					parsing/map_textures.c\
+					parsing/map_validation.c\
+					parsing/open_map.c\
+					parsing/parser_utils.c\
 					raycasting/init_rays.c\
 					raycasting/ray_utils.c\
 					raycasting/raycasting.c\
 					rendering/render_walls.c\
-					init_game.c\
-					movements.c)
+					game_base/init_game.c\
+					game_base/movements.c)
 
 SRCS			= ${CUB3D}
 CUB3D_OBJS		= ${CUB3D:${SRCS_DIR}/%.c=$(OBJS_DIR)/%.o}

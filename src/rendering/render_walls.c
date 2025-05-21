@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_walls.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faustoche <faustoche@student.42.fr>        +#+  +:+       +#+        */
+/*   By: asaulnie <asaulnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 16:31:14 by faustoche         #+#    #+#             */
-/*   Updated: 2025/05/14 16:00:49 by faustoche        ###   ########.fr       */
+/*   Updated: 2025/05/20 15:33:33 by asaulnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ static void draw_floor_ceiling(t_mlx *mlx, int ray, int top_pixel, int bottom_pi
 
 	i = bottom_pixel;
 	while (i < HEIGHT)
-		ft_pixel_put(mlx, ray, i++, 0x615E5EFF);
+		ft_mlx_pixel_put(mlx, ray, i++, 0x615E5EFF);
 	i = 0;
 	while (i < top_pixel)
-		ft_pixel_put(mlx, ray, i++, 0x333D2EFF);
+		ft_mlx_pixel_put(mlx, ray, i++, 0x333D2EFF);
 }
 
 static int get_color(t_mlx *mlx)
@@ -65,7 +65,7 @@ static void draw_wall(t_mlx *mlx, int ray, int top_pixel, int bottom_pixel)
 
 	color = get_color(mlx);
 	while (top_pixel < bottom_pixel)
-		ft_pixel_put(mlx, ray, top_pixel++, color);
+		ft_mlx_pixel_put(mlx, ray, top_pixel++, color);
 }
 
 void render_wall(t_mlx *mlx, int ray)
