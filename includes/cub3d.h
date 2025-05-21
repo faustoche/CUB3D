@@ -52,6 +52,18 @@
 
 /*------------- STRUCTURES --------------*/
 
+typedef struct s_texture
+{
+	void	*img;
+	char	*addr;
+	int		width;
+	int		height;
+	int		bpp;
+	int		size_line;
+	int		endian;
+}	t_texture;
+
+
 typedef struct s_meta
 {
 	char	*no;
@@ -72,15 +84,19 @@ typedef struct s_meta
 
 typedef struct s_game
 {
-	char	**map;
-	int		player_x;
-	int		player_y;
-	int		width_map;
-	int		height_map;
-	void	*mlx_ptr;
-	void	*win_ptr;
-	char	player_dir;
-	t_meta	meta;
+	char		**map;
+	int			player_x;
+	int			player_y;
+	int			width_map;
+	int			height_map;
+	void		*mlx_ptr;
+	void		*win_ptr;
+	char		player_dir;
+	t_texture	north_texture;
+	t_texture	south_texture;
+	t_texture	west_texture;
+	t_texture	east_texture;
+	t_meta		meta;
 }	t_game;
 
 typedef struct s_player
@@ -100,7 +116,8 @@ typedef struct s_ray
 	double	distance;
 	int		flag;
 	char	hit_cell;
-
+	int		hit_x;
+	int		hit_y;
 	float	ray_x;
 	float	ray_y;
 	float	sin_a;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: faustoche <faustoche@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 18:42:46 by faustoche         #+#    #+#             */
-/*   Updated: 2025/05/20 17:55:26 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/05/21 22:39:13 by faustoche        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ float	walk_intersection(t_mlx *mlx, int is_horizontal)
 			&& mlx->game->map[cell_y][cell_x] != '0')
 		{
 			ray->hit_cell = mlx->game->map[cell_y][cell_x];
+			ray->hit_x = ray->next_x;
+			ray->hit_y = ray->next_y;
 			return (cal_dist(ray->ray_x, ray->ray_y, ray->next_x, ray->next_y));
 		}
 		ray->next_x += ray->dx;
