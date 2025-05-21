@@ -6,7 +6,7 @@
 /*   By: asaulnie <asaulnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 16:31:59 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/05/20 19:52:18 by asaulnie         ###   ########.fr       */
+/*   Updated: 2025/05/21 13:23:44 by asaulnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,17 @@ void	free_split(char **arr)
 	free(arr);
 }
 
-int is_blank_line(char *line)
+int	is_blank_line(char *line)
 {
-    int pos = 0;
+	int	pos;
 
-    // skip over spaces and tabs
-    while (line[pos] == ' ' || line[pos] == '\t')
-        pos++;
-
-    // if we reached the end, the entire line is whitespace
-    if (line[pos] == '\0')
-        return 1;
-    return 0;
+	pos = 0;
+	while (line[pos] == ' ' || line[pos] == '\t')
+		pos++;
+	if (line[pos] == '\0')
+		return (1);
+	return (0);
 }
-
 
 int	read_first_map_line(int fd, char **line)
 {
@@ -50,15 +47,17 @@ int	read_first_map_line(int fd, char **line)
 	return (1);
 }
 
-void chomp_newline(char *line)
+void	chomp_newline(char *line)
 {
-    char *p;
+	char	*carriage_return;
+	char	*newline;
 
-    // first strip '\r', then '\n'
-    if ((p = ft_strchr(line, '\r')) != NULL)
-        *p = '\0';
-    if ((p = ft_strchr(line, '\n')) != NULL)
-        *p = '\0';
+	carriage_return = ft_strchr(line, '\r');
+	if (carriage_return != NULL)
+		*carriage_return = '\0';
+	newline = ft_strchr(line, '\n');
+	if (newline != NULL)
+		*newline = '\0';
 }
 
 int	skip_blank_preface(int fd, char **line)

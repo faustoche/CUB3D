@@ -6,7 +6,7 @@
 /*   By: asaulnie <asaulnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 14:53:23 by asaulnie          #+#    #+#             */
-/*   Updated: 2025/05/20 20:26:14 by asaulnie         ###   ########.fr       */
+/*   Updated: 2025/05/21 13:30:02 by asaulnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,17 +70,20 @@ int	read_header(int fd, t_meta *m)
 	{
 		chomp_newline(line);
 		if (is_blank_line(line))
-			free(line);
-		else
 		{
-			if (!parse_header_line(line, m))
-			{
-				free(line);
-				return (1);
-			}
-			if (all_header_fields_set(m))
-				return (0);
+			free(line);
+			line = get_next_line(fd);
+			continue ;
 		}
+		if (!parse_header_line(line, m))
+		{
+			free(line);
+			return (1);
+		}
+		free(line);
+		if (all_header_fields_set(m))
+			return (0);
+		line = get_next_line(fd);
 	}
 	printf("Error\nMissing header fields\n");
 	return (1);

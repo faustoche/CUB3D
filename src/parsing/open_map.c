@@ -6,7 +6,7 @@
 /*   By: asaulnie <asaulnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 16:31:53 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/05/20 20:27:20 by asaulnie         ###   ########.fr       */
+/*   Updated: 2025/05/21 13:35:22 by asaulnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,29 @@ int	process_map_lines(int fd, t_game *g, int rows, int width)
 	char	*line;
 
 	line = get_next_line(fd);
-	while (line != NULL)
+	while (line)
 	{
 		chomp_newline(line);
-		if (is_blank_line(line) == 1)
+		if (is_blank_line(line))
 		{
+			free(line);
 			printf("Error\nBlank line inside map\n");
 			return (0);
 		}
-		if (valid_map_chars(line) == 0)
+		if (!valid_map_chars(line))
 		{
 			free(line);
 			printf("Error\nBad char in map\n");
 			return (0);
 		}
 		if (process_map_row(g, line, rows, width) != 0)
+		{
+			free(line);
 			return (0);
+		}
+		free(line);
 		rows++;
+		line = get_next_line(fd);
 	}
 	return (1);
 }
@@ -88,7 +94,7 @@ int	open_map(const char *path, t_game *g)
 	if (!read_first_map_line(fd, &first_line))
 	{
 		close(fd);
-		return (1); 
+		return (1);
 	}
 	if (process_map_row(g, first_line, rows, g->width_map))
 	{
