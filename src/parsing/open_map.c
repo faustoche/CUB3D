@@ -6,7 +6,7 @@
 /*   By: asaulnie <asaulnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 16:31:53 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/05/21 14:14:36 by asaulnie         ###   ########.fr       */
+/*   Updated: 2025/05/22 17:25:41 by asaulnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,11 @@ int	process_map_lines(int fd, t_game *g, int rows, int width)
 	{
 		chomp_newline(line);
 		status = handle_map_line(g, line, rows, width);
-		free(line);
 		if (status != 1)
+		{
+			free(line);
 			return (0);
+		}
 		rows++;
 		line = get_next_line(fd);
 	}
