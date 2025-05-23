@@ -6,11 +6,28 @@
 /*   By: asaulnie <asaulnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 13:42:13 by asaulnie          #+#    #+#             */
-/*   Updated: 2025/05/23 14:33:42 by asaulnie         ###   ########.fr       */
+/*   Updated: 2025/05/23 15:29:13 by asaulnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int	check_edge_row(char *row, int y)
+{
+	int	x;
+
+	x = 0;
+	while (row[x])
+	{
+		if (row[x] != '1')
+		{
+			printf("Error\nMap not closed at %d,%d\n", x, y);
+			return (1);
+		}
+		x++;
+	}
+	return (0);
+}
 
 static int	out_of_bounds(t_game *g, int x, int y)
 {

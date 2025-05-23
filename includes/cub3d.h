@@ -6,7 +6,7 @@
 /*   By: asaulnie <asaulnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 10:24:38 by faustoche         #+#    #+#             */
-/*   Updated: 2025/05/23 15:01:20 by asaulnie         ###   ########.fr       */
+/*   Updated: 2025/05/23 15:29:23 by asaulnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ typedef struct s_mlx
 
 // enclosure_check.c
 int	find_closure_error(t_game *g, int *ex, int *ey);
+int	check_edge_row(char *row, int y);
 
 // map_colors.c
 int parse_rgb(char *str, char ***rgb_out);

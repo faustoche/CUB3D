@@ -6,7 +6,7 @@
 /*   By: asaulnie <asaulnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 14:52:49 by asaulnie          #+#    #+#             */
-/*   Updated: 2025/05/23 15:14:53 by asaulnie         ###   ########.fr       */
+/*   Updated: 2025/05/23 15:29:09 by asaulnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,11 @@ int	validate_map(t_game *g)
 	int	err_x;
 	int	err_y;
 
-	if (find_closure_error(g, &err_x, &err_y))
+	if (check_edge_row(g->map[0], 0))
+		return (1);
+	if (check_edge_row(g->map[g->height_map - 1], g->height_map - 1))
+		return (1);
+	if (find_closure_error(g, &err_x, &err_y) == 1)
 	{
 		printf("Error\nMap not closed at %d,%d\n", err_x, err_y);
 		return (1);

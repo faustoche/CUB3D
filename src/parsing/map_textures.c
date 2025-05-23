@@ -6,7 +6,7 @@
 /*   By: asaulnie <asaulnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 14:53:23 by asaulnie          #+#    #+#             */
-/*   Updated: 2025/05/23 15:15:09 by asaulnie         ###   ########.fr       */
+/*   Updated: 2025/05/23 15:28:05 by asaulnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,7 @@ static int	handle_color(char *key, char *rest, t_meta *m)
 		parts[1] = rest;
 		parts[2] = NULL;
 		if (!set_color(parts, m))
-		{
-			printf("Error\nMissing or invalid color for '%s'\n", key);
 			return (-1);
-		}
 		return (1);
 	}
 	return (0);
