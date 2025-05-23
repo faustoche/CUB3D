@@ -6,7 +6,7 @@
 /*   By: faustoche <faustoche@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:55:06 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/05/21 22:52:10 by faustoche        ###   ########.fr       */
+/*   Updated: 2025/05/23 21:38:35 by faustoche        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,27 @@ static int	get_color(t_mlx *mlx)
 	}
 }
 
+void	render_wall(t_mlx *mlx, int ray)
+{
+	double	wall_height;
+	double	bottom_pixel;
+	double	top_pixel;
+
+	wall_height = (TILE_SIZE / mlx->ray->distance) * ((WIDTH / 2)
+			/ tan(mlx->player->fov_rd / 2));
+	bottom_pixel = (HEIGHT / 2) + (wall_height / 2);
+	top_pixel = (HEIGHT / 2) - (wall_height / 2);
+	if (bottom_pixel > HEIGHT)
+		bottom_pixel = HEIGHT;
+	if (top_pixel < 0)
+		top_pixel = 0;
+	draw_floor_ceiling(mlx, ray, top_pixel, bottom_pixel);
+	draw_textured_wall(mlx, ray, top_pixel, bottom_pixel);
+}
+
+
+///// TO DELETE ?? ///////
+
 // static void	draw_wall(t_mlx *mlx, int ray, int top_pixel, int bottom_pixel)
 // {
 // 	int	color;
@@ -111,20 +132,3 @@ static int	get_color(t_mlx *mlx)
 //     }
 // }
 
-void	render_wall(t_mlx *mlx, int ray)
-{
-	double	wall_height;
-	double	bottom_pixel;
-	double	top_pixel;
-
-	wall_height = (TILE_SIZE / mlx->ray->distance) * ((WIDTH / 2)
-			/ tan(mlx->player->fov_rd / 2));
-	bottom_pixel = (HEIGHT / 2) + (wall_height / 2);
-	top_pixel = (HEIGHT / 2) - (wall_height / 2);
-	if (bottom_pixel > HEIGHT)
-		bottom_pixel = HEIGHT;
-	if (top_pixel < 0)
-		top_pixel = 0;
-	draw_floor_ceiling(mlx, ray, top_pixel, bottom_pixel);
-	draw_textured_wall(mlx, ray, top_pixel, bottom_pixel);
-}
