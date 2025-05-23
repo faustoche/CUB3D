@@ -6,25 +6,25 @@
 /*   By: asaulnie <asaulnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 14:52:49 by asaulnie          #+#    #+#             */
-/*   Updated: 2025/05/21 14:47:28 by asaulnie         ###   ########.fr       */
+/*   Updated: 2025/05/23 15:29:09 by asaulnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int	check_row_length(char *line, int rows, int width)
+int	valid_map_chars(char *line)
 {
-	int	len;
+	int		i;
+	char	c;
 
-	len = ft_strlen(line);
-	if (width < 0)
-		return (len);
-	if (len != width)
+	i = 0;
+	while (line[i])
 	{
-		printf("Error\nInconsistent row length at row %d\n", rows);
-		return (-1);
+		c = line[i++];
+		if (!ft_strchr("01NSEW", c))
+			return (0);
 	}
-	return (width);
+	return (1);
 }
 
 static int	append_row(t_game *g, char *line, int rows)
@@ -47,20 +47,18 @@ static int	append_row(t_game *g, char *line, int rows)
 
 int	process_map_row(t_game *g, char *line, int rows, int width)
 {
-	int	new_width;
+	int	len;
 
-	new_width = check_row_length(line, rows, width);
+	(void)width;
+	len = ft_strlen(line);
 	if (rows == 0 && !valid_map_chars(line))
 	{
 		printf("Error\nBad char in map\n");
 		return (-1);
 	}
-	if (new_width < 0)
-		return (-1);
-	width = new_width;
 	if (append_row(g, line, rows) < 0)
 		return (-1);
-	g->width_map = width;
+	g->width_map = len;
 	return (0);
 }
 
@@ -90,7 +88,11 @@ int	validate_map(t_game *g)
 	int	err_x;
 	int	err_y;
 
-	if (find_closure_error(g, &err_x, &err_y))
+	if (check_edge_row(g->map[0], 0))
+		return (1);
+	if (check_edge_row(g->map[g->height_map - 1], g->height_map - 1))
+		return (1);
+	if (find_closure_error(g, &err_x, &err_y) == 1)
 	{
 		printf("Error\nMap not closed at %d,%d\n", err_x, err_y);
 		return (1);

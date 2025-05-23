@@ -6,26 +6,11 @@
 /*   By: asaulnie <asaulnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 16:31:53 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/05/21 14:14:36 by asaulnie         ###   ########.fr       */
+/*   Updated: 2025/05/23 15:19:00 by asaulnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-int	valid_map_chars(char *line)
-{
-	int		i;
-	char	c;
-
-	i = 0;
-	while (line[i])
-	{
-		c = line[i++];
-		if (!ft_strchr("01NSEW", c))
-			return (0);
-	}
-	return (1);
-}
 
 static int	handle_map_line(t_game *g, char *line, int rows, int width)
 {
@@ -48,13 +33,31 @@ int	process_map_lines(int fd, t_game *g, int rows, int width)
 	{
 		chomp_newline(line);
 		status = handle_map_line(g, line, rows, width);
-		free(line);
 		if (status != 1)
+		{
+			free(line);
 			return (0);
+		}
 		rows++;
 		line = get_next_line(fd);
 	}
 	return (1);
+}
+
+int	open_and_read_header(const char *path, t_game *g, int *fd)
+{
+	*fd = open(path, O_RDONLY);
+	if (*fd < 0)
+	{
+		printf("Error\nCannot open file\n");
+		return (-1);
+	}
+	if (read_header(*fd, &g->meta) != 0)
+	{
+		close(*fd);
+		return (-1);
+	}
+	return (0);
 }
 
 void	init_game(t_game *g, int *rows, int *width)

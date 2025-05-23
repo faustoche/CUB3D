@@ -6,7 +6,7 @@
 /*   By: asaulnie <asaulnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 14:53:23 by asaulnie          #+#    #+#             */
-/*   Updated: 2025/05/21 14:13:07 by asaulnie         ###   ########.fr       */
+/*   Updated: 2025/05/23 15:28:05 by asaulnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,38 +27,69 @@ int	set_texture(char **p, t_meta *m)
 	return (1);
 }
 
-int	all_header_fields_set(t_meta *m)
+static int	handle_texture(char *key, char *rest, t_meta *m)
 {
-	return (m->no && m->so && m->we && m->ea && m->f_set && m->c_set);
+	char	*parts[3];
+
+	if (strcmp(key, "NO") == 0 || strcmp(key, "SO") == 0
+		|| strcmp(key, "WE") == 0 || strcmp(key, "EA") == 0)
+	{
+		parts[0] = key;
+		parts[1] = rest;
+		parts[2] = NULL;
+		if (!set_texture(parts, m))
+		{
+			printf("Error\nMissing or duplicate texture '%s'\n", key);
+			return (-1);
+		}
+		return (1);
+	}
+	return (0);
+}
+
+static int	handle_color(char *key, char *rest, t_meta *m)
+{
+	char	*parts[3];
+
+	if (key[0] == 'F' || key[0] == 'C')
+	{
+		parts[0] = key;
+		parts[1] = rest;
+		parts[2] = NULL;
+		if (!set_color(parts, m))
+			return (-1);
+		return (1);
+	}
+	return (0);
 }
 
 int	parse_header_line(char *line, t_meta *m)
 {
-	char	**p;
-	int		res;
+	char	key[3];
+	char	*rest;
+	int		ret;
 
-	p = ft_split(line, ' ');
-	res = 0;
-	if (!p[0] || !p[1])
-	{
-		if (p[0])
-			printf("Error\nMissing value for header\n");
-	}
-	else if (set_texture(p, m))
-		res = 1;
-	else if (p[0][0] == 'F' || p[0][0] == 'C')
-	{
-		if ((p[0][0] == 'F' && !m->f_set) || (p[0][0] == 'C' && !m->c_set))
-			res = set_color(p, m);
-		else
-			printf("Error\nInvalid or duplicate header '%s'\n", p[0]);
-	}
-	else if (ft_strchr("NSWEFC", p[0][0]))
-		printf("Error\nInvalid or duplicate header '%s'\n", p[0]);
-	else
-		printf("Error\nInvalid header '%s'\n", p[0]);
-	free_split(p);
-	return (res);
+	while (*line == ' ' || *line == '\t')
+		line++;
+	if (*line == '1')
+		return (printf("Error\nMissing header fields\n"), 0);
+	if (sscanf(line, "%2s", key) != 1)
+		return (0);
+	rest = line + strlen(key);
+	while (*rest == ' ' || *rest == '\t')
+		rest++;
+	ret = handle_texture(key, rest, m);
+	if (ret > 0)
+		return (1);
+	if (ret < 0)
+		return (0);
+	ret = handle_color(key, rest, m);
+	if (ret > 0)
+		return (1);
+	if (ret < 0)
+		return (0);
+	printf("Error\nInvalid or duplicate header '%s'\n", key);
+	return (0);
 }
 
 int	read_header(int fd, t_meta *m)
@@ -81,26 +112,11 @@ int	read_header(int fd, t_meta *m)
 			return (1);
 		}
 		free(line);
-		if (all_header_fields_set(m))
+		if (m->no && m->so && m->we && m->ea
+			&& m->f_set && m->c_set)
 			return (0);
 		line = get_next_line(fd);
 	}
 	printf("Error\nMissing header fields\n");
 	return (1);
-}
-
-int	open_and_read_header(const char *path, t_game *g, int *fd)
-{
-	*fd = open(path, O_RDONLY);
-	if (*fd < 0)
-	{
-		printf("Error\nCannot open file\n");
-		return (-1);
-	}
-	if (read_header(*fd, &g->meta) != 0)
-	{
-		close(*fd);
-		return (-1);
-	}
-	return (0);
 }

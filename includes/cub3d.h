@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: faustoche <faustoche@student.42.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/14 10:24:38 by faustoche         #+#    #+#             */
+/*   Updated: 2025/05/23 19:27:47 by faustoche        ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef _CUB3D_H
 # define _CUB3D_H
@@ -165,6 +176,7 @@ typedef struct s_minimap
 
 // enclosure_check.c
 int	find_closure_error(t_game *g, int *ex, int *ey);
+int	check_edge_row(char *row, int y);
 
 // map_colors.c
 int parse_rgb(char *str, char ***rgb_out);
