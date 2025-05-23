@@ -6,7 +6,7 @@
 /*   By: faustoche <faustoche@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 22:50:11 by faustoche         #+#    #+#             */
-/*   Updated: 2025/05/21 22:51:27 by faustoche        ###   ########.fr       */
+/*   Updated: 2025/05/23 21:33:49 by faustoche        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ static int calculate_wall_height(t_ray *ray, t_player *player)
 static void draw_wall_portion(t_mlx *mlx, int ray_num, int top, int bottom)
 {
     t_texture	*texture;
-    int		tex_x;
-    int		tex_y;
-    double	step;
-    double	tex_pos;
-	int		y;
-	int		wall_height;
+    int		    tex_x;
+    int		    tex_y;
+    double	    step;
+    double	    tex_pos;
+	int		    y;
+	int		    wall_height;
 
     texture = select_wall_texture(mlx->ray, mlx->game);
     if (mlx->ray->flag == 1)
