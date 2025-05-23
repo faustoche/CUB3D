@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asaulnie <asaulnie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: faustoche <faustoche@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 10:24:38 by faustoche         #+#    #+#             */
-/*   Updated: 2025/05/23 15:29:23 by asaulnie         ###   ########.fr       */
+/*   Updated: 2025/05/23 19:27:47 by faustoche        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # include "../minilibx-linux/mlx.h"
 # include "../get_next_line/get_next_line.h"
 # include "../libft/libft.h"
-# include "cub3d_bonus.h"
+//# include "cub3d_bonus.h"
 
 /*--------------- DEFINES ---------------*/
 
@@ -40,6 +40,19 @@
 # define M_PI   3.14159265358979323846
 # define MAX_DISTANCE 1000.0
 
+# define EVENT_MOUSE_CODE 6
+# define MINIMAP_SIZE 200 // taille
+# define MINIMAP_TILE 10
+# define MINIMAP_RADIUS 15 // echelle de la map par rapport a la ti
+# define MINIMAP_RADIUS_X 15
+# define MINIMAP_RADIUS_Y 9
+# define WALL_COLOR     0x004400 // Vert foncé (murs = végétation dense)
+# define FLOOR_COLOR    0x228B22 // Vert jungle (sol)
+# define PLAYER_COLOR   0xFFD700 // Jaune dino
+# define RAY_COLOR      0xFF4500 // Orange laser
+# define EMPTY_COLOR    0x222222 // Gris foncé
+# define BORDER_COLOR   0x8B0000 // Rouge sombre
+
 # define NORTH 'NO'
 # define SOUTH 'SO'
 # define WEST 'WE'
@@ -49,6 +62,18 @@
 # define WALL '1'
 
 /*------------- STRUCTURES --------------*/
+
+typedef struct s_texture
+{
+	void	*img;
+	char	*addr;
+	int		width;
+	int		height;
+	int		bpp;
+	int		size_line;
+	int		endian;
+}	t_texture;
+
 
 typedef struct s_meta
 {
@@ -62,20 +87,27 @@ typedef struct s_meta
 	int		c_r;
 	int		c_g;
 	int		c_b;
+	int		f_color;
+	int		c_color;
 	int		f_set;
 	int		c_set;
 }	t_meta;
 
 typedef struct s_game
 {
-	char	**map;
-	int		player_x;
-	int		player_y;
-	int		width_map;
-	int		height_map;
-	void	*mlx_ptr;
-	void	*win_ptr;
-	t_meta	meta;
+	char		**map;
+	int			player_x;
+	int			player_y;
+	int			width_map;
+	int			height_map;
+	void		*mlx_ptr;
+	void		*win_ptr;
+	char		player_dir;
+	t_texture	north_texture;
+	t_texture	south_texture;
+	t_texture	west_texture;
+	t_texture	east_texture;
+	t_meta		meta;
 }	t_game;
 
 typedef struct s_player
@@ -95,6 +127,16 @@ typedef struct s_ray
 	double	distance;
 	int		flag;
 	char	hit_cell;
+	int		hit_x;
+	int		hit_y;
+	float	ray_x;
+	float	ray_y;
+	float	sin_a;
+	float	cos_a;
+	float	next_x;
+	float	next_y;
+	float	dx;
+	float	dy;
 }	t_ray;
 
 typedef struct s_mlx
@@ -107,8 +149,26 @@ typedef struct s_mlx
 	t_ray		*ray;
 	t_game		*game;
 	t_player	*player;
+	t_meta		*meta;
 }	t_mlx;
 
+typedef struct s_minimap
+{
+	t_mlx	*mlx;
+	int		py;
+	int		px;
+	int		origin_x;
+	int		origin_y;
+	int		player_tile_x;
+	int		player_tile_y;
+	int		center_x;
+	int		center_y;
+	int		color;
+	double	ray_x;
+	double	ray_y;
+	double	dx;
+	double	dy;
+}	t_minimap;
 
 /*-------------- FUNCTIONS --------------*/
 
@@ -138,11 +198,9 @@ int validate_map(t_game *g);
 int valid_map_chars(char *line);
 
 // map.c
-// static int	fill_map(t_game *game, char *filename);
-// static int	count_line(char *filename);
 void	init_meta(t_meta *m);
 int	open_map(const char *path, t_game *g);
-// int	open_map(char **av, t_game *game);
+int	combine_colors(int r, int g, int b);
 
 // parser_utils.c
 void free_split(char **arr);
@@ -161,6 +219,7 @@ int		init_ray_direction(float angle, float *inter, float *step, int horizon);
 int		is_wall(float x, float y, t_mlx *mlx);
 float	angle_to_radians(float angle);
 void	cast_rays(t_mlx *mlx);
+float	cal_dist(float x1, float y1, float x2, float y2);
 
 /// RENDERING ///
 void	ft_mlx_pixel_put(t_mlx *mlx, int x, int y, int color);
@@ -174,9 +233,15 @@ void	find_player(t_game *game);
 void	exit_game(t_mlx *mlx);
 
 /// MOVEMENTS //
-
 int		key_input(int key, void *param);
 void	hook(t_mlx *mlx, double move_x, double move_y);
 void	rotate_player(t_mlx *mlx, int i);
+
+/// BONUS ///
+void	draw_minimap(t_mlx *mlx);
+void	draw_minimap_player(t_minimap *mini);
+void	draw_direction_text(t_minimap *mini);
+int		mouse_handler(int x, int y, void *param);
+void	draw_direction_ray(t_minimap *mini, double angle);
 
 #endif

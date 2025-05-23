@@ -1,19 +1,10 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cub3d_bonus.h                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: asaulnie <asaulnie@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/14 10:24:28 by faustoche         #+#    #+#             */
-/*   Updated: 2025/05/20 15:05:21 by asaulnie         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #ifndef _CUB3D_BONUS_H
 # define _CUB3D_BONUS_H
 
 /*--------------- DEFINES ---------------*/
+
+#include "cub3d.h"
 
 # define EVENT_MOUSE_CODE 6
 # define MINIMAP_SIZE 200 // taille
@@ -34,8 +25,6 @@ typedef struct s_mlx t_mlx;
 
 /*--------------- FUNCTIONS ---------------*/
 
-void	open_door_near_player(t_mlx *mlx);
-void	draw_minimap(t_mlx *mlx);
-int		mouse_handler(int x, int y, void *param);
+
 
 #endif
