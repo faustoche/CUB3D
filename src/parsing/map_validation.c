@@ -6,11 +6,26 @@
 /*   By: asaulnie <asaulnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 14:52:49 by asaulnie          #+#    #+#             */
-/*   Updated: 2025/05/23 14:36:07 by asaulnie         ###   ########.fr       */
+/*   Updated: 2025/05/23 15:14:53 by asaulnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int	valid_map_chars(char *line)
+{
+	int		i;
+	char	c;
+
+	i = 0;
+	while (line[i])
+	{
+		c = line[i++];
+		if (!ft_strchr("01NSEW", c))
+			return (0);
+	}
+	return (1);
+}
 
 static int	append_row(t_game *g, char *line, int rows)
 {
