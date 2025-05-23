@@ -6,26 +6,11 @@
 /*   By: asaulnie <asaulnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 14:52:49 by asaulnie          #+#    #+#             */
-/*   Updated: 2025/05/22 17:22:24 by asaulnie         ###   ########.fr       */
+/*   Updated: 2025/05/23 14:36:07 by asaulnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-static int	check_row_length(char *line, int rows, int width)
-{
-	int	len;
-
-	len = ft_strlen(line);
-	if (width < 0)
-		return (len);
-	if (len != width)
-	{
-		printf("Error\nInconsistent row length at row %d\n", rows);
-		return (-1);
-	}
-	return (width);
-}
 
 static int	append_row(t_game *g, char *line, int rows)
 {
@@ -47,20 +32,18 @@ static int	append_row(t_game *g, char *line, int rows)
 
 int	process_map_row(t_game *g, char *line, int rows, int width)
 {
-	int	new_width;
+	int	len;
 
-	new_width = check_row_length(line, rows, width);
+	(void)width;
+	len = ft_strlen(line);
 	if (rows == 0 && !valid_map_chars(line))
 	{
 		printf("Error\nBad char in map\n");
 		return (-1);
 	}
-	if (new_width < 0)
-		return (-1);
-	width = new_width;
 	if (append_row(g, line, rows) < 0)
 		return (-1);
-	g->width_map = width;
+	g->width_map = len;
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: asaulnie <asaulnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 13:42:13 by asaulnie          #+#    #+#             */
-/*   Updated: 2025/05/22 17:25:52 by asaulnie         ###   ########.fr       */
+/*   Updated: 2025/05/23 14:33:42 by asaulnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,18 @@
 
 static int	out_of_bounds(t_game *g, int x, int y)
 {
-	if (y == 0 || y == g->height_map - 1 || x == 0 || x == g->width_map - 1)
+	int	curr_len;
+	int	up_len;
+	int	down_len;
+
+	curr_len = ft_strlen(g->map[y]);
+	up_len = ft_strlen(g->map[y - 1]);
+	down_len = ft_strlen(g->map[y + 1]);
+	if (y == 0 || y == g->height_map - 1 || x == 0 || x == curr_len - 1)
 		return (1);
-	if (g->map[y - 1][x] == '\0' || g->map[y + 1][x] == '\0')
+	if (x >= up_len || x >= down_len)
 		return (1);
-	if (g->map[y][x - 1] == '\0' || g->map[y][x + 1] == '\0')
+	if (x - 1 < 0 || x + 1 >= curr_len)
 		return (1);
 	return (0);
 }
