@@ -6,7 +6,7 @@
 /*   By: faustoche <faustoche@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:55:06 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/05/23 21:38:35 by faustoche        ###   ########.fr       */
+/*   Updated: 2025/05/24 08:38:13 by faustoche        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	render_wall(t_mlx *mlx, int ray)
 }
 
 
-///// TO DELETE ?? ///////
+///// TO DELETE ?? ///////y
 
 // static void	draw_wall(t_mlx *mlx, int ray, int top_pixel, int bottom_pixel)
 // {
