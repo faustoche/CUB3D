@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faustoche <faustoche@student.42.fr>        +#+  +:+       +#+        */
+/*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:55:21 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/05/24 08:43:40 by faustoche        ###   ########.fr       */
+/*   Updated: 2025/05/26 09:26:17 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,8 @@ int	main(int ac, char **av)
 	player = calloc(1, sizeof(t_player));
 	ray = calloc(1, sizeof(t_ray));
 	init_datas(game);
-	if (open_map(av[1], game) == 0)
-	{
-		printf("parsing ok!\n");
-		return (0);
-	}
-	else
-		return (0);
+	if (open_map(av[1], game) != 0)
+		return (1);
 	game->mlx_ptr = mlx_init();
 	if (!game->mlx_ptr)
 		return (printf("Error\nMLX init failed\n"), 1);

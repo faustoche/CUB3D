@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faustoche <faustoche@student.42.fr>        +#+  +:+       +#+        */
+/*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 10:24:38 by faustoche         #+#    #+#             */
-/*   Updated: 2025/05/23 19:27:47 by faustoche        ###   ########.fr       */
+/*   Updated: 2025/05/26 09:21:20 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,6 +224,7 @@ float	cal_dist(float x1, float y1, float x2, float y2);
 /// RENDERING ///
 void	ft_mlx_pixel_put(t_mlx *mlx, int x, int y, int color);
 void	render_wall(t_mlx *mlx, int ray);
+void draw_textured_wall(t_mlx *mlx, int ray, int top_pixel, int bottom_pixel);
 
 /// INIT GAME ///
 void	init_datas(t_game *game);
