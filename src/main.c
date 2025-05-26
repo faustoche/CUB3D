@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:55:21 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/05/26 09:26:17 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/05/26 11:16:58 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int	main(int ac, char **av)
 	mlx.game = game;
 	mlx.player = player;
 	mlx.ray = ray;
+	load_all_textures(&mlx);
 	mlx_loop_hook(game->mlx_ptr, &main_loop, &mlx);
 	mlx_key_hook(game->mlx_ptr, &key_input, &mlx);
 	mlx_hook(game->win_ptr, KeyPress, KeyPressMask, key_input, &mlx);

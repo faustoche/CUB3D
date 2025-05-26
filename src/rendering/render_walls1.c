@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 22:50:11 by faustoche         #+#    #+#             */
-/*   Updated: 2025/05/26 09:24:41 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/05/26 11:07:45 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,6 @@ static int calculate_wall_height(t_ray *ray, t_player *player)
             ((WIDTH / 2) / tan(player->fov_rd / 2)));
 }
 
-static int get_texture_pixel(t_texture *texture, int x, int y)
-{
-    int *data;
-    
-    if (!texture || !texture->img || x < 0 || y < 0 || 
-        x >= texture->width || y >= texture->height)
-        return 0x000000; // Retourne noir si coordonnées invalides
-    
-    data = (int *)mlx_get_data_addr(texture->img, &texture->bpp,
-                                   &texture->size_line, &texture->endian);
-    
-    return data[y * texture->width + x];
-}
-
 static void draw_wall_portion(t_mlx *mlx, int ray_num, int top, int bottom)
 {
     t_texture	*texture;
@@ -72,7 +58,11 @@ static void draw_wall_portion(t_mlx *mlx, int ray_num, int top, int bottom)
     y = top;
     while (y < bottom)
     {
-        tex_y = (int)tex_pos & (texture->height - 1);
+        tex_y = (int)tex_pos % texture->height;
+        if (tex_y < 0)
+            tex_y = 0;
+        if (tex_y >= texture->height)
+            tex_y = texture->height - 1;
         tex_pos += step;
         ft_mlx_pixel_put(mlx, ray_num, y, get_texture_pixel(texture, tex_x, tex_y));
         y++;
