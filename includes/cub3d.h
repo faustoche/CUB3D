@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 10:24:38 by faustoche         #+#    #+#             */
-/*   Updated: 2025/05/26 09:21:20 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/05/26 11:15:09 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,6 +225,8 @@ float	cal_dist(float x1, float y1, float x2, float y2);
 void	ft_mlx_pixel_put(t_mlx *mlx, int x, int y, int color);
 void	render_wall(t_mlx *mlx, int ray);
 void draw_textured_wall(t_mlx *mlx, int ray, int top_pixel, int bottom_pixel);
+int	get_texture_pixel(t_texture *texture, int x, int y);
+void	free_textures(t_mlx *mlx);
 
 /// INIT GAME ///
 void	init_datas(t_game *game);
@@ -232,6 +234,7 @@ void	init_player(t_player *player, t_game *game);
 void	init_lines(char *line, t_game *map);
 void	find_player(t_game *game);
 void	exit_game(t_mlx *mlx);
+void	load_all_textures(t_mlx *mlx);
 
 /// MOVEMENTS //
 int		key_input(int key, void *param);

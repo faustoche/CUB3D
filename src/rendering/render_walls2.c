@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render_walls.c                                     :+:      :+:    :+:   */
+/*   render_walls2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:55:06 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/05/26 09:21:31 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/05/26 11:23:53 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ static void	draw_floor_ceiling(t_mlx *mlx, int ray, int t_pixel, int b_pixel)
 	int		i;
 	t_meta	*m;
 
+	if (!mlx || !mlx->meta || ray < 0 || ray >= WIDTH)
+		return ;
 	m = mlx->meta;
 	i = b_pixel;
 	while (i < HEIGHT)
@@ -35,30 +37,6 @@ static void	draw_floor_ceiling(t_mlx *mlx, int ray, int t_pixel, int b_pixel)
 	while (i < t_pixel)
 		ft_mlx_pixel_put(mlx, ray, i++, m->c_color); // recuperation de la couleur
 }
-
-// static int	get_color(t_mlx *mlx)
-// {
-// 	double	angle;
-
-// 	angle = mlx->ray->ray_angle;
-// 	if (mlx->ray->hit_cell == 'D')
-// 		return (0x0000FFFF);
-// 	angle = angle_to_radians(angle);
-// 	if (mlx->ray->flag == 1)
-// 	{
-// 		if (cos(angle) > 0)
-// 			return (0xCCCC00);
-// 		else
-// 			return (0xFF6699);
-// 	}
-// 	else
-// 	{
-// 		if (sin(angle) > 0)
-// 			return (0xFFCCFF);
-// 		else
-// 			return (0xFFFFCC);
-// 	}
-// }
 
 void	render_wall(t_mlx *mlx, int ray)
 {

@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 19:50:34 by faustoche         #+#    #+#             */
-/*   Updated: 2025/05/20 14:57:53 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/05/26 11:49:09 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,9 @@ int	is_wall(float x, float y, t_mlx *mlx)
 		return (1);
 	tile = mlx->game->map[map_y][map_x];
 	if (tile == '1' || tile == 'D')
+	{
+		printf("mur :%d\n", tile);
 		return (1);
+	}
 	return (0);
 }
