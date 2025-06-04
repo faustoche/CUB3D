@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:55:06 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/05/26 14:46:19 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/05/26 15:38:07 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,10 @@ static void	draw_floor_ceiling(t_mlx *mlx, int ray, int t_pixel, int b_pixel)
 	m = &mlx->game->meta;
 	i = b_pixel;
 	while (i < HEIGHT)
-	{
-		ft_mlx_pixel_put(mlx, ray, i++, m->f_color); // recuperation de la couleur
-	}
+		ft_mlx_pixel_put(mlx, ray, i++, m->f_color);
 	i = 0;
 	while (i < t_pixel)
-	{
-		ft_mlx_pixel_put(mlx, ray, i++, m->c_color); // recuperation de la couleur
-	}
+		ft_mlx_pixel_put(mlx, ray, i++, m->c_color);
 }
 
 void	render_wall(t_mlx *mlx, int ray)
