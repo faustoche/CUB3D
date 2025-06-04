@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 22:50:11 by faustoche         #+#    #+#             */
-/*   Updated: 2025/06/04 16:12:55 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/04 16:56:13 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ static void draw_wall_portion(t_mlx *mlx, int ray_num, int top, int bottom)
 
 	texture = select_wall_texture(mlx->ray, mlx->game);
 	if (mlx->ray->flag == 0) // mur horizontal
-		wall_x = mlx->player->player_x + mlx->ray->distance * sin(mlx->ray->ray_angle);
+		wall_x = mlx->ray->hit_y;
 	else // mur vertical
-		wall_x = mlx->player->player_y + mlx->ray->distance * cos(mlx->ray->ray_angle);
+		wall_x = mlx->ray->hit_x;
 	wall_x -= floor(wall_x);
 	tex_x = (int)(wall_x * texture->width);
 	if ((mlx->ray->flag == 0 && sin(mlx->ray->ray_angle) < 0) ||
@@ -74,8 +74,7 @@ static void draw_wall_portion(t_mlx *mlx, int ray_num, int top, int bottom)
 	}
 }
 
-
 void draw_textured_wall(t_mlx *mlx, int ray, int top_pixel, int bottom_pixel)
 {
-	draw_wall_portion(mlx, ray, top_pixel, bottom_pixel);
+    draw_wall_portion(mlx, ray, top_pixel, bottom_pixel);
 }
