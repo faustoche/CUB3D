@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 22:50:11 by faustoche         #+#    #+#             */
-/*   Updated: 2025/05/26 17:34:42 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/04 14:11:38 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@ static t_texture *select_wall_texture(t_ray *ray, t_game *game)
     if (ray->flag == 1) // Mur vertical
     {
         if (cos(ray->ray_angle) > 0)
-            return &game->west_texture;
-        else
             return &game->east_texture;
+        else
+            return &game->west_texture;
     }
     else // Mur horizontal
     {
         if (sin(ray->ray_angle) > 0)
-            return &game->north_texture;
-        else
             return &game->south_texture;
+        else
+            return &game->north_texture;
     }
 }
 
