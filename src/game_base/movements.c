@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:54:37 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/06/05 15:10:15 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/05 16:36:20 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ static void	move_player(t_mlx *mlx, double move_x, double move_y)
 	new_y = roundf(mlx->player->player_y + move_y);
 	map_x = (new_x / TILE_SIZE);
 	map_y = (new_y / TILE_SIZE);
-	
 	if ((mlx->game->map[map_y][map_x] != '1'
 		&& (mlx->game->map[map_y][mlx->player->player_x / TILE_SIZE] != '1'
 		&& mlx->game->map[mlx->player->player_y / TILE_SIZE][map_x] != '1')))
