@@ -6,19 +6,17 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 18:42:46 by faustoche         #+#    #+#             */
-/*   Updated: 2025/06/05 12:13:42 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/05 15:16:03 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-float	walk_intersection(t_mlx *mlx, int is_horizontal)
+static float	walk_intersection(t_mlx *mlx, t_ray *ray, int is_horizontal)
 {
-	t_ray	*ray;
-	int		cell_y;
-	int		cell_x;
+	int	cell_y;
+	int	cell_x;
 
-	ray = mlx->ray;
 	if (is_horizontal && ray->sin_a < 0)
 		ray->next_y -= 0.001;
 	else if (!is_horizontal && ray->cos_a < 0)
@@ -43,18 +41,14 @@ float	walk_intersection(t_mlx *mlx, int is_horizontal)
 	return (INFINITY);
 }
 
-float	check_horizontal(t_mlx *mlx, float sin_a, float cos_a, int map_y)
+static float	check_horizontal(t_mlx *mlx, t_ray *ray, int map_y)
 {
 	float	y_intercept;
 	float	x_intercept;
-	t_ray	*ray;
 
-	ray = mlx->ray;
-	if (sin_a == 0)
+	if (ray->sin_a == 0)
 		return (INFINITY);
-	ray->ray_x = mlx->player->player_x;
-	ray->ray_y = mlx->player->player_y;
-	if (sin_a > 0)
+	if (ray->sin_a > 0)
 	{
 		y_intercept = (map_y + 1) * TILE_SIZE;
 		ray->dy = TILE_SIZE;
@@ -64,25 +58,21 @@ float	check_horizontal(t_mlx *mlx, float sin_a, float cos_a, int map_y)
 		y_intercept = map_y * TILE_SIZE - 0.001;
 		ray->dy = -TILE_SIZE;
 	}
-	x_intercept = ray->ray_x + (y_intercept - ray->ray_y) / sin_a * cos_a;
-	ray->dx = ray->dy / sin_a * cos_a;
+	x_intercept = ray->ray_x + (y_intercept - ray->ray_y) / ray->sin_a * ray->cos_a;
+	ray->dx = ray->dy / ray->sin_a * ray->cos_a;
 	ray->next_x = x_intercept;
 	ray->next_y = y_intercept;
-	return (walk_intersection(mlx, 1));
+	return (walk_intersection(mlx, ray, 1));
 }
 
-float	check_vertical(t_mlx *mlx, float sin_a, float cos_a, int map_x)
+static float	check_vertical(t_mlx *mlx, t_ray *ray, int map_x)
 {
 	float	y_intercept;
 	float	x_intercept;
-	t_ray	*ray;
 
-	ray = mlx->ray;
-	if (cos_a == 0)
+	if (ray->cos_a == 0)
 		return (INFINITY);
-	ray->ray_x = mlx->player->player_x;
-	ray->ray_y = mlx->player->player_y;
-	if (cos_a > 0)
+	if (ray->cos_a > 0)
 	{
 		x_intercept = (map_x + 1) * TILE_SIZE;
 		ray->dx = TILE_SIZE;
@@ -92,36 +82,47 @@ float	check_vertical(t_mlx *mlx, float sin_a, float cos_a, int map_x)
 		x_intercept = map_x * TILE_SIZE - 0.001;
 		ray->dx = -TILE_SIZE;
 	}
-	y_intercept = ray->ray_y + (x_intercept - ray->ray_x) / cos_a * sin_a;
-	ray->dy = ray->dx / cos_a * sin_a;
+	y_intercept = ray->ray_y + (x_intercept - ray->ray_x)
+		/ ray->cos_a * ray->sin_a;
+	ray->dy = ray->dx / ray->cos_a * ray->sin_a;
 	ray->next_x = x_intercept;
 	ray->next_y = y_intercept;
-	return (walk_intersection(mlx, 0));
+	return (walk_intersection(mlx, ray, 0));
 }
 
 static float	cast_ray(t_mlx *mlx, float angle)
 {
+	t_ray	h_ray;
+	t_ray	v_ray;
 	float	h_dist;
 	float	v_dist;
 	int		map_x;
 	int		map_y;
 
-	mlx->ray->sin_a = sin(angle);
-	mlx->ray->cos_a = cos(angle);
-	mlx->ray->ray_x = mlx->player->player_x;
-	mlx->ray->ray_y = mlx->player->player_y;
-	map_x = mlx->ray->ray_x / TILE_SIZE;
-	map_y = mlx->ray->ray_y / TILE_SIZE;
-	h_dist = check_horizontal(mlx, mlx->ray->sin_a, mlx->ray->cos_a, map_y);
-	v_dist = check_vertical(mlx, mlx->ray->sin_a, mlx->ray->cos_a, map_x);
+	map_x = mlx->player->player_x / TILE_SIZE;
+	map_y = mlx->player->player_y / TILE_SIZE;
+	h_ray.ray_angle = angle;
+	v_ray.ray_angle = angle;
+	h_ray.sin_a = sin(angle);
+	h_ray.cos_a = cos(angle);
+	v_ray.sin_a = h_ray.sin_a;
+	v_ray.cos_a = h_ray.cos_a;
+	h_ray.ray_x = mlx->player->player_x;
+	h_ray.ray_y = mlx->player->player_y;
+	v_ray.ray_x = mlx->player->player_x;
+	v_ray.ray_y = mlx->player->player_y;
+	h_dist = check_horizontal(mlx, &h_ray, map_y);
+	v_dist = check_vertical(mlx, &v_ray, map_x);
 	if (v_dist < h_dist)
 	{
+		*mlx->ray = v_ray;
 		mlx->ray->flag = 1;
 		mlx->ray->distance = v_dist;
 		return (v_dist);
 	}
 	else
 	{
+		*mlx->ray = h_ray;
 		mlx->ray->flag = 0;
 		mlx->ray->distance = h_dist;
 		return (h_dist);
