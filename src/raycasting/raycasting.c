@@ -6,13 +6,13 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 18:42:46 by faustoche         #+#    #+#             */
-/*   Updated: 2025/06/05 14:49:13 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/05 15:16:03 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static float walk_intersection(t_mlx *mlx, t_ray *ray, int is_horizontal)
+static float	walk_intersection(t_mlx *mlx, t_ray *ray, int is_horizontal)
 {
 	int	cell_y;
 	int	cell_x;
@@ -41,7 +41,7 @@ static float walk_intersection(t_mlx *mlx, t_ray *ray, int is_horizontal)
 	return (INFINITY);
 }
 
-static float check_horizontal(t_mlx *mlx, t_ray *ray, int map_y)
+static float	check_horizontal(t_mlx *mlx, t_ray *ray, int map_y)
 {
 	float	y_intercept;
 	float	x_intercept;
@@ -65,7 +65,7 @@ static float check_horizontal(t_mlx *mlx, t_ray *ray, int map_y)
 	return (walk_intersection(mlx, ray, 1));
 }
 
-static float check_vertical(t_mlx *mlx, t_ray *ray, int map_x)
+static float	check_vertical(t_mlx *mlx, t_ray *ray, int map_x)
 {
 	float	y_intercept;
 	float	x_intercept;
@@ -82,14 +82,15 @@ static float check_vertical(t_mlx *mlx, t_ray *ray, int map_x)
 		x_intercept = map_x * TILE_SIZE - 0.001;
 		ray->dx = -TILE_SIZE;
 	}
-	y_intercept = ray->ray_y + (x_intercept - ray->ray_x) / ray->cos_a * ray->sin_a;
+	y_intercept = ray->ray_y + (x_intercept - ray->ray_x)
+		/ ray->cos_a * ray->sin_a;
 	ray->dy = ray->dx / ray->cos_a * ray->sin_a;
 	ray->next_x = x_intercept;
 	ray->next_y = y_intercept;
 	return (walk_intersection(mlx, ray, 0));
 }
 
-static float cast_ray(t_mlx *mlx, float angle)
+static float	cast_ray(t_mlx *mlx, float angle)
 {
 	t_ray	h_ray;
 	t_ray	v_ray;
@@ -97,7 +98,7 @@ static float cast_ray(t_mlx *mlx, float angle)
 	float	v_dist;
 	int		map_x;
 	int		map_y;
-	
+
 	map_x = mlx->player->player_x / TILE_SIZE;
 	map_y = mlx->player->player_y / TILE_SIZE;
 	h_ray.ray_angle = angle;

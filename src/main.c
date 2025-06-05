@@ -6,69 +6,11 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:55:21 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/05/26 12:27:48 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/05 15:15:01 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-// Imprimer la carte simplement
-void print_map(t_mlx *mlx)
-{
-    int y = 0;
-    
-    printf("\n=== MAP ===\n");
-    printf("Player: (%.1d, %.1d)\n", mlx->player->player_x, mlx->player->player_y);
-    
-    while (y < mlx->game->height_map && mlx->game->map[y])
-    {
-        printf("%2d: %s\n", y, mlx->game->map[y]);
-        y++;
-    }
-    printf("===========\n");
-}
-
-// Test simple de détection de mur
-void test_wall(t_mlx *mlx, float x, float y)
-{
-    int map_x = (int)(x / TILE_SIZE);
-    int map_y = (int)(y / TILE_SIZE);
-    
-    printf("Test (%.1f, %.1f) -> [%d][%d] = ", x, y, map_y, map_x);
-    
-    if (map_y < 0 || map_y >= mlx->game->height_map) {
-        printf("OUT OF BOUNDS Y\n");
-        return;
-    }
-    
-    if (!mlx->game->map[map_y]) {
-        printf("NULL LINE\n");
-        return;
-    }
-    
-    if (map_x < 0 || map_x >= (int)ft_strlen(mlx->game->map[map_y])) {
-        printf("OUT OF BOUNDS X\n");
-        return;
-    }
-    
-    char tile = mlx->game->map[map_y][map_x];
-    printf("'%c' -> %s\n", tile, (tile == '1' || tile == 'D') ? "WALL" : "FLOOR");
-}
-
-// Tester autour du joueur
-void test_around_player(t_mlx *mlx)
-{
-    float px = mlx->player->player_x;
-    float py = mlx->player->player_y;
-    
-    printf("\n=== TESTS AROUND PLAYER ===\n");
-    test_wall(mlx, px, py);                    // Position actuelle
-    test_wall(mlx, px, py - TILE_SIZE);        // Nord
-    test_wall(mlx, px, py + TILE_SIZE);        // Sud  
-    test_wall(mlx, px - TILE_SIZE, py);        // Ouest
-    test_wall(mlx, px + TILE_SIZE, py);        // Est
-    printf("============================\n");
-}
 
 int	key_release(int key, void *param)
 {
@@ -135,8 +77,6 @@ int	main(int ac, char **av)
 	mlx.player = player;
 	mlx.ray = ray;
 	load_all_textures(&mlx);
-	print_map(&mlx);
-	test_around_player(&mlx);
 	mlx_loop_hook(game->mlx_ptr, &main_loop, &mlx);
 	mlx_key_hook(game->mlx_ptr, &key_input, &mlx);
 	mlx_hook(game->win_ptr, KeyPress, KeyPressMask, key_input, &mlx);
