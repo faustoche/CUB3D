@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 10:24:38 by faustoche         #+#    #+#             */
-/*   Updated: 2025/05/26 11:15:09 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/05 12:04:18 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,9 @@ typedef struct s_player
 typedef struct s_ray
 {
 	double	ray_angle;
+	double	ray_dir_x;
+	double	ray_dir_y;
+	int		side;
 	double	distance;
 	int		flag;
 	char	hit_cell;
