@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 10:24:38 by faustoche         #+#    #+#             */
-/*   Updated: 2025/06/05 12:04:18 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/05 16:29:24 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,20 @@
 
 /*--------------- DEFINES ---------------*/
 
-# define WIDTH 1900 // a tester
-# define HEIGHT 1000 // a tester
-# define TILE_SIZE 30 // a tester
-# define FOV 60 // champs de vision // a tester
-# define ROTATION_SPEED 0.045 // a tester
-# define PLAYER_SPEED 4 // a tester
+# define WIDTH 1900
+# define HEIGHT 1000
+# define TILE_SIZE 30
+# define FOV 60
+# define ROTATION_SPEED 0.045
+# define MOUSE_ROTATION_SPEED 0.004
+# define PLAYER_SPEED 4
 # define M_PI   3.14159265358979323846
 # define MAX_DISTANCE 1000.0
 
 # define EVENT_MOUSE_CODE 6
-# define MINIMAP_SIZE 200 // taille
+# define MINIMAP_SIZE 200
 # define MINIMAP_TILE 10
-# define MINIMAP_RADIUS 15 // echelle de la map par rapport a la ti
+# define MINIMAP_RADIUS 15
 # define MINIMAP_RADIUS_X 15
 # define MINIMAP_RADIUS_Y 9
 # define WALL_COLOR     0x004400 // Vert foncé (murs = végétation dense)
@@ -119,6 +120,7 @@ typedef struct s_player
 	int		rot;
 	int		left_right;
 	int		up_down;
+	int		mouse_rot;
 }	t_player;
 
 typedef struct s_ray
@@ -178,43 +180,43 @@ typedef struct s_minimap
 /// PARSING ///
 
 // enclosure_check.c
-int	find_closure_error(t_game *g, int *ex, int *ey);
-int	check_edge_row(char *row, int y);
+int		find_closure_error(t_game *g, int *ex, int *ey);
+int		check_edge_row(char *row, int y);
 
 // map_colors.c
-int parse_rgb(char *str, char ***rgb_out);
-void assign_colors(t_meta *m, char type, int vals[3]);
-int validate_count(char **rgb, char *header);
-int validate_components(char **rgb, char *header, int vals[3]);
-int set_color(char **parts, t_meta *m);
+int		parse_rgb(char *str, char ***rgb_out);
+void 	assign_colors(t_meta *m, char type, int vals[3]);
+int		validate_count(char **rgb, char *header);
+int		validate_components(char **rgb, char *header, int vals[3]);
+int		set_color(char **parts, t_meta *m);
 
 // map_textures.c
-int set_texture(char **p, t_meta *m);
-int all_header_fields_set(t_meta *m);
-int parse_header_line(char *line, t_meta *m);
-int read_header(int fd, t_meta *m);
-int	open_and_read_header(const char *path, t_game *g, int *fd);
+int		set_texture(char **p, t_meta *m);
+int		all_header_fields_set(t_meta *m);
+int		parse_header_line(char *line, t_meta *m);
+int		read_header(int fd, t_meta *m);
+int		open_and_read_header(const char *path, t_game *g, int *fd);
 
 // map_validation.c
-int	process_map_row(t_game *g, char *line, int rows, int width);
-int validate_map(t_game *g);
-int valid_map_chars(char *line);
+int		process_map_row(t_game *g, char *line, int rows, int width);
+int		validate_map(t_game *g);
+int		valid_map_chars(char *line);
 
 // map.c
 void	init_meta(t_meta *m);
-int	open_map(const char *path, t_game *g);
-int	combine_colors(int r, int g, int b);
+int		open_map(const char *path, t_game *g);
+int		combine_colors(int r, int g, int b);
 
 // parser_utils.c
-void free_split(char **arr);
-int	is_blank_line(char *line);
-int	read_first_map_line(int fd, char **line);
-void chomp_newline(char *line);
-int	skip_blank_preface(int fd, char **line);
+void	free_split(char **arr);
+int		is_blank_line(char *line);
+int		read_first_map_line(int fd, char **line);
+void	chomp_newline(char *line);
+int		skip_blank_preface(int fd, char **line);
 
 // parsing.c
 void	init_map_state(t_game *g, int *rows, int *width);
-int	process_map_lines(int fd, t_game *g, int rows, int width);
+int		process_map_lines(int fd, t_game *g, int rows, int width);
 
 /// RAYCASTING ///
 int		check_angle_direction(float angle, char c);
@@ -227,8 +229,8 @@ float	cal_dist(float x1, float y1, float x2, float y2);
 /// RENDERING ///
 void	ft_mlx_pixel_put(t_mlx *mlx, int x, int y, int color);
 void	render_wall(t_mlx *mlx, int ray);
-void draw_textured_wall(t_mlx *mlx, int ray, int top_pixel, int bottom_pixel);
-int	get_texture_pixel(t_texture *texture, int x, int y);
+void	draw_textured_wall(t_mlx *mlx, int ray, int top_pixel, int bottom_pixel);
+int		get_texture_pixel(t_texture *texture, int x, int y);
 void	free_textures(t_mlx *mlx);
 
 /// INIT GAME ///
@@ -248,7 +250,8 @@ void	rotate_player(t_mlx *mlx, int i);
 void	draw_minimap(t_mlx *mlx);
 void	draw_minimap_player(t_minimap *mini);
 void	draw_direction_text(t_minimap *mini);
-int		mouse_handler(int x, int y, void *param);
+int		mouse_handler_jump(int x, int y, void *param);
+int		mouse_leave_window(int keycode, void *param);
 void	draw_direction_ray(t_minimap *mini, double angle);
 
 #endif

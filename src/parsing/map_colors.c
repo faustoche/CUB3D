@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 14:53:15 by asaulnie          #+#    #+#             */
-/*   Updated: 2025/05/21 18:35:30 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/05 16:37:19 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	assign_colors(t_meta *m, char type, int vals[3])
 		m->f_r = vals[0];
 		m->f_g = vals[1];
 		m->f_b = vals[2];
-		m->f_color = combine_colors(m->f_r, m->f_g, m->f_b); // pour recuperer la couleur finale
+		m->f_color = combine_colors(m->f_r, m->f_g, m->f_b);
 		m->f_set = 1;
 	}
 	else
@@ -41,7 +41,7 @@ void	assign_colors(t_meta *m, char type, int vals[3])
 		m->c_r = vals[0];
 		m->c_g = vals[1];
 		m->c_b = vals[2];
-		m->c_color = combine_colors(m->c_r, m->c_g, m->c_b); // pour recuperer la couleur finale
+		m->c_color = combine_colors(m->c_r, m->c_g, m->c_b);
 		m->c_set = 1;
 	}
 }
