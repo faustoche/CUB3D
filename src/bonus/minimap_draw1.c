@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 09:25:46 by faustoche         #+#    #+#             */
-/*   Updated: 2025/05/20 17:20:43 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/06 13:15:25 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,10 @@ void	draw_tiles(t_minimap *mini, int dx, int dy)
 		tile = mini->mlx->game->map[map_y][map_x];
 		if (tile == '1')
 			mini->color = WALL_COLOR;
-		else
+		else if (tile == '0')
 			mini->color = FLOOR_COLOR;
+		else
+			mini->color = WALL_COLOR;
 	}
 	draw_tile_square(mini, screen_x, screen_y, mini->color);
 }
@@ -94,5 +96,4 @@ void	draw_minimap(t_mlx *mlx)
 	draw_minimap_tiles(&mini);
 	draw_minimap_player(&mini);
 	draw_direction_ray(&mini, mlx->player->angle);
-	draw_direction_text(&mini);
 }

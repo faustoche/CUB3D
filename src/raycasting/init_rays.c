@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 19:50:34 by faustoche         #+#    #+#             */
-/*   Updated: 2025/05/26 11:49:09 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/06 11:30:10 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,14 @@ int	is_wall(float x, float y, t_mlx *mlx)
 	int		map_x;
 	int		map_y;
 	char	tile;
+	int		line_length;
 
 	map_x = (int)(x / TILE_SIZE);
 	map_y = (int)(y / TILE_SIZE);
-	if (map_x < 0 || map_y < 0 || map_y >= mlx->game->height_map
-		|| map_x >= mlx->game->width_map)
+	if (map_x < 0 || map_y < 0 || map_y >= mlx->game->height_map)
+		return (1);
+	line_length = ft_strlen(mlx->game->map[map_y]);
+	if (map_x >= line_length)
 		return (1);
 	tile = mlx->game->map[map_y][map_x];
 	if (tile == '1' || tile == 'D')

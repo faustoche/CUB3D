@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 10:24:38 by faustoche         #+#    #+#             */
-/*   Updated: 2025/06/05 16:29:24 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/06 11:09:36 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,7 +250,7 @@ void	rotate_player(t_mlx *mlx, int i);
 void	draw_minimap(t_mlx *mlx);
 void	draw_minimap_player(t_minimap *mini);
 void	draw_direction_text(t_minimap *mini);
-int		mouse_handler_jump(int x, int y, void *param);
+int		mouse_handler(int x, int y, void *param);
 int		mouse_leave_window(int keycode, void *param);
 void	draw_direction_ray(t_minimap *mini, double angle);
 
