@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 18:42:46 by faustoche         #+#    #+#             */
-/*   Updated: 2025/06/05 15:16:03 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/06 14:20:01 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,25 +43,25 @@ static float	walk_intersection(t_mlx *mlx, t_ray *ray, int is_horizontal)
 
 static float	check_horizontal(t_mlx *mlx, t_ray *ray, int map_y)
 {
-	float	y_intercept;
-	float	x_intercept;
+	float	y_inter;
+	float	x_inter;
 
 	if (ray->sin_a == 0)
 		return (INFINITY);
 	if (ray->sin_a > 0)
 	{
-		y_intercept = (map_y + 1) * TILE_SIZE;
+		y_inter = (map_y + 1) * TILE_SIZE;
 		ray->dy = TILE_SIZE;
 	}
 	else
 	{
-		y_intercept = map_y * TILE_SIZE - 0.001;
+		y_inter = map_y * TILE_SIZE - 0.001;
 		ray->dy = -TILE_SIZE;
 	}
-	x_intercept = ray->ray_x + (y_intercept - ray->ray_y) / ray->sin_a * ray->cos_a;
+	x_inter = ray->ray_x + (y_inter - ray->ray_y) / ray->sin_a * ray->cos_a;
 	ray->dx = ray->dy / ray->sin_a * ray->cos_a;
-	ray->next_x = x_intercept;
-	ray->next_y = y_intercept;
+	ray->next_x = x_inter;
+	ray->next_y = y_inter;
 	return (walk_intersection(mlx, ray, 1));
 }
 
@@ -90,6 +90,20 @@ static float	check_vertical(t_mlx *mlx, t_ray *ray, int map_x)
 	return (walk_intersection(mlx, ray, 0));
 }
 
+void	init_rays(t_ray *h_ray, t_ray *v_ray, t_mlx *mlx, float angle)
+{
+	h_ray->ray_angle = angle;
+	v_ray->ray_angle = angle;
+	h_ray->sin_a = sin(angle);
+	h_ray->cos_a = cos(angle);
+	v_ray->sin_a = h_ray->sin_a;
+	v_ray->cos_a = h_ray->cos_a;
+	h_ray->ray_x = mlx->player->player_x;
+	h_ray->ray_y = mlx->player->player_y;
+	v_ray->ray_x = mlx->player->player_x;
+	v_ray->ray_y = mlx->player->player_y;
+}
+
 static float	cast_ray(t_mlx *mlx, float angle)
 {
 	t_ray	h_ray;
@@ -101,30 +115,19 @@ static float	cast_ray(t_mlx *mlx, float angle)
 
 	map_x = mlx->player->player_x / TILE_SIZE;
 	map_y = mlx->player->player_y / TILE_SIZE;
-	h_ray.ray_angle = angle;
-	v_ray.ray_angle = angle;
-	h_ray.sin_a = sin(angle);
-	h_ray.cos_a = cos(angle);
-	v_ray.sin_a = h_ray.sin_a;
-	v_ray.cos_a = h_ray.cos_a;
-	h_ray.ray_x = mlx->player->player_x;
-	h_ray.ray_y = mlx->player->player_y;
-	v_ray.ray_x = mlx->player->player_x;
-	v_ray.ray_y = mlx->player->player_y;
+	init_rays(&h_ray, &v_ray, mlx, angle);
 	h_dist = check_horizontal(mlx, &h_ray, map_y);
 	v_dist = check_vertical(mlx, &v_ray, map_x);
 	if (v_dist < h_dist)
 	{
 		*mlx->ray = v_ray;
 		mlx->ray->flag = 1;
-		mlx->ray->distance = v_dist;
 		return (v_dist);
 	}
 	else
 	{
 		*mlx->ray = h_ray;
 		mlx->ray->flag = 0;
-		mlx->ray->distance = h_dist;
 		return (h_dist);
 	}
 }
@@ -148,3 +151,35 @@ void	cast_rays(t_mlx *mlx)
 		ray++;
 	}
 }
+
+// est-ce que mlx->ray->distance est reelement utilise ici ?
+
+// static float	cast_ray(t_mlx *mlx, float angle)
+// {
+// 	t_ray	h_ray;
+// 	t_ray	v_ray;
+// 	float	h_dist;
+// 	float	v_dist;
+// 	int		map_x;
+// 	int		map_y;
+
+// 	map_x = mlx->player->player_x / TILE_SIZE;
+// 	map_y = mlx->player->player_y / TILE_SIZE;
+// 	init_rays(&h_ray, &v_ray, mlx, angle);
+// 	h_dist = check_horizontal(mlx, &h_ray, map_y);
+// 	v_dist = check_vertical(mlx, &v_ray, map_x);
+// 	if (v_dist < h_dist)
+// 	{
+// 		*mlx->ray = v_ray;
+// 		mlx->ray->flag = 1;
+// 		//mlx->ray->distance = v_dist;
+// 		return (v_dist);
+// 	}
+// 	else
+// 	{
+// 		*mlx->ray = h_ray;
+// 		mlx->ray->flag = 0;
+// 		//mlx->ray->distance = h_dist;
+// 		return (h_dist);
+// 	}
+// }

@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 10:24:38 by faustoche         #+#    #+#             */
-/*   Updated: 2025/06/06 11:09:36 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/06 16:14:55 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ typedef struct s_texture
 	int		endian;
 }	t_texture;
 
-
 typedef struct s_meta
 {
 	char	*no;
@@ -104,10 +103,10 @@ typedef struct s_game
 	void		*mlx_ptr;
 	void		*win_ptr;
 	char		player_dir;
-	t_texture	north_texture;
-	t_texture	south_texture;
-	t_texture	west_texture;
-	t_texture	east_texture;
+	t_texture	north;
+	t_texture	south;
+	t_texture	west;
+	t_texture	east;
 	t_meta		meta;
 }	t_game;
 
@@ -175,6 +174,17 @@ typedef struct s_minimap
 	double	dy;
 }	t_minimap;
 
+typedef struct s_wall
+{
+	t_texture	*texture;
+	double		step;
+	double		tex_pos;
+	int			y;
+	int			tex_y;
+	int			top;
+	int			bottom;
+}	t_wall;
+
 /*-------------- FUNCTIONS --------------*/
 
 /// PARSING ///
@@ -229,8 +239,11 @@ float	cal_dist(float x1, float y1, float x2, float y2);
 /// RENDERING ///
 void	ft_mlx_pixel_put(t_mlx *mlx, int x, int y, int color);
 void	render_wall(t_mlx *mlx, int ray);
+int	calculate_wall_height(t_ray *ray, t_player *player);
+t_texture	*select_wall_texture(t_ray *ray, t_game *game);
+void	draw_wall_portion(t_mlx *mlx, int ray_num, int top, int bottom);
 void	draw_textured_wall(t_mlx *mlx, int ray, int top_pixel, int bottom_pixel);
-int		get_texture_pixel(t_texture *texture, int x, int y);
+int		get_tex_pix(t_texture *texture, int x, int y);
 void	free_textures(t_mlx *mlx);
 
 /// INIT GAME ///
@@ -243,6 +256,7 @@ void	load_all_textures(t_mlx *mlx);
 
 /// MOVEMENTS //
 int		key_input(int key, void *param);
+void	move_player(t_mlx *mlx, double move_x, double move_y);
 void	hook(t_mlx *mlx, double move_x, double move_y);
 void	rotate_player(t_mlx *mlx, int i);
 
@@ -251,7 +265,8 @@ void	draw_minimap(t_mlx *mlx);
 void	draw_minimap_player(t_minimap *mini);
 void	draw_direction_text(t_minimap *mini);
 int		mouse_handler(int x, int y, void *param);
-int		mouse_leave_window(int keycode, void *param);
+int		mouse_leave(int keycode, void *param);
+int		choose_color(char tile);
 void	draw_direction_ray(t_minimap *mini, double angle);
 
 #endif

@@ -6,13 +6,13 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 22:22:50 by faustoche         #+#    #+#             */
-/*   Updated: 2025/06/05 16:32:01 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/06 14:04:08 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	get_texture_pixel(t_texture *texture, int x, int y)
+int	get_tex_pix(t_texture *texture, int x, int y)
 {
 	char	*dst;
 
@@ -26,12 +26,12 @@ int	get_texture_pixel(t_texture *texture, int x, int y)
 
 void	free_textures(t_mlx *mlx)
 {
-	if (mlx->game->north_texture.img)
-		mlx_destroy_image(mlx->game->mlx_ptr, mlx->game->north_texture.img);
-	if (mlx->game->south_texture.img)
-		mlx_destroy_image(mlx->game->mlx_ptr, mlx->game->south_texture.img);
-	if (mlx->game->east_texture.img)
-		mlx_destroy_image(mlx->game->mlx_ptr, mlx->game->east_texture.img);
-	if (mlx->game->west_texture.img)
-		mlx_destroy_image(mlx->game->mlx_ptr, mlx->game->west_texture.img);
+	if (mlx->game->north.img)
+		mlx_destroy_image(mlx->game->mlx_ptr, mlx->game->north.img);
+	if (mlx->game->south.img)
+		mlx_destroy_image(mlx->game->mlx_ptr, mlx->game->south.img);
+	if (mlx->game->east.img)
+		mlx_destroy_image(mlx->game->mlx_ptr, mlx->game->east.img);
+	if (mlx->game->west.img)
+		mlx_destroy_image(mlx->game->mlx_ptr, mlx->game->west.img);
 }

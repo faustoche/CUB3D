@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 22:13:49 by faustoche         #+#    #+#             */
-/*   Updated: 2025/06/05 16:33:45 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/06 14:02:50 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@ int	load_textures_north(t_mlx *mlx)
 	int	width;
 	int	height;
 
-	mlx->game->north_texture.img = mlx_xpm_file_to_image(mlx->game->mlx_ptr,
+	mlx->game->north.img = mlx_xpm_file_to_image(mlx->game->mlx_ptr,
 			mlx->game->meta.no, &width, &height);
-	if (!mlx->game->north_texture.img)
+	if (!mlx->game->north.img)
 		return (printf("Error\nCan't load the north texture\n"), 0);
-	mlx->game->north_texture.addr = mlx_get_data_addr(mlx->game->north_texture.img,
-			&mlx->game->north_texture.bpp,
-			&mlx->game->north_texture.size_line,
-			&mlx->game->north_texture.endian);
-	mlx->game->north_texture.width = width;
-	mlx->game->north_texture.height = height;
+	mlx->game->north.addr = mlx_get_data_addr(mlx->game->north.img,
+			&mlx->game->north.bpp,
+			&mlx->game->north.size_line,
+			&mlx->game->north.endian);
+	mlx->game->north.width = width;
+	mlx->game->north.height = height;
 	return (1);
 }
 
@@ -35,16 +35,16 @@ int	load_textures_south(t_mlx *mlx)
 	int	width;
 	int	height;
 
-	mlx->game->south_texture.img = mlx_xpm_file_to_image(mlx->game->mlx_ptr,
+	mlx->game->south.img = mlx_xpm_file_to_image(mlx->game->mlx_ptr,
 			mlx->game->meta.so, &width, &height);
-	if (!mlx->game->south_texture.img)
+	if (!mlx->game->south.img)
 		return (printf("Error\nCan't load the south texture\n"), 0);
-	mlx->game->south_texture.addr = mlx_get_data_addr(mlx->game->south_texture.img,
-			&mlx->game->south_texture.bpp,
-			&mlx->game->south_texture.size_line,
-			&mlx->game->south_texture.endian);
-	mlx->game->south_texture.width = width;
-	mlx->game->south_texture.height = height;
+	mlx->game->south.addr = mlx_get_data_addr(mlx->game->south.img,
+			&mlx->game->south.bpp,
+			&mlx->game->south.size_line,
+			&mlx->game->south.endian);
+	mlx->game->south.width = width;
+	mlx->game->south.height = height;
 	return (1);
 }
 
@@ -53,16 +53,16 @@ int	load_textures_east(t_mlx *mlx)
 	int	width;
 	int	height;
 
-	mlx->game->east_texture.img = mlx_xpm_file_to_image(mlx->game->mlx_ptr,
+	mlx->game->east.img = mlx_xpm_file_to_image(mlx->game->mlx_ptr,
 			mlx->game->meta.ea, &width, &height);
-	if (!mlx->game->east_texture.img)
+	if (!mlx->game->east.img)
 		return (printf("Error\nCan't load the east texture\n"), 0);
-	mlx->game->east_texture.addr = mlx_get_data_addr(mlx->game->east_texture.img,
-			&mlx->game->east_texture.bpp,
-			&mlx->game->east_texture.size_line,
-			&mlx->game->east_texture.endian);
-	mlx->game->east_texture.width = width;
-	mlx->game->east_texture.height = height;
+	mlx->game->east.addr = mlx_get_data_addr(mlx->game->east.img,
+			&mlx->game->east.bpp,
+			&mlx->game->east.size_line,
+			&mlx->game->east.endian);
+	mlx->game->east.width = width;
+	mlx->game->east.height = height;
 	return (1);
 }
 
@@ -71,16 +71,16 @@ int	load_textures_west(t_mlx *mlx)
 	int	width;
 	int	height;
 
-	mlx->game->west_texture.img = mlx_xpm_file_to_image(mlx->game->mlx_ptr,
+	mlx->game->west.img = mlx_xpm_file_to_image(mlx->game->mlx_ptr,
 			mlx->game->meta.we, &width, &height);
-	if (!mlx->game->west_texture.img)
+	if (!mlx->game->west.img)
 		return (printf("Error\nCan't load the west texture\n"), 0);
-	mlx->game->west_texture.addr = mlx_get_data_addr(mlx->game->west_texture.img,
-			&mlx->game->west_texture.bpp,
-			&mlx->game->west_texture.size_line,
-			&mlx->game->west_texture.endian);
-	mlx->game->west_texture.width = width;
-	mlx->game->west_texture.height = height;
+	mlx->game->west.addr = mlx_get_data_addr(mlx->game->west.img,
+			&mlx->game->west.bpp,
+			&mlx->game->west.size_line,
+			&mlx->game->west.endian);
+	mlx->game->west.width = width;
+	mlx->game->west.height = height;
 	return (1);
 }
 

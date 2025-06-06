@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 09:25:46 by faustoche         #+#    #+#             */
-/*   Updated: 2025/06/06 12:48:02 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/06 14:26:46 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,16 @@ void	draw_minimap_player(t_minimap *mini)
 		}
 		y++;
 	}
+}
+
+int	choose_color(char tile)
+{
+	if (tile == '1')
+		return (WALL_COLOR);
+	else if (tile == 'D')
+		return (BORDER_COLOR);
+	else if (tile == '0')
+		return (FLOOR_COLOR);
+	else
+		return (WALL_COLOR);
 }
