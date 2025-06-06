@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 08:51:19 by faustoche         #+#    #+#             */
-/*   Updated: 2025/06/05 16:37:45 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/06 11:09:05 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ft_abs(int n)
 /// on se retrouve avec une variable non adapté ce qui peut provoquer un saut
 /// brusque avec la souris
 
-int	mouse_handler_jump(int x, int y, void *param)
+int	mouse_handler(int x, int y, void *param)
 {
 	t_mlx		*mlx;
 	static int	last_x = -1;

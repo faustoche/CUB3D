@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_validation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asaulnie <asaulnie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 14:52:49 by asaulnie          #+#    #+#             */
-/*   Updated: 2025/05/23 15:29:09 by asaulnie         ###   ########.fr       */
+/*   Updated: 2025/06/06 11:21:18 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ int	process_map_row(t_game *g, char *line, int rows, int width)
 	}
 	if (append_row(g, line, rows) < 0)
 		return (-1);
-	g->width_map = len;
+	if (len > g->width_map) // garder la largeur max si besoin au lieu de l'ecraser
+		g->width_map = len;
 	return (0);
 }
 
