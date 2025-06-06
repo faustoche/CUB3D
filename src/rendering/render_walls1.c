@@ -6,37 +6,37 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 22:50:11 by faustoche         #+#    #+#             */
-/*   Updated: 2025/06/05 16:31:53 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/06 16:15:07 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static t_texture	*select_wall_texture(t_ray *ray, t_game *game)
+t_texture	*select_wall_texture(t_ray *ray, t_game *game)
 {
 	if (ray->flag == 1)
 	{
 		if (cos(ray->ray_angle) > 0)
-			return (&game->east_texture);
+			return (&game->east);
 		else
-			return (&game->west_texture);
+			return (&game->west);
 	}
 	else
 	{
 		if (sin(ray->ray_angle) < 0)
-			return (&game->south_texture);
+			return (&game->south);
 		else
-			return (&game->north_texture);
+			return (&game->north);
 	}
 }
 
-static int	calculate_wall_height(t_ray *ray, t_player *player)
+int	calculate_wall_height(t_ray *ray, t_player *player)
 {
 	return ((int)((TILE_SIZE / ray->distance)
 		* ((WIDTH / 2) / tan(player->fov_rd / 2))));
 }
 
-static void	draw_wall_portion(t_mlx *mlx, int ray_num, int top, int bottom)
+void	draw_wall_portion(t_mlx *mlx, int ray_num, int top, int bottom)
 {
 	t_texture	*texture;
 	int			tex_x;
@@ -76,7 +76,7 @@ static void	draw_wall_portion(t_mlx *mlx, int ray_num, int top, int bottom)
 		else if (tex_y >= texture->height)
 			tex_y = texture->height - 1;
 		tex_pos += step;
-		ft_mlx_pixel_put(mlx, ray_num, y, get_texture_pixel(texture, tex_x, tex_y));
+		ft_mlx_pixel_put(mlx, ray_num, y, get_tex_pix(texture, tex_x, tex_y));
 		y++;
 	}
 }

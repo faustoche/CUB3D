@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 08:51:19 by faustoche         #+#    #+#             */
-/*   Updated: 2025/06/06 11:09:05 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/06 13:51:18 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	mouse_handler(int x, int y, void *param)
 	return (0);
 }
 
-int	mouse_leave_window(int keycode, void *param)
+int	mouse_leave(int keycode, void *param)
 {
 	(void)keycode;
 	(void)param;

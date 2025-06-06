@@ -35,11 +35,13 @@ CUB3D			= 	$(addprefix $(SRCS_DIR)/, main.c\
 					raycasting/init_rays.c\
 					raycasting/ray_utils.c\
 					raycasting/raycasting.c\
+					rendering/draw_wall.c\
 					rendering/render_walls1.c\
 					rendering/render_walls2.c\
 					rendering/put_texture.c\
 					rendering/load_texture.c\
 					game_base/init_game.c\
+					game_base/keys_hook.c\
 					game_base/movements.c)
 
 SRCS			= ${CUB3D}

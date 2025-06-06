@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:55:21 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/06/06 11:09:14 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/06 13:53:37 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ int	main(int ac, char **av)
 	mlx_key_hook(game->mlx_ptr, &key_input, &mlx);
 	mlx_hook(game->win_ptr, KeyPress, KeyPressMask, key_input, &mlx);
 	mlx_hook(game->win_ptr, KeyRelease, KeyReleaseMask, key_release, &mlx);
-	mlx_hook(game->win_ptr, EVENT_MOUSE_CODE, (1L<<6), &mouse_handler, &mlx);
-	mlx_hook(game->win_ptr, LeaveNotify, LeaveWindowMask, &mouse_leave_window, &mlx);
+	mlx_hook(game->win_ptr, EVENT_MOUSE_CODE, (1L << 6), &mouse_handler, &mlx);
+	mlx_hook(game->win_ptr, LeaveNotify, LeaveWindowMask, &mouse_leave, &mlx);
 	mlx_loop(game->mlx_ptr);
 	if (game->map)
 	{

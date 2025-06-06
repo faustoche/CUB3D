@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 14:52:49 by asaulnie          #+#    #+#             */
-/*   Updated: 2025/06/06 11:21:18 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/06 13:59:42 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	valid_map_chars(char *line)
 	while (line[i])
 	{
 		c = line[i++];
-		if (!ft_strchr("01NSEW", c))
+		if (!ft_strchr("01NSEWD", c))
 			return (0);
 	}
 	return (1);
@@ -58,7 +58,7 @@ int	process_map_row(t_game *g, char *line, int rows, int width)
 	}
 	if (append_row(g, line, rows) < 0)
 		return (-1);
-	if (len > g->width_map) // garder la largeur max si besoin au lieu de l'ecraser
+	if (len > g->width_map)
 		g->width_map = len;
 	return (0);
 }
