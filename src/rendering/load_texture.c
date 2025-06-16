@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 22:13:49 by faustoche         #+#    #+#             */
-/*   Updated: 2025/06/16 10:32:00 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/16 14:20:46 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	load_textures_north(t_mlx *mlx)
 
 	mlx->game->north.img = mlx_xpm_file_to_image(mlx->game->mlx_ptr,
 			mlx->game->meta.no, &width, &height);
-	if (!mlx->game->north.img)
+	if (!mlx->game->north.img || !mlx->game->meta.no)
 		return (printf("Error\nCan't load the north texture\n"), 0);
 	mlx->game->north.addr = mlx_get_data_addr(mlx->game->north.img,
 			&mlx->game->north.bpp,
@@ -84,10 +84,27 @@ static int	load_textures_west(t_mlx *mlx)
 	return (1);
 }
 
-void	load_all_textures(t_mlx *mlx)
+int load_all_textures(t_mlx *mlx)
 {
-	load_textures_north(mlx);
-	load_textures_south(mlx);
-	load_textures_east(mlx);
-	load_textures_west(mlx);
+    if (!load_textures_north(mlx))
+        return (0);
+    if (!load_textures_south(mlx))
+    {
+        destroy_image_safe(mlx->game->mlx_ptr, (void **)&mlx->game->north.img);
+        return (0);
+    }
+    if (!load_textures_east(mlx))
+    {
+        destroy_image_safe(mlx->game->mlx_ptr, (void **)&mlx->game->north.img);
+        destroy_image_safe(mlx->game->mlx_ptr, (void **)&mlx->game->south.img);
+        return (0);
+    }
+    if (!load_textures_west(mlx))
+    {
+        destroy_image_safe(mlx->game->mlx_ptr, (void **)&mlx->game->north.img);
+        destroy_image_safe(mlx->game->mlx_ptr, (void **)&mlx->game->south.img);
+        destroy_image_safe(mlx->game->mlx_ptr, (void **)&mlx->game->east.img);
+        return (0);
+    }
+    return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_textures.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asaulnie <asaulnie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 14:53:23 by asaulnie          #+#    #+#             */
-/*   Updated: 2025/05/23 15:28:05 by asaulnie         ###   ########.fr       */
+/*   Updated: 2025/06/16 11:09:28 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,24 @@
 
 int	set_texture(char **p, t_meta *m)
 {
-	if (ft_strcmp(p[0], "NO") == 0 && !m->no)
-		m->no = ft_strdup(p[1]);
-	else if (ft_strcmp(p[0], "SO") == 0 && !m->so)
-		m->so = ft_strdup(p[1]);
-	else if (ft_strcmp(p[0], "WE") == 0 && !m->we)
-		m->we = ft_strdup(p[1]);
-	else if (ft_strcmp(p[0], "EA") == 0 && !m->ea)
-		m->ea = ft_strdup(p[1]);
-	else
+	char	*new_texture;
+
+	new_texture = ft_strdup(p[1]);
+	if (!new_texture)
 		return (0);
+	if (ft_strcmp(p[0], "NO") == 0 && !m->no)
+		m->no = new_texture;
+	else if (ft_strcmp(p[0], "SO") == 0 && !m->so)
+		m->so = new_texture;
+	else if (ft_strcmp(p[0], "WE") == 0 && !m->we)
+		m->we = new_texture;
+	else if (ft_strcmp(p[0], "EA") == 0 && !m->ea)
+		m->ea = new_texture;
+	else
+	{
+		free(new_texture);
+		return (0);
+	}
 	return (1);
 }
 
