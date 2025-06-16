@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 14:52:49 by asaulnie          #+#    #+#             */
-/*   Updated: 2025/06/06 13:59:42 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/16 11:28:22 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,22 @@ int	valid_map_chars(char *line)
 static int	append_row(t_game *g, char *line, int rows)
 {
 	char	**tmp;
+	int		i;
 
+	i = 0;
 	tmp = realloc(g->map, sizeof(char *) * (rows + 2));
 	if (!tmp)
 	{
 		free(line);
+		if (g->map)
+		{
+			while (i < rows && g->map[i])
+			{
+				free(g->map[i]);
+				i++;
+			}
+			free(g->map);
+		}
 		printf("Error\nMemory allocation\n");
 		return (-1);
 	}
@@ -54,10 +65,14 @@ int	process_map_row(t_game *g, char *line, int rows, int width)
 	if (rows == 0 && !valid_map_chars(line))
 	{
 		printf("Error\nBad char in map\n");
+		free(line);
 		return (-1);
 	}
 	if (append_row(g, line, rows) < 0)
+	{
+		free(line);
 		return (-1);
+	}
 	if (len > g->width_map)
 		g->width_map = len;
 	return (0);

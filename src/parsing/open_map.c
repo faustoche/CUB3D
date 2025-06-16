@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asaulnie <asaulnie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 16:31:53 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/05/23 15:19:00 by asaulnie         ###   ########.fr       */
+/*   Updated: 2025/06/16 11:29:59 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,12 +93,12 @@ int	open_map(const char *path, t_game *g)
 		return (1);
 	if (!read_first_map_line(fd, &first_line))
 	{
+		free(first_line);
 		close(fd);
 		return (1);
 	}
 	if (process_map_row(g, first_line, rows, g->width_map))
 	{
-		free(first_line);
 		close(fd);
 		return (1);
 	}

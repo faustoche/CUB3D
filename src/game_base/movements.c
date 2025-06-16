@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:54:37 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/06/16 10:30:27 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/16 14:21:54 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,19 @@ void	move_player(t_mlx *mlx, double move_x, double move_y)
 		mlx->player->player_x = new_x;
 		mlx->player->player_y = new_y;
 	}
+}
+
+int	key_release(int key, void *param)
+{
+	t_mlx	*mlx;
+
+	mlx = (t_mlx *)param;
+	if (key == XK_W || key == XK_w || key == XK_Up || key == XK_S
+		|| key == XK_s || key == XK_Down)
+		mlx->player->up_down = 0;
+	if (key == XK_A || key == XK_a || key == XK_D || key == XK_d)
+		mlx->player->left_right = 0;
+	if (key == XK_Left || key == XK_Right)
+		mlx->player->rot = 0;
+	return (0);
 }
