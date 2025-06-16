@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 19:50:34 by faustoche         #+#    #+#             */
-/*   Updated: 2025/06/06 11:30:10 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/16 10:40:17 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,37 +25,6 @@ int	check_angle_direction(float angle, char c)
 			return (1);
 	}
 	return (0);
-}
-
-/*
-* Savoir si le rayon va vers le bas ou le haut (horizon)
-* Ou vers la gauche ou la droite (si horizon = 0)
-* On peut donc placer correctement le premier point d'intersection
-* Le rayon avance dans la bonne direction
-* Inter = point d'intersection de la premiere ligne
-*/
-
-int	init_ray_direction(float angle, float *inter, float *step, int horizon)
-{
-	if (horizon)
-	{
-		if (angle > 0 && angle < M_PI)
-		{
-			*inter += TILE_SIZE;
-			return (-1);
-		}
-		*step *= -1;
-	}
-	else
-	{
-		if (!(angle > M_PI / 2 && angle < 3 * M_PI / 2))
-		{
-			*inter += TILE_SIZE;
-			return (-1);
-		}
-		*step *= -1;
-	}
-	return (1);
 }
 
 /*
@@ -84,4 +53,34 @@ int	is_wall(float x, float y, t_mlx *mlx)
 		return (1);
 	}
 	return (0);
+}
+
+/* Ne sert qu'à conserver l'angle entre 0 et 2 pi*/
+
+float	angle_to_radians(float angle)
+{
+	if (angle < 0)
+		angle += (2 * M_PI);
+	if (angle > (2 * M_PI))
+		angle -= (2 * M_PI);
+	return (angle);
+}
+
+float	cal_dist(float x1, float y1, float x2, float y2)
+{
+	return (sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2)));
+}
+
+void	init_rays(t_ray *h_ray, t_ray *v_ray, t_mlx *mlx, float angle)
+{
+	h_ray->ray_angle = angle;
+	v_ray->ray_angle = angle;
+	h_ray->sin_a = sin(angle);
+	h_ray->cos_a = cos(angle);
+	v_ray->sin_a = h_ray->sin_a;
+	v_ray->cos_a = h_ray->cos_a;
+	h_ray->ray_x = mlx->player->player_x;
+	h_ray->ray_y = mlx->player->player_y;
+	v_ray->ray_x = mlx->player->player_x;
+	v_ray->ray_y = mlx->player->player_y;
 }

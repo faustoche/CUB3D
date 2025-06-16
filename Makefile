@@ -2,7 +2,7 @@
 #                			        MAIN                                   #
 # ************************************************************************ #
 
-NAME 		= cub3d
+NAME 		= Cub3D
 
 # ************************************************************************ #
 #                			     DIRECTORIES                               #
@@ -33,7 +33,6 @@ CUB3D			= 	$(addprefix $(SRCS_DIR)/, main.c\
 					bonus/minimap_rays.c\
 					bonus/mouse_event.c\
 					raycasting/init_rays.c\
-					raycasting/ray_utils.c\
 					raycasting/raycasting.c\
 					rendering/draw_wall.c\
 					rendering/render_walls1.c\

@@ -6,24 +6,18 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 08:51:19 by faustoche         #+#    #+#             */
-/*   Updated: 2025/06/06 13:51:18 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/16 10:23:21 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	ft_abs(int n)
+static int	ft_abs(int n)
 {
 	if (n < 0)
 		return (-n);
 	return (n);
 }
-
-/// COMMENT GÉRER LES SAUTS BRUSQUES AVEC LA SOURIS ?? ///
-/// Au premier appel de la fonction (ouverture du jeu) on ne 
-/// connait pas la position de la souris. Si on fait le calcul directement
-/// on se retrouve avec une variable non adapté ce qui peut provoquer un saut
-/// brusque avec la souris
 
 int	mouse_handler(int x, int y, void *param)
 {

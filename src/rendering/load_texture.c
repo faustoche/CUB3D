@@ -6,13 +6,13 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 22:13:49 by faustoche         #+#    #+#             */
-/*   Updated: 2025/06/06 14:02:50 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/16 10:32:00 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	load_textures_north(t_mlx *mlx)
+static int	load_textures_north(t_mlx *mlx)
 {
 	int	width;
 	int	height;
@@ -30,7 +30,7 @@ int	load_textures_north(t_mlx *mlx)
 	return (1);
 }
 
-int	load_textures_south(t_mlx *mlx)
+static int	load_textures_south(t_mlx *mlx)
 {
 	int	width;
 	int	height;
@@ -48,7 +48,7 @@ int	load_textures_south(t_mlx *mlx)
 	return (1);
 }
 
-int	load_textures_east(t_mlx *mlx)
+static int	load_textures_east(t_mlx *mlx)
 {
 	int	width;
 	int	height;
@@ -66,7 +66,7 @@ int	load_textures_east(t_mlx *mlx)
 	return (1);
 }
 
-int	load_textures_west(t_mlx *mlx)
+static int	load_textures_west(t_mlx *mlx)
 {
 	int	width;
 	int	height;
