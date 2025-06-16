@@ -6,13 +6,13 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 09:25:46 by faustoche         #+#    #+#             */
-/*   Updated: 2025/06/06 14:26:43 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/16 10:22:05 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	draw_tile_square(t_minimap *mini, int sx, int sy, int color)
+static void	draw_tile_square(t_minimap *mini, int sx, int sy, int color)
 {
 	int	x;
 	int	y;
@@ -30,7 +30,7 @@ void	draw_tile_square(t_minimap *mini, int sx, int sy, int color)
 	}
 }
 
-void	draw_tiles(t_minimap *mini, int dx, int dy)
+static void	draw_tiles(t_minimap *mini, int dx, int dy)
 {
 	int		map_x;
 	int		map_y;

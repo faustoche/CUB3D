@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_map2.c                                        :+:      :+:    :+:   */
+/*   minimap_rays.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:05:58 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/05/20 17:05:34 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/16 10:22:54 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	draw_ray_line(t_minimap *mini)
+static void	draw_ray_line(t_minimap *mini)
 {
 	int		draw_x;
 	int		draw_y;
@@ -28,7 +28,7 @@ void	draw_ray_line(t_minimap *mini)
 	ft_mlx_pixel_put(mini->mlx, draw_x, draw_y, RAY_COLOR);
 }
 
-void	trace_ray(t_minimap *mini)
+static void	trace_ray(t_minimap *mini)
 {
 	int		i;
 	int		map_x;
