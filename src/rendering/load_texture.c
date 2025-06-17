@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 22:13:49 by faustoche         #+#    #+#             */
-/*   Updated: 2025/06/16 14:20:46 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/17 16:01:35 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,27 +84,28 @@ static int	load_textures_west(t_mlx *mlx)
 	return (1);
 }
 
-int load_all_textures(t_mlx *mlx)
+int	load_all_textures(t_mlx *mlx)
 {
-    if (!load_textures_north(mlx))
-        return (0);
-    if (!load_textures_south(mlx))
-    {
-        destroy_image_safe(mlx->game->mlx_ptr, (void **)&mlx->game->north.img);
-        return (0);
-    }
-    if (!load_textures_east(mlx))
-    {
-        destroy_image_safe(mlx->game->mlx_ptr, (void **)&mlx->game->north.img);
-        destroy_image_safe(mlx->game->mlx_ptr, (void **)&mlx->game->south.img);
-        return (0);
-    }
-    if (!load_textures_west(mlx))
-    {
-        destroy_image_safe(mlx->game->mlx_ptr, (void **)&mlx->game->north.img);
-        destroy_image_safe(mlx->game->mlx_ptr, (void **)&mlx->game->south.img);
-        destroy_image_safe(mlx->game->mlx_ptr, (void **)&mlx->game->east.img);
-        return (0);
-    }
-    return (1);
+	mlx->game->north.img = NULL;
+	mlx->game->south.img = NULL;
+	mlx->game->east.img = NULL;
+	mlx->game->west.img = NULL;
+	if (!load_textures_north(mlx))
+		return (destroy_images(mlx->game, mlx), 0);
+	if (!load_textures_south(mlx))
+	{
+		destroy_images(mlx->game, mlx);
+		return (0);
+	}
+	if (!load_textures_east(mlx))
+	{
+		destroy_images(mlx->game, mlx);
+		return (0);
+	}
+	if (!load_textures_west(mlx))
+	{
+		destroy_images(mlx->game, mlx);
+		return (0);
+	}
+	return (1);
 }

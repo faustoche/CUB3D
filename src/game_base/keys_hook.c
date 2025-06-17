@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 14:36:51 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/06/06 14:37:40 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/17 14:36:26 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	key_input(int key, void *param)
 	else if (key == XK_Right)
 		mlx->player->rot = 1;
 	else if (key == XK_Escape)
-		exit_game(mlx);
+		close_window(param);
 	else
 		return (0);
 	return (0);
