@@ -42,6 +42,7 @@ CUB3D			= 	$(addprefix $(SRCS_DIR)/, main.c\
 					game_base/init_game.c\
 					game_base/free_everything.c\
 					game_base/keys_hook.c\
+					game_base/main_loop.c\
 					game_base/movements.c)
 
 SRCS			= ${CUB3D}

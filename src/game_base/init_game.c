@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 16:47:39 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/06/16 11:04:00 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/17 16:01:56 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,36 +79,4 @@ void	init_player(t_player *player, t_game *game)
 	player->rot = 0;
 	player->left_right = 0;
 	player->up_down = 0;
-}
-
-void	exit_game(t_mlx *mlx)
-{
-	int	i;
-
-	if (mlx->game->meta.no)
-		free(mlx->game->meta.no);
-	if (mlx->game->meta.so)
-		free(mlx->game->meta.so);
-	if (mlx->game->meta.we)
-		free(mlx->game->meta.we);
-	if (mlx->game->meta.ea)
-		free(mlx->game->meta.ea);
-	if (mlx->game->map)
-	{
-		i = 0;
-		while (mlx->game->map[i])
-		{
-			free(mlx->game->map[i]);
-			i++;
-		}
-		free(mlx->game->map);
-	}
-	if (mlx->game->win_ptr)
-		mlx_destroy_window(mlx->game->mlx_ptr, mlx->game->win_ptr);
-	if (mlx->game->mlx_ptr)
-	{
-		mlx_destroy_display(mlx->game->mlx_ptr);
-		free(mlx->game->mlx_ptr);
-	}
-	exit (0);
 }

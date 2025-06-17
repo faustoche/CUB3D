@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 10:35:09 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/06/16 14:23:23 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/17 16:11:01 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,24 +213,28 @@ int			mouse_leave(int keycode, void *param);
 /// GAME BASE ///
 
 // free
-void	clean_meta(t_meta *meta);
-void	clean_game(t_game *game);
-void		free_all(t_game *game, t_mlx *mlx);
-void	destroy_image_safe(void *mlx_ptr, void **img_ptr);
-void	destroy_images(t_game *data, t_mlx *mlx);
-void	cleanup_game(t_game *game);
-int close_window(void *param);
-
+void		destroy_image_safe(void *mlx_ptr, void **img_ptr);
+void		destroy_images(t_game *data, t_mlx *mlx);
+void		cleanup_game(t_game *game);
+int 		close_window(void *param);
+void		cleanup_all(t_game *game, t_player *player, t_ray *ray);
 
 // init_game.c
 void		init_datas(t_game *game);
 void		find_player(t_game *game);
 void		init_player(t_player *player, t_game *game);
-void		exit_game(t_mlx *mlx);
 
 // keys_hook.c
 void		hook(t_mlx *mlx, double move_x, double move_y);
 int			key_input(int key, void *param);
+
+// main_loop.c
+int			init_structures(t_game **game, t_player **player, t_ray **ray);
+int			init_mlx(t_game *game);
+int			setup_images(t_mlx *mlx, t_game *game, t_player *player, t_ray *ray);
+void		setup_hooks(t_mlx *mlx);
+int			main_loop(void	*param);
+void		clean_mlx_error(t_game *game, t_mlx *mlx);
 
 // movements.c 
 void		rotate_player(t_mlx *mlx, int i);
@@ -310,6 +314,6 @@ void		ft_mlx_pixel_put(t_mlx *mlx, int x, int y, int color);
 void		render_wall(t_mlx *mlx, int ray);
 
 
-void	destroy_images(t_game *data, t_mlx *mlx);
+void	destroy_images(t_game *game, t_mlx *mlx);
 
 #endif
