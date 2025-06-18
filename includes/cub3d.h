@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 10:35:09 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/06/18 15:43:20 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/18 16:45:13 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@
 # define HEIGHT 1000
 # define TILE_SIZE 30
 # define FOV 60
-# define ROTATION_SPEED 0.045
+# define ROTATION_SPEED 0.025
 # define MOUSE_ROTATION_SPEED 0.004
-# define PLAYER_SPEED 4
+# define PLAYER_SPEED 3
 # define M_PI   3.14159265358979323846
 # define MAX_DISTANCE 1000.0
 
@@ -282,6 +282,7 @@ int			skip_blank_preface(int fd, char **line);
 int			is_valid_number(char *str);
 char		*normalize_map_line(char *line);
 void		clean_lines(int fd);
+int			read_header_char(char *line, char *key);
 
 // parsing.c
 void		init_map_state(t_game *g, int *rows, int *width);
