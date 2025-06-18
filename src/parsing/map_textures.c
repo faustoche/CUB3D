@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 14:53:23 by asaulnie          #+#    #+#             */
-/*   Updated: 2025/06/16 11:09:28 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/18 15:01:55 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,14 +117,13 @@ int	read_header(int fd, t_meta *m)
 		if (!parse_header_line(line, m))
 		{
 			free(line);
+			clean_lines(fd);
 			return (1);
 		}
 		free(line);
-		if (m->no && m->so && m->we && m->ea
-			&& m->f_set && m->c_set)
+		if (m->no && m->so && m->we && m->ea && m->f_set && m->c_set)
 			return (0);
 		line = get_next_line(fd);
 	}
-	printf("Error\nMissing header fields\n");
-	return (1);
+	return (printf("Error\nMissing header fields\n"), 1);
 }

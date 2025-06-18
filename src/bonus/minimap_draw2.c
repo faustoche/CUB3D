@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 09:25:46 by faustoche         #+#    #+#             */
-/*   Updated: 2025/06/06 14:26:46 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/18 15:36:32 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,18 @@ int	choose_color(char tile)
 		return (FLOOR_COLOR);
 	else
 		return (WALL_COLOR);
+}
+
+int	get_tile_color(t_minimap *mini, int map_x, int map_y)
+{
+	char	tile;
+	int		line_length;
+
+	if (map_x < 0 || map_y < 0 || map_y >= mini->mlx->game->height_map)
+		return (EMPTY_COLOR);
+	line_length = ft_strlen(mini->mlx->game->map[map_y]);
+	if (map_x >= line_length)
+		return (EMPTY_COLOR);
+	tile = mini->mlx->game->map[map_y][map_x];
+	return (choose_color(tile));
 }
