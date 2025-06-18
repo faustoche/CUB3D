@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 16:31:53 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/06/18 10:33:15 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/18 12:22:04 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,20 @@
 
 static int	handle_map_line(t_game *g, char *line, int rows, int width)
 {
+	char	*normalized_line;
+
 	if (is_blank_line(line))
 		return (printf("Error\nBlank line inside map\n"), 0);
-	if (!valid_map_chars(line))
+	normalized_line = normalize_map_line(line);
+	if (!normalized_line)
+		return (printf("Error memory allocation\n"), 0);
+	if (!valid_map_chars(normalized_line))
+	{
+		free(normalized_line);
 		return (printf("Error\nBad char in map\n"), 0);
-	if (process_map_row(g, line, rows, width) != 0)
+	}
+	free(line);
+	if (process_map_row(g, normalized_line, rows, width) != 0)
 		return (0);
 	return (1);
 }

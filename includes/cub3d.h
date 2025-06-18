@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 10:35:09 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/06/18 11:49:28 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/18 12:21:07 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -279,6 +279,7 @@ int			read_first_map_line(int fd, char **line);
 void		chomp_newline(char *line);
 int			skip_blank_preface(int fd, char **line);
 int			is_valid_number(char *str);
+char	*normalize_map_line(char *line);
 
 // parsing.c
 void		init_map_state(t_game *g, int *rows, int *width);
