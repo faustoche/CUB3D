@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 10:35:09 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/06/17 16:11:01 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/18 09:54:22 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,7 +216,8 @@ int			mouse_leave(int keycode, void *param);
 void		destroy_image_safe(void *mlx_ptr, void **img_ptr);
 void		destroy_images(t_game *data, t_mlx *mlx);
 void		cleanup_game(t_game *game);
-int 		close_window(void *param);
+int			close_window(void *param);
+void		cleanup_mlx(t_game *game);
 void		cleanup_all(t_game *game, t_player *player, t_ray *ray);
 
 // init_game.c
@@ -230,8 +231,8 @@ int			key_input(int key, void *param);
 
 // main_loop.c
 int			init_structures(t_game **game, t_player **player, t_ray **ray);
-int			init_mlx(t_game *game);
-int			setup_images(t_mlx *mlx, t_game *game, t_player *player, t_ray *ray);
+int			init_mlx(t_game *game, t_player *player, t_ray *ray);
+int			setup_image(t_mlx *mlx, t_game *game, t_player *player, t_ray *ray);
 void		setup_hooks(t_mlx *mlx);
 int			main_loop(void	*param);
 void		clean_mlx_error(t_game *game, t_mlx *mlx);
@@ -300,7 +301,7 @@ void		cast_rays(t_mlx *mlx);
 void		draw_wall_portion(t_mlx *mlx, int ray_num, int top, int bottom);
 
 // load_textures.c
-int load_all_textures(t_mlx *mlx);
+int			load_all_textures(t_mlx *mlx);
 
 // put_textures.c
 int			get_tex_pix(t_texture *texture, int x, int y);
@@ -312,8 +313,5 @@ int			calculate_wall_height(t_ray *ray, t_player *player);
 void		draw_textured_wall(t_mlx *mlx, int ray, int top_pixel, int bottom);
 void		ft_mlx_pixel_put(t_mlx *mlx, int x, int y, int color);
 void		render_wall(t_mlx *mlx, int ray);
-
-
-void	destroy_images(t_game *game, t_mlx *mlx);
 
 #endif

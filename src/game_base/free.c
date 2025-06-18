@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_everything.c                                  :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 11:04:46 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/06/17 16:12:43 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/18 09:52:02 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,28 +60,26 @@ void	cleanup_game(t_game *game)
 	}
 }
 
-int	close_window(void *param)
+void	cleanup_mlx(t_game *game)
 {
-	t_mlx	*mlx;
-
-	mlx = (t_mlx *)param;
-	if (!mlx || !mlx->game)
-		return (0);
-	destroy_images(mlx->game, mlx);
-	if (mlx->game->mlx_ptr)
-		mlx_loop_end(mlx->game->mlx_ptr);
-	cleanup_game(mlx->game);
-	free(mlx->game);
-	free(mlx->player);
-	free(mlx->ray);
-	exit(EXIT_SUCCESS);
-	return (0);
+	if (game->win_ptr)
+	{
+		mlx_destroy_window(game->mlx_ptr, game->win_ptr);
+		game->win_ptr = NULL;
+	}
+	if (game->mlx_ptr)
+	{
+		mlx_destroy_display(game->mlx_ptr);
+		free(game->mlx_ptr);
+		game->mlx_ptr = NULL;
+	}
 }
 
 void	cleanup_all(t_game *game, t_player *player, t_ray *ray)
 {
 	if (game)
 	{
+		cleanup_mlx(game);
 		cleanup_game(game);
 		free(game);
 	}

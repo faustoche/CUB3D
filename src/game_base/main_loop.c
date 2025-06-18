@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 16:05:30 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/06/17 16:13:52 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/18 09:53:18 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,30 +36,24 @@ int	init_structures(t_game **game, t_player **player, t_ray **ray)
 	return (0);
 }
 
-int	init_mlx(t_game *game)
+int	init_mlx(t_game *game, t_player *player, t_ray *ray)
 {
 	game->mlx_ptr = mlx_init();
 	if (!game->mlx_ptr)
 	{
-		// cleanup_game(game);
-		// free(game);
-		// free(player);
-		// free(ray);
+		cleanup_all(game, player, ray);
 		return (printf("Error\nMLX init failed\n"), 1);
 	}
 	game->win_ptr = mlx_new_window(game->mlx_ptr, WIDTH, HEIGHT, "Cub3D");
 	if (!game->win_ptr)
 	{
-		// cleanup_game(game);
-		// free(game);
-		// free(player);
-		// free(ray);	
+		cleanup_all(game, player, ray);
 		return (printf("Error\nWindow creation failed\n"), 1);
 	}
 	return (0);
 }
 
-int	setup_images(t_mlx *mlx, t_game *game, t_player *player, t_ray *ray)
+int	setup_image(t_mlx *mlx, t_game *game, t_player *player, t_ray *ray)
 {
 	mlx->img = mlx_new_image(game->mlx_ptr, WIDTH, HEIGHT);
 	mlx->addr = mlx_get_data_addr(mlx->img, &mlx->bpp, &mlx->size_line,

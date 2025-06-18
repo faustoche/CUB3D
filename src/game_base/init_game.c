@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 16:47:39 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/06/17 16:01:56 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/18 09:52:10 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,23 @@ void	init_player(t_player *player, t_game *game)
 	player->rot = 0;
 	player->left_right = 0;
 	player->up_down = 0;
+}
+
+int	close_window(void *param)
+{
+	t_mlx	*mlx;
+
+	mlx = (t_mlx *)param;
+	if (!mlx || !mlx->game)
+		return (0);
+	destroy_images(mlx->game, mlx);
+	if (mlx->game->mlx_ptr)
+		mlx_loop_end(mlx->game->mlx_ptr);
+	cleanup_mlx(mlx->game);
+	cleanup_game(mlx->game);
+	free(mlx->game);
+	free(mlx->player);
+	free(mlx->ray);
+	exit(EXIT_SUCCESS);
+	return (0);
 }

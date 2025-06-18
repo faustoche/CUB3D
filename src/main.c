@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:55:21 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/06/17 16:11:14 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/18 09:53:15 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,19 @@ int	main(int ac, char **av)
 		return (1);
 	if (open_map(av[1], game) != 0)
 		return (cleanup_all(game, player, ray), 1);
-	if (init_mlx(game) != 0)
+	if (init_mlx(game, player, ray) != 0)
 		return (cleanup_all(game, player, ray), 1);
 	find_player(game);
 	init_player(player, game);
-	if (setup_images(&mlx, game, player, ray) != 0)
+	if (setup_image(&mlx, game, player, ray) != 0)
 	{
 		clean_mlx_error(game, &mlx);
 		cleanup_all(game, player, ray);
 		return (1);
 	}
 	(setup_hooks(&mlx), mlx_loop(game->mlx_ptr), destroy_images(game, &mlx));
-	cleanup_game(game);
+	(cleanup_mlx(game), cleanup_game(game));
+	(free(game), free(player), free(ray));
 	return (0);
 }
 
