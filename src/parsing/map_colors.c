@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 14:53:15 by asaulnie          #+#    #+#             */
-/*   Updated: 2025/06/18 12:30:55 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/18 13:50:39 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ int	validate_count(char **rgb, char *header)
 	return (1);
 }
 
-/* Est-ce qu'on ajoute une vérification des couleurs (ex: A21 renvoit map invalide?)*/
+/* Est-ce qu'on ajoute une vérification des couleurs
+(ex: A21 renvoit map invalide?)*/
 /*  || !is_valid_number(rgb[i])*/
 
 int	validate_components(char **rgb, char *header, int vals[3])
@@ -67,7 +68,7 @@ int	validate_components(char **rgb, char *header, int vals[3])
 	i = 0;
 	while (i < 3)
 	{
-		if (rgb[i][0] == '\0')
+		if (rgb[i][0] == '\0' || !is_valid_number(rgb[i]))
 		{
 			printf("Error\nIncorrect value for header '%s'\n", header);
 			return (0);

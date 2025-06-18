@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 16:31:59 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/06/18 12:27:52 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/18 13:55:59 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,26 @@ int	is_valid_number(char *str)
 {
 	int	i;
 
-	i = 0;
-	if (!str || str[0] == '\0')
+	if (!str)
 		return (0);
+	while (*str == ' ')
+		str++;
+	if (str[0] == '\0')
+		return (0);
+	i = 0;
 	while (str[i])
 	{
 		if (!ft_isdigit((unsigned char)str[i]))
+		{
+			if (str[i] == ' ')
+			{
+				while (str[i] == ' ')
+					i++;
+				if (str[i] == '\0')
+					return (1);
+			}
 			return (0);
+		}
 		i++;
 	}
 	return (1);
@@ -43,7 +56,6 @@ char	*normalize_map_line(char *line)
 	normalized = malloc(sizeof(char) * (len + 1));
 	if (!normalized)
 		return (NULL);
-	
 	i = 0;
 	while (i < len)
 	{
