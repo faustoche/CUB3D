@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 14:52:49 by asaulnie          #+#    #+#             */
-/*   Updated: 2025/06/16 11:28:22 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/18 12:28:33 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	valid_map_chars(char *line)
 	while (line[i])
 	{
 		c = line[i++];
-		if (!ft_strchr("01NSEWD", c))
+		if (!ft_strchr("01NSEWD ", c))
 			return (0);
 	}
 	return (1);
@@ -58,19 +58,26 @@ static int	append_row(t_game *g, char *line, int rows)
 
 int	process_map_row(t_game *g, char *line, int rows, int width)
 {
-	int	len;
+	int		len;
+	char	*normalized_line;
 
 	(void)width;
-	len = ft_strlen(line);
-	if (rows == 0 && !valid_map_chars(line))
+	normalized_line = normalize_map_line(line);
+	if (!normalized_line)
 	{
-		printf("Error\nBad char in map\n");
 		free(line);
-		return (-1);
+		return (printf("Error memory allocation\n"), -1);
 	}
-	if (append_row(g, line, rows) < 0)
+	len = ft_strlen(normalized_line);
+	if (rows == 0 && !valid_map_chars(normalized_line))
 	{
-		free(line);
+		(free(line), free(normalized_line));
+		return (printf("Error\nBad char in map\n"), -1);
+	}
+	free(line);
+	if (append_row(g, normalized_line, rows) < 0)
+	{
+		free(normalized_line);
 		return (-1);
 	}
 	if (len > g->width_map)
