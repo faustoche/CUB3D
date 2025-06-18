@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 14:53:15 by asaulnie          #+#    #+#             */
-/*   Updated: 2025/06/05 16:37:19 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/18 11:49:59 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,9 @@ int	validate_components(char **rgb, char *header, int vals[3])
 	i = 0;
 	while (i < 3)
 	{
-		if (rgb[i][0] == '\0')
+		if (rgb[i][0] == '\0' || !is_valid_number(rgb[i]))
 		{
-			printf("Error\nMissing value for header '%s'\n", header);
+			printf("Error\nIncorrect value for header '%s'\n", header);
 			return (0);
 		}
 		v = ft_atoi(rgb[i]);
