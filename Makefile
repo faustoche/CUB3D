@@ -37,6 +37,7 @@ CUB3D			= 	$(addprefix $(SRCS_DIR)/, main.c\
 					parsing/open_map.c\
 					parsing/parser_utils1.c\
 					parsing/parser_utils2.c\
+					parsing/parser_utils3.c\
 					raycasting/init_rays.c\
 					raycasting/raycasting.c\
 					raycasting/raycasting_utils.c\

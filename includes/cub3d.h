@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asaulnie <asaulnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 10:35:09 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/06/18 16:45:13 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/18 18:44:30 by asaulnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -283,6 +283,8 @@ int			is_valid_number(char *str);
 char		*normalize_map_line(char *line);
 void		clean_lines(int fd);
 int			read_header_char(char *line, char *key);
+int			is_space(int c);
+char		*strtrim(char *str);
 
 // parsing.c
 void		init_map_state(t_game *g, int *rows, int *width);
