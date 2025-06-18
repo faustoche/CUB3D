@@ -6,7 +6,7 @@
 /*   By: asaulnie <asaulnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 10:35:09 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/06/18 18:44:30 by asaulnie         ###   ########.fr       */
+/*   Updated: 2025/06/18 20:00:04 by asaulnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,6 +226,8 @@ void		find_player(t_game *game);
 void		init_player(t_player *player, t_game *game);
 int			close_window(void *param);
 int			check_extension(char *filename);
+int			has_trailing_cub(char *filename);
+int			has_extra_dot_cub(char *filename);
 
 // keys_hook.c
 void		hook(t_mlx *mlx, double move_x, double move_y);

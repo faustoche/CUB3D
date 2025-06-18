@@ -26,6 +26,7 @@ CUB3D			= 	$(addprefix $(SRCS_DIR)/, main.c\
 					bonus/minimap_rays.c\
 					bonus/mouse_event.c\
 					game_base/init_game.c\
+					game_base/check_extension_utils.c\
 					game_base/free.c\
 					game_base/keys_hook.c\
 					game_base/main_loop.c\

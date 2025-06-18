@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asaulnie <asaulnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 16:47:39 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/06/18 10:48:58 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/18 19:57:24 by asaulnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,17 +102,14 @@ int	close_window(void *param)
 
 int	check_extension(char *filename)
 {
-	int	len;
-
-	len = ft_strlen(filename);
-	if (len < 4)
+	if (!filename)
 	{
-		printf("Error\nInvalid file name\n");
+		printf("Error\nFilename is null\n");
 		return (-1);
 	}
-	if (ft_strcmp(filename + len - 4, ".cub") != 0)
+	if (!has_trailing_cub(filename) || has_extra_dot_cub(filename))
 	{
-		printf("Error\nFile extension must be .cub\n");
+		printf("Error\nFile extension must be exactly '.cub'\n");
 		return (-1);
 	}
 	return (0);
