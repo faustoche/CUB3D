@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 16:31:59 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/06/18 15:02:50 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/18 16:44:58 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,22 @@ void	clean_lines(int fd)
 		free(line);
 		line = get_next_line(fd);
 	}
+}
+
+int	read_header_char(char *line, char *key)
+{
+	int		i;
+
+	i = 0;
+	if (line != NULL)
+	{
+		while (i < 2 && line[i] && line[i] != ' ' && line[i] != '\t')
+		{
+			key[i] = line[i];
+			i++;
+		}
+		key[i] = '\0';
+		return (1);
+	}
+	return (0);
 }

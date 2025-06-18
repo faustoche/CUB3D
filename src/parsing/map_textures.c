@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 14:53:23 by asaulnie          #+#    #+#             */
-/*   Updated: 2025/06/18 15:01:55 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/18 16:44:55 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	parse_header_line(char *line, t_meta *m)
 		line++;
 	if (*line == '1')
 		return (printf("Error\nMissing header fields\n"), 0);
-	if (sscanf(line, "%2s", key) != 1)
+	if (read_header_char(line, key) != 1)
 		return (0);
 	rest = line + strlen(key);
 	while (*rest == ' ' || *rest == '\t')
