@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 10:35:09 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/06/18 09:54:22 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/18 10:45:11 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,7 +216,6 @@ int			mouse_leave(int keycode, void *param);
 void		destroy_image_safe(void *mlx_ptr, void **img_ptr);
 void		destroy_images(t_game *data, t_mlx *mlx);
 void		cleanup_game(t_game *game);
-int			close_window(void *param);
 void		cleanup_mlx(t_game *game);
 void		cleanup_all(t_game *game, t_player *player, t_ray *ray);
 
@@ -224,6 +223,8 @@ void		cleanup_all(t_game *game, t_player *player, t_ray *ray);
 void		init_datas(t_game *game);
 void		find_player(t_game *game);
 void		init_player(t_player *player, t_game *game);
+int			close_window(void *param);
+int			check_extension(char *filename);
 
 // keys_hook.c
 void		hook(t_mlx *mlx, double move_x, double move_y);

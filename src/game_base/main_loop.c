@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 16:05:30 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/06/18 09:53:18 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/18 10:26:50 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	setup_image(t_mlx *mlx, t_game *game, t_player *player, t_ray *ray)
 	mlx->ray = ray;
 	if (!load_all_textures(mlx))
 	{
-		mlx_destroy_image(game->mlx_ptr, mlx->img);
+		cleanup_mlx(game);
 		return (1);
 	}
 	return (0);

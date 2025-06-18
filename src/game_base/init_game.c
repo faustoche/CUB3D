@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 16:47:39 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/06/18 09:52:10 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/18 10:48:58 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,23 @@ int	close_window(void *param)
 	free(mlx->player);
 	free(mlx->ray);
 	exit(EXIT_SUCCESS);
+	return (0);
+}
+
+int	check_extension(char *filename)
+{
+	int	len;
+
+	len = ft_strlen(filename);
+	if (len < 4)
+	{
+		printf("Error\nInvalid file name\n");
+		return (-1);
+	}
+	if (ft_strcmp(filename + len - 4, ".cub") != 0)
+	{
+		printf("Error\nFile extension must be .cub\n");
+		return (-1);
+	}
 	return (0);
 }
