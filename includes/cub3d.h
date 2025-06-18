@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 10:35:09 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/06/18 12:21:07 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/18 15:43:20 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,6 +202,7 @@ void		open_door_near_player(t_mlx *mlx);
 void		draw_minimap(t_mlx *mlx);
 void		draw_minimap_player(t_minimap *mini);
 int			choose_color(char tile);
+int			get_tile_color(t_minimap *mini, int map_x, int map_y);
 
 // minimap_rays.c
 void		draw_direction_ray(t_minimap *mini, double angle);
@@ -279,7 +280,8 @@ int			read_first_map_line(int fd, char **line);
 void		chomp_newline(char *line);
 int			skip_blank_preface(int fd, char **line);
 int			is_valid_number(char *str);
-char	*normalize_map_line(char *line);
+char		*normalize_map_line(char *line);
+void		clean_lines(int fd);
 
 // parsing.c
 void		init_map_state(t_game *g, int *rows, int *width);
@@ -289,14 +291,13 @@ int			process_map_lines(int fd, t_game *g, int rows, int width);
 // init_rays.c
 int			check_angle_direction(float angle, char c);
 int			is_wall(float x, float y, t_mlx *mlx);
-
-// ray_utils.c
 float		angle_to_radians(float angle);
 float		cal_dist(float x1, float y1, float x2, float y2);
 void		init_rays(t_ray *h_ray, t_ray *v_ray, t_mlx *mlx, float angle);
 
 // raycasting.c
 void		cast_rays(t_mlx *mlx);
+float		check_collision(t_mlx *mlx, t_ray *ray, int cell_x, int cell_y);
 
 /// RENDERING ///
 

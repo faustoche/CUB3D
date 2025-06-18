@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 16:31:53 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/06/18 12:22:04 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/18 14:53:16 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,11 @@ int	process_map_lines(int fd, t_game *g, int rows, int width)
 		status = handle_map_line(g, line, rows, width);
 		if (status != 1)
 		{
-			free(line);
+			while (line)
+			{
+				free(line);
+				line = get_next_line(fd);
+			}
 			return (0);
 		}
 		rows++;

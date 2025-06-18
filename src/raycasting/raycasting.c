@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 18:42:46 by faustoche         #+#    #+#             */
-/*   Updated: 2025/06/16 10:20:16 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/18 15:42:25 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 static float	walk_intersection(t_mlx *mlx, t_ray *ray, int is_horizontal)
 {
-	int	cell_y;
-	int	cell_x;
+	int		cell_y;
+	int		cell_x;
+	float	distance;
 
 	if (is_horizontal && ray->sin_a < 0)
 		ray->next_y -= 0.001;
@@ -26,15 +27,9 @@ static float	walk_intersection(t_mlx *mlx, t_ray *ray, int is_horizontal)
 	{
 		cell_x = ray->next_x / TILE_SIZE;
 		cell_y = ray->next_y / TILE_SIZE;
-		if (cell_y >= 0 && cell_y < mlx->game->height_map
-			&& cell_x >= 0 && cell_x < mlx->game->width_map
-			&& mlx->game->map[cell_y][cell_x] != '0')
-		{
-			ray->hit_x = ray->next_x;
-			ray->hit_y = ray->next_y;
-			ray->hit_cell = mlx->game->map[cell_y][cell_x];
-			return (cal_dist(ray->ray_x, ray->ray_y, ray->next_x, ray->next_y));
-		}
+		distance = check_collision(mlx, ray, cell_x, cell_y);
+		if (distance >= 0)
+			return (distance);
 		ray->next_x += ray->dx;
 		ray->next_y += ray->dy;
 	}
