@@ -6,11 +6,16 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 18:42:46 by faustoche         #+#    #+#             */
-/*   Updated: 2025/06/18 16:46:53 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/19 10:06:10 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+/*
+** A ray goes along intersection on the grid until it hits a wall
+** Add small offset (0.001) to avoid precision errors
+*/
 
 static float	walk_intersection(t_mlx *mlx, t_ray *ray, int is_horizontal)
 {
@@ -36,6 +41,8 @@ static float	walk_intersection(t_mlx *mlx, t_ray *ray, int is_horizontal)
 	return (INFINITY);
 }
 
+/* Calculate first point for horizontal intersections. */
+
 static float	check_horizontal(t_mlx *mlx, t_ray *ray, int map_y)
 {
 	float	y_inter;
@@ -59,6 +66,8 @@ static float	check_horizontal(t_mlx *mlx, t_ray *ray, int map_y)
 	ray->next_y = y_inter;
 	return (walk_intersection(mlx, ray, 1));
 }
+
+/* Calculate first point for vertical intersections. */
 
 static float	check_vertical(t_mlx *mlx, t_ray *ray, int map_x)
 {
@@ -85,6 +94,11 @@ static float	check_vertical(t_mlx *mlx, t_ray *ray, int map_x)
 	return (walk_intersection(mlx, ray, 0));
 }
 
+/*
+** Try horizontal and vertical intersection with a ray.
+** COmpare the distance and return the smallest one
+*/
+
 static float	cast_ray(t_mlx *mlx, float angle)
 {
 	t_ray	h_ray;
@@ -108,6 +122,11 @@ static float	cast_ray(t_mlx *mlx, float angle)
 		return (h_dist);
 	}
 }
+
+/*
+** Check all the rays for the frame
+** Check player's fov, call render_wall for each ray
+*/
 
 void	cast_rays(t_mlx *mlx)
 {

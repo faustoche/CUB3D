@@ -6,11 +6,13 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 19:50:34 by faustoche         #+#    #+#             */
-/*   Updated: 2025/06/16 10:40:17 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/19 10:34:34 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+/* Check north/south/east/west direction for angle with PI */
 
 int	check_angle_direction(float angle, char c)
 {
@@ -27,10 +29,7 @@ int	check_angle_direction(float angle, char c)
 	return (0);
 }
 
-/*
-* Est-ce que le point x y est dans la carte, sur une case mur
-* Renvois 1 s'il n'y a pas de mur et que le rayon peut continuer
-*/
+/* Check for collision, if there's a wall */
 
 int	is_wall(float x, float y, t_mlx *mlx)
 {
@@ -48,14 +47,11 @@ int	is_wall(float x, float y, t_mlx *mlx)
 		return (1);
 	tile = mlx->game->map[map_y][map_x];
 	if (tile == '1' || tile == 'D')
-	{
-		printf("mur :%d\n", tile);
 		return (1);
-	}
 	return (0);
 }
 
-/* Ne sert qu'à conserver l'angle entre 0 et 2 pi*/
+/* To keep angle between 0 and PI */
 
 float	angle_to_radians(float angle)
 {
@@ -66,10 +62,16 @@ float	angle_to_radians(float angle)
 	return (angle);
 }
 
+/* Calculate euclidian between 2 points using Pythagoras' theorem 
+* Sqrt: calcule la racine carré de la valeur passée en paramètre
+*/
+
 float	cal_dist(float x1, float y1, float x2, float y2)
 {
 	return (sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2)));
 }
+
+/* Initiate structures with angle and calculate sin/cos value */
 
 void	init_rays(t_ray *h_ray, t_ray *v_ray, t_mlx *mlx, float angle)
 {

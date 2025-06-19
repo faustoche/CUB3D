@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asaulnie <asaulnie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 16:47:39 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/06/18 19:57:24 by asaulnie         ###   ########.fr       */
+/*   Updated: 2025/06/19 10:24:31 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,21 +46,11 @@ void	find_player(t_game *game)
 }
 
 /*
-* TILE_SIZE correspond à la taille en pixel d'une case sur la map (1/0)
-* Game->player x/y * TILE_SIZE donne la position en pixels du coin 
-	supérieur gauche de la case
-* En ajoutant TILE_SIZE / 2, on place le joueur au centre de la case, 
-ce qui
-	pratique pour le raycasting (les rayons doivent partir du milieu de 
-	la case
-	pour que ce soit visuellement correct)
-* L'angle représente l'orientation du joueur dans l'espace 2D, mesuré en 
-radians.
-* On garde l'angle à 60 degré car c'est l'angle le plus équilibré 
-visuellement
-* player->fov_rd = (60 * M_PI) / 180; // conversion de l'angle de 60 degres 
-en radians
-	player->rot = 0; // rotation de la vue, tourner à gauche ou à droite 
+** Game->player * TILE_SIZE = position du coin supérieur gauche de la case
+** TILE_SIZE / 2 = placer le joueur au centre de la case
+** On garde l'angle à 60 degré car c'est l'angle le plus équilibré 
+** player->fov_rd = (60 * M_PI) / 180 = conversion de 60 degres en radians
+** player->rot = 0; // rotation de la vue, tourner à gauche ou à droite 
 */
 
 void	init_player(t_player *player, t_game *game)
@@ -97,20 +87,5 @@ int	close_window(void *param)
 	free(mlx->player);
 	free(mlx->ray);
 	exit(EXIT_SUCCESS);
-	return (0);
-}
-
-int	check_extension(char *filename)
-{
-	if (!filename)
-	{
-		printf("Error\nFilename is null\n");
-		return (-1);
-	}
-	if (!has_trailing_cub(filename) || has_extra_dot_cub(filename))
-	{
-		printf("Error\nFile extension must be exactly '.cub'\n");
-		return (-1);
-	}
 	return (0);
 }

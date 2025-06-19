@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 14:52:49 by asaulnie          #+#    #+#             */
-/*   Updated: 2025/06/18 12:28:33 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/19 10:32:55 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	process_map_row(t_game *g, char *line, int rows, int width)
 	if (!normalized_line)
 	{
 		free(line);
-		return (printf("Error memory allocation\n"), -1);
+		return (printf("Error\nMemory allocation failed\n"), -1);
 	}
 	len = ft_strlen(normalized_line);
 	if (rows == 0 && !valid_map_chars(normalized_line))
