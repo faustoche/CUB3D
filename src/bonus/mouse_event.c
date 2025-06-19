@@ -6,11 +6,13 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 08:51:19 by faustoche         #+#    #+#             */
-/*   Updated: 2025/06/16 10:23:21 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/19 10:44:23 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
+
+/* Absolute of int */
 
 static int	ft_abs(int n)
 {
@@ -18,6 +20,11 @@ static int	ft_abs(int n)
 		return (-n);
 	return (n);
 }
+
+/* 
+** Handle mouse movement and sensitivity (with 500)
+** pOURQUOI 500?
+*/
 
 int	mouse_handler(int x, int y, void *param)
 {

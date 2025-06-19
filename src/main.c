@@ -6,11 +6,12 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:55:21 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/06/18 13:49:46 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/19 10:45:53 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "cub3d_bonus.h"
 
 int	main_loop(void	*param)
 {

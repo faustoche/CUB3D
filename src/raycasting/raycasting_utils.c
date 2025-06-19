@@ -6,11 +6,16 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 15:42:38 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/06/18 15:42:54 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/19 09:56:53 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+/* 
+** Check if a cell contains a wall. Check map limits.
+** Calculate distance if there's a wall
+*/
 
 float	check_collision(t_mlx *mlx, t_ray *ray, int cell_x, int cell_y)
 {

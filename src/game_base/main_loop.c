@@ -6,22 +6,23 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 16:05:30 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/06/18 10:26:50 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/19 10:46:21 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "cub3d_bonus.h"
 
 int	init_structures(t_game **game, t_player **player, t_ray **ray)
 {
 	*game = malloc(sizeof(t_game));
 	if (!*game)
-		return (printf("Memory allocation failed\n"), 1);
+		return (printf("Error\nMemory allocation failed\n"), 1);
 	*player = malloc(sizeof(t_player));
 	if (!*player)
 	{
 		free(*game);
-		return (printf("Memory allocation failed\n"), 1);
+		return (printf("Error\nMemory allocation failed\n"), 1);
 	}
 	ft_memset(*player, 0, sizeof(t_player));
 	*ray = malloc(sizeof(t_ray));
@@ -29,7 +30,7 @@ int	init_structures(t_game **game, t_player **player, t_ray **ray)
 	{
 		free(*game);
 		free(*player);
-		return (printf("Memory allocation failed\n"), 1);
+		return (printf("Error\nMemory allocation failed\n"), 1);
 	}
 	ft_memset(*ray, 0, sizeof(t_ray));
 	init_datas(*game);

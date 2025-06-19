@@ -3,6 +3,7 @@
 # ************************************************************************ #
 
 NAME 		= cub3D
+NAME_BONUS	= cub3D_bonus
 
 # ************************************************************************ #
 #                			     DIRECTORIES                               #
@@ -48,9 +49,15 @@ CUB3D			= 	$(addprefix $(SRCS_DIR)/, main.c\
 					rendering/put_texture.c\
 					rendering/load_texture.c)
 
-SRCS			= ${CUB3D}
+CUB3D_BONUS		=	$(addprefix $(SRCS_DIR)/, bonus/minimap_draw1.c\
+					bonus/minimap_draw2.c\
+					bonus/minimap_rays.c\
+					bonus/mouse_event.c)
+
+SRCS			= ${CUB3D} ${CUB3D_BONUS}
 CUB3D_OBJS		= ${CUB3D:${SRCS_DIR}/%.c=$(OBJS_DIR)/%.o}
 OBJS			= $(CUB3D_OBJS) $(GNL_OBJS) 
+OBJS_BONUS		= ${OBJS}
 LIBFT 			= -L$(LIBFT_DIR) -lft
 
 GNL 			= $(addprefix $(GNL_DIR)/, get_next_line_utils.c\
@@ -80,10 +87,18 @@ $(MLX_LIB):
 	@$(MAKE) -C $(MLX_PATH) -s
 	@echo "\033[1;32m💾 MINILIBX COMPILED 💾\n"
 
+
 $(NAME): $(OBJS) $(LIBFT_DIR)/libft.a $(MLX_LIB)
 	@echo "\033[1;33m🧊  COMPILING CUB3D... 🧊\n"
 	$(CC) $(OBJS) $(CFLAGS) $(MLX_FLAGS) $(MLX_LIB) $(LIBFT) -o $(NAME)
 	@echo "\033[1;32m💾 ./$(NAME) created 💾\n"
+
+bonus: $(NAME_BONUS)
+
+$(NAME_BONUS): $(OBJS_BONUS) $(LIBFT_DIR)/libft.a $(MLX_LIB)
+	@echo "\033[1;33m✨  COMPILING CUB3D BONUS... ✨\n"
+	$(CC) $(OBJS_BONUS) $(CFLAGS) $(MLX_FLAGS) $(MLX_LIB) $(LIBFT) -o $(NAME_BONUS)
+	@echo "\033[1;32m💾 ./$(NAME_BONUS) created 💾\n"
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
 	@mkdir -p $(dir $@)
@@ -116,7 +131,7 @@ clean:
 	@echo "\033[1;32m🫧  DONE 🫧"
 
 fclean: clean
-	@rm -f $(NAME)
+	@rm -f $(NAME) $(NAME_BONUS)
 	@$(MAKE) fclean -C $(LIBFT_DIR) -s
 	@echo "\033[1;32m🫧  DONE 🫧"
 

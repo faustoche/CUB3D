@@ -6,11 +6,13 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:05:58 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/06/16 10:22:54 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/19 10:44:19 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
+
+/* Draw single pixel of direction ray */
 
 static void	draw_ray_line(t_minimap *mini)
 {
@@ -24,9 +26,11 @@ static void	draw_ray_line(t_minimap *mini)
 	offset_y = (mini->ray_y - mini->mlx->player->player_y)
 		/ TILE_SIZE * MINIMAP_TILE;
 	draw_x = mini->center_x + (int)offset_x;
-	draw_y = mini->center_y - (int)offset_y;
+	draw_y = mini->center_y + (int)offset_y;
 	ft_mlx_pixel_put(mini->mlx, draw_x, draw_y, RAY_COLOR);
 }
+
+/* Trace direction ray from player position until we hit a wall */
 
 static void	trace_ray(t_minimap *mini)
 {

@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 10:55:47 by faustoche         #+#    #+#             */
-/*   Updated: 2025/06/18 10:04:42 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/19 10:31:46 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,20 +128,3 @@ char	*get_next_line(int fd)
 	left_c = set(line);
 	return (line);
 }
-/*
-int	main(void)
-{
-	int	fd = open("big_line_with_nl", O_RDONLY);
-	if (fd == -1)
-	{
-		printf("oups erreur pour ouvrir le fichier\n");
-		return (1);
-	}
-	char *line;
-	while ((line = get_next_line(fd)) != NULL)
-	{
-		printf("%s", line);
-		free(line);
-	}
-	close(fd);
-}*/

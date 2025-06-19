@@ -6,11 +6,13 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 14:57:52 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/06/16 10:12:46 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/19 10:29:22 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+/* Calculate horizontal texture based on wall hit position */
 
 static int	calculate_tex_x(t_ray *ray, t_texture *texture)
 {
@@ -26,6 +28,8 @@ static int	calculate_tex_x(t_ray *ray, t_texture *texture)
 	tex_x = (int)(wall_x * texture->width);
 	return (tex_x);
 }
+
+/* Texture selection, scaling, positioning*/
 
 static int	apply_tex_x_corrections(int tex_x, t_ray *ray, t_texture *texture)
 {
@@ -66,6 +70,8 @@ static void	draw_texture_line(t_mlx *mlx, t_tex_data *data, int ray_num, int y)
 	ft_mlx_pixel_put(mlx, ray_num, y,
 		get_tex_pix(data->texture, data->tex_x, tex_y));
 }
+
+/* Draw vertical section a textured wall */
 
 void	draw_wall_portion(t_mlx *mlx, int ray_num, int top, int bottom)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asaulnie <asaulnie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 10:35:09 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/06/18 20:00:04 by asaulnie         ###   ########.fr       */
+/*   Updated: 2025/06/19 10:43:28 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,19 +39,6 @@
 # define PLAYER_SPEED 3
 # define M_PI   3.14159265358979323846
 # define MAX_DISTANCE 1000.0
-
-# define EVENT_MOUSE_CODE 6
-# define MINIMAP_SIZE 200
-# define MINIMAP_TILE 10
-# define MINIMAP_RADIUS 15
-# define MINIMAP_RADIUS_X 15
-# define MINIMAP_RADIUS_Y 9
-# define WALL_COLOR     0x004400 // Vert foncé
-# define FLOOR_COLOR    0x228B22 // Vert jungle
-# define PLAYER_COLOR   0xFFD700 // Jaune
-# define RAY_COLOR      0xFF4500 // Orange
-# define EMPTY_COLOR    0x222222 // Gris
-# define BORDER_COLOR   0x8B0000 // Rouge
 
 # define NORTH 'NO'
 # define SOUTH 'SO'
@@ -163,24 +150,6 @@ typedef struct s_mlx
 	t_meta		*meta;
 }	t_mlx;
 
-typedef struct s_minimap
-{
-	t_mlx		*mlx;
-	int			py;
-	int			px;
-	int			origin_x;
-	int			origin_y;
-	int			player_tile_x;
-	int			player_tile_y;
-	int			center_x;
-	int			center_y;
-	int			color;
-	double		ray_x;
-	double		ray_y;
-	double		dx;
-	double		dy;
-}	t_minimap;
-
 typedef struct s_wall
 {
 	t_texture	*texture;
@@ -193,23 +162,6 @@ typedef struct s_wall
 }	t_wall;
 
 /*-------------- FUNCTIONS --------------*/
-
-/// BONUS ///
-// doors.c
-void		open_door_near_player(t_mlx *mlx);
-
-// minimap_draw1-2.c
-void		draw_minimap(t_mlx *mlx);
-void		draw_minimap_player(t_minimap *mini);
-int			choose_color(char tile);
-int			get_tile_color(t_minimap *mini, int map_x, int map_y);
-
-// minimap_rays.c
-void		draw_direction_ray(t_minimap *mini, double angle);
-
-// mouse_event.c
-int			mouse_handler(int x, int y, void *param);
-int			mouse_leave(int keycode, void *param);
 
 /// GAME BASE ///
 
@@ -226,8 +178,6 @@ void		find_player(t_game *game);
 void		init_player(t_player *player, t_game *game);
 int			close_window(void *param);
 int			check_extension(char *filename);
-int			has_trailing_cub(char *filename);
-int			has_extra_dot_cub(char *filename);
 
 // keys_hook.c
 void		hook(t_mlx *mlx, double move_x, double move_y);

@@ -6,11 +6,13 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 09:25:46 by faustoche         #+#    #+#             */
-/*   Updated: 2025/06/18 15:37:29 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/19 10:44:08 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
+
+/* Draw  a square for the map tile on the minimap */
 
 static void	draw_tile_square(t_minimap *mini, int sx, int sy, int color)
 {
@@ -30,6 +32,8 @@ static void	draw_tile_square(t_minimap *mini, int sx, int sy, int color)
 	}
 }
 
+/* Calculate screen coordinates and draw each tile */
+
 static void	draw_tiles(t_minimap *mini, int dx, int dy)
 {
 	int	map_x;
@@ -37,13 +41,15 @@ static void	draw_tiles(t_minimap *mini, int dx, int dy)
 	int	screen_x;
 	int	screen_y;
 
-	screen_y = mini->origin_y + (MINIMAP_RADIUS - dy) * MINIMAP_TILE;
+	screen_y = mini->origin_y + (MINIMAP_RADIUS + dy) * MINIMAP_TILE;
 	screen_x = mini->origin_x + (MINIMAP_RADIUS + dx) * MINIMAP_TILE;
 	map_x = mini->player_tile_x + dx;
 	map_y = mini->player_tile_y + dy;
 	mini->color = get_tile_color(mini, map_x, map_y);
 	draw_tile_square(mini, screen_x, screen_y, mini->color);
 }
+
+/* Draw each row */
 
 static void	draw_minimap_rows(t_minimap *mini, int dy)
 {
@@ -57,6 +63,8 @@ static void	draw_minimap_rows(t_minimap *mini, int dy)
 	}
 }
 
+/* Draw all the tiles */
+
 static void	draw_minimap_tiles(t_minimap *mini)
 {
 	int	dy;
@@ -68,6 +76,8 @@ static void	draw_minimap_tiles(t_minimap *mini)
 		dy++;
 	}
 }
+
+/* Calls the drawing functions */
 
 void	draw_minimap(t_mlx *mlx)
 {

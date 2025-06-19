@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 22:50:11 by faustoche         #+#    #+#             */
-/*   Updated: 2025/06/16 10:37:57 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/19 10:29:57 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ t_texture	*select_wall_texture(t_ray *ray, t_game *game)
 			return (&game->north);
 	}
 }
+
+/* Calculus for perspective projection */
 
 int	calculate_wall_height(t_ray *ray, t_player *player)
 {
