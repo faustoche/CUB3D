@@ -6,7 +6,7 @@
 /*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 16:05:30 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/06/19 10:46:21 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/19 14:00:16 by fcrocq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	init_mlx(t_game *game, t_player *player, t_ray *ray)
 	game->mlx_ptr = mlx_init();
 	if (!game->mlx_ptr)
 	{
-		cleanup_all(game, player, ray);
+		cleanup_mlx(game);
 		return (printf("Error\nMLX init failed\n"), 1);
 	}
 	game->win_ptr = mlx_new_window(game->mlx_ptr, WIDTH, HEIGHT, "Cub3D");
