@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_textures.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asaulnie <asaulnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 14:53:23 by asaulnie          #+#    #+#             */
-/*   Updated: 2025/06/18 16:44:55 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/18 18:42:15 by asaulnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 int	set_texture(char **p, t_meta *m)
 {
+	char	*trimmed_path;
 	char	*new_texture;
 
-	new_texture = ft_strdup(p[1]);
+	trimmed_path = strtrim(p[1]);
+	new_texture = ft_strdup(trimmed_path);
 	if (!new_texture)
 		return (0);
 	if (ft_strcmp(p[0], "NO") == 0 && !m->no)

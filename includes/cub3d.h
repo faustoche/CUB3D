@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcrocq <fcrocq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asaulnie <asaulnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 10:35:09 by fcrocq            #+#    #+#             */
-/*   Updated: 2025/06/18 16:45:13 by fcrocq           ###   ########.fr       */
+/*   Updated: 2025/06/18 20:00:04 by asaulnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,6 +226,8 @@ void		find_player(t_game *game);
 void		init_player(t_player *player, t_game *game);
 int			close_window(void *param);
 int			check_extension(char *filename);
+int			has_trailing_cub(char *filename);
+int			has_extra_dot_cub(char *filename);
 
 // keys_hook.c
 void		hook(t_mlx *mlx, double move_x, double move_y);
@@ -283,6 +285,8 @@ int			is_valid_number(char *str);
 char		*normalize_map_line(char *line);
 void		clean_lines(int fd);
 int			read_header_char(char *line, char *key);
+int			is_space(int c);
+char		*strtrim(char *str);
 
 // parsing.c
 void		init_map_state(t_game *g, int *rows, int *width);
